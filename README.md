@@ -7,7 +7,7 @@ COMP90024 Semester 1 2023, The Unviersity of Melbourne
 - Mohammed Nasir:
 - Elena Pashkina:
 - Ellen Morwitch:
-- Filepe Leef Huanglin:
+- Felipe Leefu Huang Lin:
 - Nicholas Barry: 587667
 
 ## Project description:
