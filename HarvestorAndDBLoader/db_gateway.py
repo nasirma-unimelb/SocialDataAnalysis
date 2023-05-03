@@ -62,7 +62,7 @@ class Couch:
             except:
                 pass
 
-        a=open('data/twitter/twitter.json')
+        a=open('data/twitter/twitter_small.json')
         for i in a.readlines():
             t=json.loads(i)
             try:
