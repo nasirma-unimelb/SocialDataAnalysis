@@ -1,0 +1,94 @@
+
+#
+---
+# Create instance on MRC
+- name: Create harvestor instance
+  os_server:
+    name: '{{ item.name }}'
+    image: '{{ instance_image }}'
+    key_name: '{{ instance_key_name }}'
+    flavor: '{{ harvest_instance_flavor }}'
+    availability_zone: '{{ availability_zone }}'
+    security_groups: '{{ sg_names }}'
+    volumes: '{{ item.volumes }}'
+    auto_floating_ip: yes
+    wait: yes
+    timeout: 600
+    state: present
+  loop: '{{ harvest_instances }}'
+  register: harvestor_instance
+
+# List of instances created
+- debug:
+    msg: "Instance {{ item.openstack.name }} has been created. IP address is {{ item.openstack.public_v4 }}"
+  loop: '{{ harvestor_instance.results }}'
+  when: item.openstack is defined
+
+# Wait after instance creation for provisioning of resources
+- name: Wait for connection
+  wait_for:
+    host: "{{ item.openstack.public_v4 }}"
+    port: 22
+    timeout: 120
+    search_regex: OpenSSH
+  loop: '{{ harvest_instance.results }}'
+  when: item.openstack is defined
+
+# Add hosts to in memorry storage
+- name: Add host
+  add_host:
+    name: '{{ item.openstack.public_v4 }}'
+    groups: db_mastodon
+  loop: '{{ harvestor_instance.results }}'
+  when: item.openstack is defined
+
+
+
+
+
+  # Create instance on MRC
+- name: Create web instance
+  os_server:
+    name: '{{ item.name }}'
+    image: '{{ instance_image }}'
+    key_name: '{{ instance_key_name }}'
+    flavor: '{{ web_instance_flavor }}'
+    availability_zone: '{{ availability_zone }}'
+    security_groups: '{{ sg_names }}'
+    volumes: '{{ item.volumes }}'
+    auto_floating_ip: yes
+    wait: yes
+    timeout: 600
+    state: present
+  loop: '{{ web_instance }}'
+  register: web_instances
+
+# List of instances created
+- debug:
+    msg: "Instance {{ item.openstack.name }} has been created. IP address is {{ item.openstack.public_v4 }}"
+  loop: '{{ web_instances.results }}'
+  when: item.openstack is defined
+
+# Wait after instance creation for provisioning of resources
+- name: Wait for connection
+  wait_for:
+    host: "{{ item.openstack.public_v4 }}"
+    port: 22
+    timeout: 120
+    search_regex: OpenSSH
+  loop: '{{ web_instances.results }}'
+  when: item.openstack is defined
+
+# Add hosts to in memorry storage
+- name: Add host
+  add_host:
+    name: '{{ item.openstack.public_v4 }}'
+    groups: web
+  loop: '{{ web_instances.results }}'
+  when: item.openstack is defined
+
+# Add master to in memorry storage
+- name: Add host
+  add_host:
+    name: "{{ groups.db_mastodon[0] }}"
+    groups: master

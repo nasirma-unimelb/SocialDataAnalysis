@@ -1,0 +1,5 @@
+
+#
+user: admin
+pass: admin
+masternode: "{{ groups.db_mastodon[0] }}"

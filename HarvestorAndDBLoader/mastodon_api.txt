@@ -1,0 +1,2 @@
+mastodon_instance : "https://mastodon.social"
+access_token : "N4L6SX4so4lbcMB8x2CNJASQPbdFXBLE4wMYC1J6W34"

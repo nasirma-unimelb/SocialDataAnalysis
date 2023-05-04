@@ -1,0 +1,41 @@
+
+#
+
+# Installing dependencies
+- name: Install Dependencies
+  tags: always
+  become: yes
+  apt:
+    name: ['docker.io','docker-compose','python3-apt','python-apt','aptitude']
+    state: latest
+    install_recommends: yes
+    update_cache: yes
+
+# Creating proxy file
+- name: Create Docker Proxy directory
+  tags: always
+  become: yes
+  file:
+    path: "{{ docker_proxy_dir }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    recurse: yes
+    state: directory
+
+# Copying proxy to proxy file on cloud
+- name: Create docker proxy file in cloud
+  tags: 'docker_proxy_file'
+  become: yes
+  template:
+    src: ./proxy.conf.j2
+    dest: '{{ proxy_path }}'
+    owner: '{{ ansible_user }}'
+    group: "{{ ansible_user }}"
+
+# Restarting Daemon and docker service to refresh proxy settings
+- name: Daemon and service Reload
+  become: yes
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: docker.service

@@ -1,7 +1,7 @@
-# comp90024-a2
+# COMP90024-A2-a2
 Social media analytics assignment group assignment
 
-COMP90024 Semester 1 2023, The Unviersity of Melbourne
+COMP90024-A2 Semester 1 2023, The Unviersity of Melbourne
 
 ## Group members:
 - Mohammed Nasir:1345586

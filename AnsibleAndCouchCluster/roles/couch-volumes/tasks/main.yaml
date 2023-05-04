@@ -1,0 +1,58 @@
+
+#
+
+# Installing dependencies
+- name: Install Dependencies
+  tags: always
+  become: yes
+  apt:
+    name: ['xfsprogs']
+    state: latest
+    install_recommends: yes
+    update_cache: yes
+
+# Making file system for attached storages
+- name: Make file system
+  tags: 'volumes'
+  become: yes
+  filesystem:
+    fstype: xfs
+    dev: "{{ item.device }}"
+  when: item.device is defined
+  with_items:
+    - "{{ volumes }}"
+
+# Checking status of Mountpoint
+- name: Checking folders
+  tags: 'volumes'
+  become: yes
+  stat:
+    path: "{{ item.mountpoint }}"
+  register: directory_stats
+  with_items:
+    - "{{ volumes }}"
+
+# Creating mountpoint directory if it does not exist
+- name: Create directory
+  tags: 'volumes'
+  become: yes
+  file:
+    path: "{{ item.item.mountpoint }}"
+    recurse: yes
+    state: directory
+  when: item.stat.exists == false
+  with_items:
+    - "{{ directory_stats.results }}"
+
+# Mounting storage
+- name: Mount device
+  tags: 'volumes'
+  become: yes
+  mount:
+    path: "{{ item.mountpoint }}"
+    src: "{{ item.device }}"
+    fstype: xfs
+    state: mounted
+  when: item.device is defined
+  with_items:
+    - "{{ volumes }}"

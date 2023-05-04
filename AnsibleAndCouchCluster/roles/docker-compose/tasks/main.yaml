@@ -1,0 +1,34 @@
+
+#
+
+# Creating and starting docker container
+- name: Create and start CouchDB Docker container
+  become: yes
+  docker_container:
+    name: couchdb123
+    image: couchdb
+    state: started
+    recreate: true
+    ports: # Fliepe & Nick you need to set thease ports up
+      - "5984:5984"
+      - "4369:4369"
+      - "9100-9200:9100-9200"
+    volumes:
+      - volume-0:/opt/couchdb/data
+    pull: yes
+    env:
+      COUCHDB_USER: "{{ user }}"
+      COUCHDB_PASSWORD: "{{ pass }}"
+      COUCHDB_SECRET: "{{ secret }}"
+      ERL_FLAGS: "-setcookie \"{{ secret }}\" -name \"couchdb@{{ inventory_hostname }}\""
+
+# Starting harvestor comtainer
+- name: Run docker compose
+  tags: 'harvestor'
+  become: yes
+  docker_compose:
+    project_src: "{{ project_dir }}"
+    pull: yes
+    state: present
+    remove_orphans: yes
+    recreate: always

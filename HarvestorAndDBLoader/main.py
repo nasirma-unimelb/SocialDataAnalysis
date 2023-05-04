@@ -1,4 +1,4 @@
-# Assignment 2 - COMP90024 Course at The University of Melbourne
+# Assignment 2 - COMP90024-A2 Course at The University of Melbourne
 
 import requests
 import json
