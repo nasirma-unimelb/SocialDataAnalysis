@@ -5,7 +5,7 @@ COMP90024 Semester 1 2023, The Unviersity of Melbourne
 
 ## Group members:
 - Mohammed Nasir:1345586
-- Elena Pashkina:
+- Elena Pashkina:1141034
 - Ellen Morwitch: 1257182
 - Felipe Leefu Huang Lin:
 - Nicholas Barry: 587667
