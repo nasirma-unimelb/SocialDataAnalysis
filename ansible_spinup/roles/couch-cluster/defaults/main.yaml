@@ -1,0 +1,5 @@
+
+#
+user: admin
+passw: admin
+masternode: "{{ groups.couch[0] }}"
