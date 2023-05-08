@@ -1,17 +1,9 @@
 ---
-couch_instances:
-  - name: db-tweet-harvest-1
-    volumes: ["vol-11"]
-  - name: db-tweet-harvest-2
-    volumes: ["vol-22"]
-  - name: db-tweet-harvest-3
-    volumes: ["vol-33"]
-
 volumes:
   - device: /dev/vdb
     mountpoint: /var/lib/docker
-#  - device: /dev/vdb
-#    mountpoint: /opt/couchdb/data
+  - device: /dev/vdc
+    mountpoint: /data
 
 db_username: admin
 db_password: admin
