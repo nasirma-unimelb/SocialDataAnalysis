@@ -10,7 +10,7 @@
 - name: Create and start CouchDB Docker container
   become: yes
   community.docker.docker_container:
-    name: couchdb@{{ item.ip }}
+    name: couchdb-{{ item.ip }}
     image: "ibmcom/couchdb3:{{ db_version }}"
     state: started
     recreate: true
