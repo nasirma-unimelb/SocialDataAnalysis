@@ -7,6 +7,8 @@ volumes:
 
 db_username: admin
 db_password: admin
+db_cookie: a192aeb9904e6590849337933b000c99
+db_version: 3.2.1
 
 # FIXME: This may not reference groups properly
 masternode: "{{ groups.db_mastodon[0] }}"
