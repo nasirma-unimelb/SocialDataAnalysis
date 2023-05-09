@@ -6,12 +6,14 @@
 #     force: true
 
 - name: Create a network
+  become: true
   community.docker.docker_network:
-    name: db_network.name
+    name: {{ db_network.name }}
     driver: bridge
     tls: true
 
 - name: Add a containers to a network, leaving existing containers connected
+  become: true
   community.docker.docker_network:
     name: db_network.name
     connected:

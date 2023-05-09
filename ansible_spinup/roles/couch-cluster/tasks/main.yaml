@@ -1,14 +1,14 @@
 ---
 # Stop existing Couch DB Docker containers and remove them (if any)
 - name: Stop CouchDB Docker container
-  become: yes
+  become: true
   community.docker.docker_container:
     name: couchdb
     state: absent
 
 # Create new docker container for CouchDB and start container
 - name: Create and start CouchDB Docker container
-  become: yes
+  become: true
   community.docker.docker_container:
     name: item.container_name
     image: "ibmcom/couchdb3:{{ db_version }}"
