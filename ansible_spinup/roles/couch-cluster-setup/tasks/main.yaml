@@ -16,7 +16,7 @@
 # Join nodes to CouchDB cluster
 - name: Join nodes to CouchDB cluster
   uri:
-    url: http://{{ masternode }}:5984/_cluster_setup
+    url: http://{{ masternode.ip }}:5984/_cluster_setup
     method: POST
     user: "{{ db_username }}"
     password: "{{ db_password }}"
@@ -30,7 +30,7 @@
 # Empty request to avoid error messages when finishing cluster setup
 - name: Empty request to avoid error messages when finishing cluster setup
   uri:
-    url: http://{{ masternode }}:5984/
+    url: http://{{ masternode.ip }}:5984/
     method: GET
     user: "{{ db_username }}"
     password: "{{ db_password }}"
@@ -40,7 +40,7 @@
 # Finish cluster setup
 - name: Finish cluster setup
   uri:
-    url: http://{{ masternode }}:5984/_cluster_setup
+    url: http://{{ masternode.ip }}:5984/_cluster_setup
     method: POST
     user: "{{ db_username }}"
     password: "{{ db_password }}"
