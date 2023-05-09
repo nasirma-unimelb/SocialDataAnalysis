@@ -24,5 +24,4 @@
       COUCHDB_PASSWORD: "{{ db_password }}"
       COUCHDB_SECRET: "{{ db_cookie }}"
       ERL_FLAGS: "-setcookie \"{{ db_cookie }}\" -name \"couchdb@{{ item.ip }}\""
-    with_items:
-    - "{{ db_nodes }}"
+  loop: "{{ db_nodes }}"
