@@ -37,7 +37,7 @@
     force_basic_auth: yes
   run_once: true
 
-# Finish cluster setup
+# Finish cluster setup (ignore response!)
 - name: Finish cluster setup
   uri:
     url: http://{{ masternode.ip }}:5984/_cluster_setup
