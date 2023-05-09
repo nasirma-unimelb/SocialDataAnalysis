@@ -4,9 +4,10 @@ services:
   db:
     image: ibmcom/couchdb3:3.2.1
     restart: always
+    publish: 8080:5984
     environment:
       COUCHDB_USER: {{ db_username }}
       COUCHDB_PASSWORD: {{ db_password }}
       COUCDB_SECRET: {{ db_cookie }}
     volumes: 
-      - {{ couch_dir }}:/var/lib/mysql
+      - {{ couch_dir }}:/var/lib/couch_db
