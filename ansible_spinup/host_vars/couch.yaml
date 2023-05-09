@@ -9,6 +9,14 @@ db_username: admin
 db_password: admin
 db_cookie: a192aeb9904e6590849337933b000c99
 db_version: 3.2.1
+db_nodes:
+  - ip: 172.17.02
+    host_port: 8080
+  - ip: 172.17.03
+    host_port: 8081
+  - ip: 172.17.04
+    host_port: 8082
+
 
 # FIXME: This may not reference groups properly
 masternode: "{{ groups.db_mastodon[0] }}"
