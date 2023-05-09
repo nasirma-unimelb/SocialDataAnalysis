@@ -30,4 +30,4 @@
     - role: couch-common
     - role: couch-volumes
     - role: couch-docker
-    - role: couch-cluster-1
+    - role: couch-cluster
