@@ -16,7 +16,12 @@ db_nodes:
     host_port: 8081
   - ip: 172.17.04
     host_port: 8082
+other_nodes:
+  - ip: 172.17.03
+    host_port: 8081
+  - ip: 172.17.04
+    host_port: 8082
 
 
 # FIXME: This may not reference groups properly
-masternode: "{{ groups.db_mastodon[0] }}"
+masternode: "{{ db_nodes[0] }}"

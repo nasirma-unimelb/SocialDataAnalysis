@@ -31,3 +31,4 @@
     - role: couch-volumes
     - role: couch-docker
     - role: couch-cluster
+    - role: couch-cluster-setup
