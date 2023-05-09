@@ -1,5 +1,2 @@
 
-#
-user: admin
-passw: admin
-masternode: "{{ groups.couch[0] }}"
+masternode: "{{ groups['TwitterMining'][0] }}"
