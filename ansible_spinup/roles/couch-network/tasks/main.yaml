@@ -1,9 +1,9 @@
 ---
-- name: Remove existing network
-  community.docker.docker_network:
-    name: db_network.name
-    state: absent
-    force: true
+# - name: Remove existing network
+#   community.docker.docker_network:
+#     name: db_network.name
+#     state: absent
+#     force: true
 
 - name: Create a network
   community.docker.docker_network:
