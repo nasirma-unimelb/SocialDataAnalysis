@@ -19,12 +19,14 @@ db_nodes:
   - ip: 172.17.04
     host_port: 8082
     container_name: couchdb-172.17.04
+# FIXME: this is ugly
 other_nodes:
   - ip: 172.17.03
     host_port: 8081
   - ip: 172.17.04
     host_port: 8082
 
-
-# FIXME: This may not reference groups properly
 masternode: "{{ db_nodes[0] }}"
+
+db_network:
+  name: couch_network
