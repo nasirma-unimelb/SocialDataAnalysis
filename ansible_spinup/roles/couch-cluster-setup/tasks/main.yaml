@@ -13,7 +13,7 @@
       Content-Type: "application/json"
     body_format: json
     body: "{\"action\": \"enable_cluster\", \"bind_address\": \"0.0.0.0\", \"username\":\"{{ db_username }}\", \"password\": \"{{ db_password }}\", \"port\": \"5984\", \"remote_node\": \"{{ item.ip }}\", \"node_count\": \"3\",\"remote_current_user\": \"{{ db_username }}\", \"remote_current_password\":\"{{ db_password }}\"}"
-  loop: {{ other_nodes }}
+  loop: "{{ other_nodes }}"
 # Join nodes to CouchDB cluster
 - name: Join nodes to CouchDB cluster
   uri:
@@ -27,7 +27,7 @@
       Content-Type: "application/json"
     body_format: json
     body: "{\"action\":\"add_node\",\"host\":\"{{ item.ip }}\",\"port\":\"5984\",\"username\":\"{{ db_username }}\",\"password\":\"{{ db_password }}\"}"
-  loop: {{ other_nodes }}
+  loop: "{{ other_nodes }}"
 # Empty request to avoid error messages when finishing cluster setup
 - name: Empty request to avoid error messages when finishing cluster setup
   uri:
