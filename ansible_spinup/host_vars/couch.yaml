@@ -12,10 +12,13 @@ db_version: 3.2.1
 db_nodes:
   - ip: 172.17.02
     host_port: 8080
+    container_name: couchdb-172.17.02
   - ip: 172.17.03
     host_port: 8081
+    container_name: couchdb-172.17.03
   - ip: 172.17.04
     host_port: 8082
+    container_name: couchdb-172.17.04
 other_nodes:
   - ip: 172.17.03
     host_port: 8081
