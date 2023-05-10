@@ -15,10 +15,10 @@ volumes:
     vol_size: 10
   - vol_name: static-db-2-vol-2
     vol_size: 10
-  - vol_name: static-db-3-vol-1
-    vol_size: 10
-  - vol_name: static-db-3-vol-2
-    vol_size: 10
+  # - vol_name: static-db-3-vol-1
+  #   vol_size: 10
+  # - vol_name: static-db-3-vol-2
+  #   vol_size: 10
 
 # Security group
 security_groups:
@@ -47,5 +47,5 @@ instances:
     volumes: ["static-db-1-vol-1", "static-db-1-vol-2"]
   - name: static-db-2
     volumes: ["static-db-2-vol-1", "static-db-2-vol-2"]
-  - name: static-dv-3
-    volumes: ["static-db-3-vol-1", "static-db-3-vol-2"]
+  # - name: static-dv-3
+  #   volumes: ["static-db-3-vol-1", "static-db-3-vol-2"]
