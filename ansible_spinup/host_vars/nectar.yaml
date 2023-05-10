@@ -35,5 +35,9 @@ security_groups:
 
 # Instance
 instances:
-  - name: demo-03
-    volumes: ["demo-03-vol-1", "demo-03-vol-2"]
+  - name: static-db-1
+    volumes: ["dstatic-db-1-vol-1", "static-db-1-vol-2"]
+  - name: static-db-2
+    volumes: ["static-db-2-vol-1", "static-db-2-vol-2"]
+  - name: static-dv-3
+    volumes: ["static-db-3-vol-1", "static-db-3-vol-2"]
