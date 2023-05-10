@@ -2,15 +2,13 @@
 
 [COMP90024:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-ansible_ssh_private_key_file=/home/ubuntu/repositories/uom-comp90024/ansible-demo/tmp.pem
+ansible_ssh_private_key_file=/home/ubuntu/repositories/comp90024-a2/ansible_spinup/tmp.pem
 ansible_user=ubuntu
 
 [couch]
-static-db-1
-static-db-2
 
 
 [couch:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-ansible_ssh_private_key_file=/home/ubuntu/repositories/uom-comp90024/ansible-demo/tmp.pem
+ansible_ssh_private_key_file=/home/ubuntu/repositories/comp90024-a2/ansible_spinup/tmp.pem
 ansible_user=ubuntu
