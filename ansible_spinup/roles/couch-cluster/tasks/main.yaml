@@ -26,6 +26,7 @@
       COUCHDB_USER: "{{ db_username }}"
       COUCHDB_PASSWORD: "{{ db_password }}"
       COUCHDB_SECRET: "{{ db_cookie }}"
-      ERL_FLAGS: "-setcookie \"{{ db_cookie }}\" -name \"couchdb@{{ item['server']['addresses']['qh2-uom-internal'][0]['addr'] }}\""
+      # ERL_FLAGS: "-setcookie \"{{ db_cookie }}\" -name \"couchdb@{{ item['server']['addresses']['qh2-uom-internal'][0]['addr'] }}\""
+      ERL_FLAGS: "-setcookie \"{{ db_cookie }}\" -name \"couchdb@{{ inventory_hostname }}\""
       # ERL_FLAGS: "-setcookie \"{{ db_cookie }}\" -name \"couchdb@{{ item.ip }}\""
   # loop: "{{ db_nodes }}"
