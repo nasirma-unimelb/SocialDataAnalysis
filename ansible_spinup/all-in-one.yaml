@@ -32,4 +32,4 @@
     - role: couch-docker
     - role: couch-cluster
     # - role: couch-network
-    # - role: couch-cluster-setup
+    - role: couch-cluster-setup
