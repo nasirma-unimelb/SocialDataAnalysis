@@ -40,6 +40,24 @@ security_groups:
     port_range_min: 8080
     port_range_max: 8080
     remote_ip_prefix: 0.0.0.0/0
+  - name: couchdb
+    description: "Web portal security group for couchdb"
+    protocol: tcp
+    port_range_min: 5984
+    port_range_max: 5984
+    remote_ip_prefix: 0.0.0.0/0
+  - name: total-a
+    description: "Web portal security group for totallity"
+    protocol: tcp
+    port_range_min: 9100
+    port_range_max: 9200
+    remote_ip_prefix: 0.0.0.0/0
+  - name: total-b
+    description: "Web portal security group for totallity"
+    protocol: tcp
+    port_range_min: 4369
+    port_range_max: 4369
+    remote_ip_prefix: 0.0.0.0/0
 
 # Instance
 instances:
