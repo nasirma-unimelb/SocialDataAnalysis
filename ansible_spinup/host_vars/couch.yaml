@@ -27,7 +27,7 @@ other_nodes:
     host_port: 8082
 
 # masternode: "{{ db_nodes[0] }}"
-masternode: "{{ groups['Couch'][0] }}"
+masternode: "{{ groups['couch'][0] }}"
 
 db_network:
   name: couch_network
