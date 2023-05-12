@@ -9,14 +9,18 @@
       - ether_type: IPv6
         protocol: any
         direction: egress
-        port_range_min: 1
-        port_range_max: 65535
+        # port_range_min: 1
+        # port_range_max: 65535
+        port_range_min: '{{ item.port_range_min }}'
+        port_range_max: '{{ item.port_range_max }}'
         remote_ip_prefix: ::/0
       - ether_type: IPv4
         protocol: any
         direction: egress
-        port_range_min: 1
-        port_range_max: 65535
+        # port_range_min: 1
+        # port_range_max: 65535
+        port_range_min: '{{ item.port_range_min }}'
+        port_range_max: '{{ item.port_range_max }}'
         remote_ip_prefix: 0.0.0.0/0
   loop: "{{ security_groups }}"
 
