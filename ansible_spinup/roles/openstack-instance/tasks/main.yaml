@@ -35,6 +35,6 @@
 - name: Add host
   ansible.builtin.add_host:
     name: "{{ item['server']['addresses']['qh2-uom-internal'][0]['addr'] }}"
-    groups: couch
+    groups: item.group
   loop: "{{ os_instance.results }}"
   when: item.server is defined
