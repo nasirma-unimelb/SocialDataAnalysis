@@ -11,10 +11,8 @@
     headers:
       Content-Type: "application/json"
     body_format: json
-    # body: "{\"action\": \"enable_cluster\", \"bind_address\": \"0.0.0.0\", \"username\":\"{{ db_username }}\", \"password\": \"{{ db_password }}\", \"port\": \"5984\", \"remote_node\": \"{{ item.ip }}\", \"node_count\": \"3\",\"remote_current_user\": \"{{ db_username }}\", \"remote_current_password\":\"{{ db_password }}\"}"
-    # body: "{\"action\": \"enable_cluster\", \"bind_address\": \"0.0.0.0\", \"username\":\"{{ db_username }}\", \"password\": \"{{ db_password }}\", \"port\": \"5984\", \"remote_node\": \"{{ item['server']['addresses']['qh2-uom-internal'][0]['addr'] }}\", \"node_count\": \"3\",\"remote_current_user\": \"{{ db_username }}\", \"remote_current_password\":\"{{ db_password }}\"}"
     body: "{\"action\": \"enable_cluster\", \"bind_address\": \"0.0.0.0\", \"username\":\"{{ db_username }}\", \"password\": \"{{ db_password }}\", \"port\": \"5984\", \"remote_node\": \"{{ inventory_hostname }}\", \"node_count\": \"3\",\"remote_current_user\": \"{{ db_username }}\", \"remote_current_password\":\"{{ db_password }}\"}"
-  # loop: "{{ other_nodes }}"
+
 # Join nodes to CouchDB cluster
 - name: Join nodes to CouchDB cluster
   uri:
@@ -28,16 +26,6 @@
       Content-Type: "application/json"
     body_format: json
     body: "{\"action\":\"add_node\",\"host\":\"{{ inventory_hostname }}\",\"port\":\"5984\",\"username\":\"{{ db_username }}\",\"password\":\"{{ db_password }}\"}"
-# loop: "{{ other_nodes }}"
-# Empty request to avoid error messages when finishing cluster setup
-# - name: Empty request to avoid error messages when finishing cluster setup
-#   uri:
-#     url: http://{{ masternode }}:5984/
-#     method: GET
-#     user: "{{ db_username }}"
-#     password: "{{ db_password }}"
-#     force_basic_auth: yes
-#   run_once: true
 
 #Finish cluster setup (ignore response!)
 - name: Finish cluster setup

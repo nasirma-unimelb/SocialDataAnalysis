@@ -15,7 +15,6 @@
     state: started
     recreate: true
     ports:
-      # - "{{ item.host_port }}:5984"
       - "5984:5984"
       - "4369:4369"
       - "9100-9200:9100-9200"
@@ -26,7 +25,4 @@
       COUCHDB_USER: "{{ db_username }}"
       COUCHDB_PASSWORD: "{{ db_password }}"
       COUCHDB_SECRET: "{{ db_cookie }}"
-      # ERL_FLAGS: "-setcookie \"{{ db_cookie }}\" -name \"couchdb@{{ item['server']['addresses']['qh2-uom-internal'][0]['addr'] }}\""
       ERL_FLAGS: "-setcookie \"{{ db_cookie }}\" -name \"couchdb@{{ inventory_hostname }}\""
-      # ERL_FLAGS: "-setcookie \"{{ db_cookie }}\" -name \"couchdb@{{ item.ip }}\""
-  # loop: "{{ db_nodes }}"
