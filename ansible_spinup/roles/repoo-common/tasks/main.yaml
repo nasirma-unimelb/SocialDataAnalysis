@@ -9,10 +9,21 @@
   ansible.builtin.apt:
     name:
       [
-        "numpy",
-        "pandas",
-        "mastodon",
-        "requests"
+        "apt-transport-https",
+        "build-essential",
+        "ca-certificates",
+        "curl",
+        "git",
+        "gnupg",
+        "gnupg-agent",
+        "lsb-release",
+        "python3-dev",
+        "python3-pip",
+        "python3-setuptools",
+        "snapd",
+        "software-properties-common",
+        "unzip",
+        "vim",
       ]
     state: latest
     install_recommends: false
@@ -24,10 +35,3 @@
   ansible.builtin.pip:
     name: ["pip"]
     state: latest
-
- # Clone source code repository
-- name: Clone the code repository into home directory
-  git:
-    repo: "https://github.com/njkbarry/comp90024-a2.git"
-    dest: ~/comp90024-a2
-  become: true
