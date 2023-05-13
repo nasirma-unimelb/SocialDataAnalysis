@@ -31,8 +31,6 @@
     - role: couch-volumes
     - role: couch-docker
     - role: couch-cluster
-    # - role: couch-network
-    # - role: couch-cluster-setup
 
 - hosts: couch:!masternode
   vars_files:
@@ -41,3 +39,11 @@
   
   roles:
     - role: couch-cluster-setup
+
+- hosts: mastodon
+  vars_files:
+    - host_vars/mastodon.yaml
+  gather_facts: true
+  
+  roles:
+    - role: couch-common
