@@ -47,3 +47,6 @@
   
   roles:
     - role: couch-common
+    - role: couch-volumes
+    - role: couch-docker
+    - role: repo-common
