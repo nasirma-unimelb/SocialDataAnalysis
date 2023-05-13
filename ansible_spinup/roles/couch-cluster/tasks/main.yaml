@@ -3,7 +3,7 @@
 - name: Stop CouchDB Docker container
   become: true
   community.docker.docker_container:
-    name: couchdb
+    name: couchdb_static
     state: absent
 
 # Create new docker container for CouchDB and start container
