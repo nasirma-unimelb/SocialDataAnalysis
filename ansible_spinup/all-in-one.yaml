@@ -33,3 +33,11 @@
     - role: couch-cluster
     # - role: couch-network
     # - role: couch-cluster-setup
+
+- hosts: couch:!masternode
+  vars_files:
+    - host_vars/couch.yaml
+  gather_facts: true
+  
+  roles:
+ - role: couch-cluster-setup
