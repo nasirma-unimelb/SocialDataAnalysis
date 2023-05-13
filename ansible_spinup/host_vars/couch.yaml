@@ -9,22 +9,22 @@ db_username: admin
 db_password: admin
 db_cookie: a192aeb9904e6590849337933b000c99
 db_version: 3.2.1
-db_nodes:
-  - ip: 172.17.02
-    host_port: 8080
-    container_name: couchdb-172.17.02
-  - ip: 172.17.03
-    host_port: 8081
-    container_name: couchdb-172.17.03
-  - ip: 172.17.04
-    host_port: 8082
-    container_name: couchdb-172.17.04
-# FIXME: this is ugly
-other_nodes:
-  - ip: 172.17.03
-    host_port: 8081
-  - ip: 172.17.04
-    host_port: 8082
+# db_nodes:
+#   - ip: 172.17.02
+#     host_port: 8080
+#     container_name: couchdb-172.17.02
+#   - ip: 172.17.03
+#     host_port: 8081
+#     container_name: couchdb-172.17.03
+#   - ip: 172.17.04
+#     host_port: 8082
+#     container_name: couchdb-172.17.04
+# # FIXME: this is ugly
+# other_nodes:
+#   - ip: 172.17.03
+#     host_port: 8081
+#   - ip: 172.17.04
+#     host_port: 8082
 
 # masternode: "{{ db_nodes[0] }}"
 masternode: "{{ groups['couch'][0] }}"

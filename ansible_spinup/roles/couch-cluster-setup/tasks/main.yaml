@@ -30,16 +30,16 @@
     body: "{\"action\":\"add_node\",\"host\":\"{{ inventory_hostname }}\",\"port\":\"5984\",\"username\":\"{{ db_username }}\",\"password\":\"{{ db_password }}\"}"
 # loop: "{{ other_nodes }}"
 # Empty request to avoid error messages when finishing cluster setup
-- name: Empty request to avoid error messages when finishing cluster setup
-  uri:
-    url: http://{{ masternode }}:5984/
-    method: GET
-    user: "{{ db_username }}"
-    password: "{{ db_password }}"
-    force_basic_auth: yes
-  run_once: true
+# - name: Empty request to avoid error messages when finishing cluster setup
+#   uri:
+#     url: http://{{ masternode }}:5984/
+#     method: GET
+#     user: "{{ db_username }}"
+#     password: "{{ db_password }}"
+#     force_basic_auth: yes
+#   run_once: true
 
-# Finish cluster setup (ignore response!)
+#Finish cluster setup (ignore response!)
 - name: Finish cluster setup
   uri:
     url: http://{{ masternode }}:5984/_cluster_setup
