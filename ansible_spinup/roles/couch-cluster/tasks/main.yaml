@@ -12,6 +12,7 @@
   community.docker.docker_container:
     name: couchdb_static
     image: "ibmcom/couchdb3:{{ db_version }}"
+    restart: always
     state: started
     recreate: true
     ports:
