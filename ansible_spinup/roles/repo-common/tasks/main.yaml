@@ -21,7 +21,7 @@
   git:
     # Note this is a demo repo
     repo: "https://github.com/karpathy/nanoGPT.git"
-    dest: ~/nanoGPT
+    dest: /home/ubuntu/nanoGPT
   become: true
 
 
