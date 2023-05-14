@@ -17,12 +17,11 @@
   become: true
   ansible.builtin.pip:
     name:
-      [
-        numpy,
-        pandas==1.2.4,
-        Mastodon.py==1.8.0,
-        requests==2.25.1
-      ]
+      - numpy
+      - pandas==1.2.4
+      - Mastodon.py==1.8.0
+      - requests==2.25.1
+
 
  # Clone source code repository
 - name: Clone the code repository into home directory
