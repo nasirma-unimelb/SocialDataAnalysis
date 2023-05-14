@@ -11,15 +11,15 @@
       [
         "pip",
         "numpy",
-        "pandas",
-        # "mastodon",
-        "requests"
+        "pandas==1.2.4",
+        "Mastodon.py==1.8.0",
+        "requests==2.25.1"
       ]
-    state: latest
 
  # Clone source code repository
 - name: Clone the code repository into home directory
   git:
-    repo: "https://github.com/njkbarry/comp90024-a2.git"
-    dest: ~/comp90024-a2
+    # Note this is a demo repo
+    repo: "https://github.com/karpathy/nanoGPT.git"
+    dest: ~/nanoGPT
   become: true
