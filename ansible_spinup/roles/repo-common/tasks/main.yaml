@@ -3,7 +3,7 @@
   ansible.builtin.setup:
     gather_subset: all
 
-- name: Install dependencies
+- name: Install python dependencies
   tags: always
   become: true
   ansible.builtin.pip:
@@ -11,9 +11,9 @@
       [
         "pip",
         "numpy",
-        "pandas==1.2.4",
-        "Mastodon.py==1.8.0",
-        "requests==2.25.1"
+        "pandas",
+        "Mastodon.py",
+        "requests"
       ]
 
  # Clone source code repository
@@ -23,3 +23,8 @@
     repo: "https://github.com/karpathy/nanoGPT.git"
     dest: ~/nanoGPT
   become: true
+
+
+  # pandas==1.2.4,
+  # Mastodon.py==1.8.0,
+  # requests==2.25.1
