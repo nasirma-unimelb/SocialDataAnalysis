@@ -56,7 +56,7 @@
 - name: Stop Mastodon Harvester Docker container
   become: true
   docker_container:
-    name: twitter-harvester
+    name: mastodon_harvester
     state: absent
 
 
@@ -65,7 +65,7 @@
   become: true
   docker_container:
     name: mastodon_harvester
-    image: /home/ubuntu/comp90024-a2/mastodon_harvester/
+    image: mastodon_harvester
     state: started
     pull: false
     recreate: true
