@@ -67,4 +67,6 @@
     state: started
     pull: false
     recreate: true
+    restart_policy: always
+    restart: true
 
