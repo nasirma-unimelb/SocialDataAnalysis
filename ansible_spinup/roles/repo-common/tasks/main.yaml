@@ -48,7 +48,7 @@
     name: mastodon_harvester
     tag: latest
     source: build
-    force: yes
+    # force: yes
   become: true
   # environment: "{{ proxy_env }}"
 
