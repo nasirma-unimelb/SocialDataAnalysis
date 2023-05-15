@@ -33,8 +33,8 @@
 - name: Clone the code repository into home directory
   git:
     # Note this is a demo repo
-    repo: "https://github.com/karpathy/nanoGPT.git"
-    dest: /home/ubuntu/nanoGPT
+    repo: "https://{{ git_user }}:{{ git_password }}github.com/njkbarry/comp90024-a2.git"
+    dest: /home/ubuntu/comp90024-a2
   become: true
 
 
@@ -49,6 +49,7 @@
     tag: latest
     source: build
   become: true
+  
 
 # Force existing Docker containers for Mastodon Harvesters to stop and remove them
 - name: Stop Mastodon Harvester Docker container
