@@ -65,7 +65,7 @@
   become: true
   docker_container:
     name: mastodon_harvester
-    image: /home/ubuntu/comp90024-a2/mastodon_harvester
+    image: /home/ubuntu/comp90024-a2/mastodon_harvester/
     state: started
     pull: false
     recreate: true
