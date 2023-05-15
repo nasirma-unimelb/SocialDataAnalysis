@@ -1,0 +1,4 @@
+numpy
+pandas==1.5.3
+Mastodon.py==1.8.0
+requests==2.25.1 
