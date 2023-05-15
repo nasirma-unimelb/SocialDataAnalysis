@@ -32,9 +32,9 @@
  # Clone source code repository
 - name: Clone the code repository into home directory
   git:
-    # Note this is a demo repo
-    repo: "https://{{ git_user }}:{{ git_password }}@github.com/njkbarry/comp90024-a2.git"
+    repo: "https://github.com/njkbarry/comp90024-a2.git"
     dest: /home/ubuntu/comp90024-a2
+    key_file: "{{ ansible_ssh_private_key_file }}"
   become: true
 
 
