@@ -15,6 +15,7 @@ parser.add_argument("--ado_api_key", help="api key for ado server")
 parser.add_argument("--ado_login_url", help="ado api login url")
 parser.add_argument("--ado_text_search_mastodon_url", help="ado api text search url for mastodon")
 parser.add_argument("--mastodon_api_key", help="api key for the mastodon server")
+parser.add_argument("--couchdb_ip", help="ip address of the couchdb server")
 args = parser.parse_args()
 
 
