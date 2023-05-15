@@ -44,7 +44,7 @@
   docker_image:
     build:
       path: '/home/ubuntu/comp90024-a2/mastodon_harvester/'
-      pull: yes
+      pull: false
     name: mastodon_harvester
     tag: latest
     source: build
