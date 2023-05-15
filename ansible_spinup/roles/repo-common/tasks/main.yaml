@@ -48,15 +48,13 @@
     name: mastodon_harvester
     tag: latest
     source: build
-    # force: yes
   become: true
-  # environment: "{{ proxy_env }}"
 
 # Force existing Docker containers for Mastodon Harvesters to stop and remove them
 - name: Stop Mastodon Harvester Docker container
   become: true
   docker_container:
-    name: mastodon_harvester
+    name: mastodon_harvester-server_name
     state: absent
 
 
@@ -64,7 +62,7 @@
 - name: Create and start Mastodon Docker container
   become: true
   docker_container:
-    name: mastodon_harvester
+    name: mastodon_harvester-server_name
     image: mastodon_harvester
     state: started
     pull: false
