@@ -8,4 +8,4 @@ ADD . /
 
 RUN pip install -r requirements.txt
 
-CMD [ "python", "./main.py", echo $TEST1]
+CMD [ "python", "./main.py", $TEST1]
