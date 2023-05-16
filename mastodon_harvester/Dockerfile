@@ -2,9 +2,9 @@
 
 FROM python:3
 
-ARG arg1='not-post'
+ARG TEST1='not-post'
 
-RUN  echo "The default variable value for arg1 is $arg1"
+RUN  echo "The default variable value for TEST1 is $TEST1"
 
 ADD . /
 
