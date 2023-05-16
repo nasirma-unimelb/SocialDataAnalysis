@@ -2,12 +2,12 @@
 
 FROM python:3
 
-ARG TEST1='not-post'
-
-CMD  echo "The default variable value for TEST1 is $TEST1"
+ENV TEST1='not-post'
 
 ADD . /
 
 RUN pip install -r requirements.txt
 
 CMD [ "python", "./main.py"]
+
+CMD  echo "The default variable value for TEST1 is $TEST1"
