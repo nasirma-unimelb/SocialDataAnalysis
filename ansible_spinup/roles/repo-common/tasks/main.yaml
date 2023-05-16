@@ -30,14 +30,14 @@
 
 
 #  # Clone source code repository
-# - name: Clone the code repository into home directory
-#   git:
-#     repo: "git@github.com:comp90024-a2/public_dummy.git"
-#     dest: /home/ubuntu/comp90024-a2
-#     # key_file: /home/ubuntu/.ssh/id_ed25519
-#     accept_hostkey: true
-#     ssh_opts: "-o ForwardAgent=yes"
-#   become: true
+- name: Clone the code repository into home directory
+  git:
+    repo: "git@github.com:njkbarry/comp90024-a2.git"
+    dest: /home/ubuntu/comp90024-a2
+    # key_file: /home/ubuntu/.ssh/id_ed25519
+    accept_hostkey: true
+    ssh_opts: "-o ForwardAgent=yes"
+  become: true
 
 
 
