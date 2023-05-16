@@ -8,6 +8,6 @@ ADD . /
 
 RUN pip install -r requirements.txt
 
-CMD [ "python", "./main.py"]
+CMD [ "python", "./main.py", TEST1]
 
 CMD  echo "The default variable value for TEST1 is $TEST1"
