@@ -4,7 +4,7 @@ FROM python:3
 
 ARG TEST1='not-post'
 
-RUN  echo "The default variable value for TEST1 is $TEST1"
+CMD  echo "The default variable value for TEST1 is $TEST1"
 
 ADD . /
 
