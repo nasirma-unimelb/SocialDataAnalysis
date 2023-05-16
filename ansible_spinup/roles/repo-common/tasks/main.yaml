@@ -42,7 +42,7 @@
 
 
 # Build Docker image for tweet harvester
-- name: Build an image and push it to local repo
+- name: Build an image from repo
   docker_image:
     build:
       path: '/home/ubuntu/comp90024-a2/mastodon_harvester/'
@@ -50,6 +50,7 @@
     name: mastodon_harvester
     tag: latest
     source: build
+    force_source: true
   become: true
 
 
