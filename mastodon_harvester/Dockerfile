@@ -10,6 +10,4 @@ RUN pip install -r requirements.txt
 
 RUN chmod +x /entrypoint.sh
 
-# CMD [ "python", "./main.py", "echo $TEST1"]
-
 ENTRYPOINT ["/entrypoint.sh"]
