@@ -78,4 +78,6 @@
     recreate: true
     restart_policy: always
     restart: true
+    env:
+      TEST1: 'post'
 
