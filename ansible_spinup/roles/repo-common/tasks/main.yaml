@@ -28,30 +28,35 @@
 
 #####################################
 
+# Instead pull docker iamges because AgentForwarding is
+# a complicated little brat
 
-#  # Clone source code repository
-- name: Clone the code repository into home directory
-  git:
-    repo: "git@github.com:njkbarry/comp90024-a2.git"
-    dest: /home/ubuntu/comp90024-a2
-    # key_file: /home/ubuntu/.ssh/id_ed25519
-    accept_hostkey: true
-    ssh_opts: "-o ForwardAgent=yes"
-  become: true
+# #  # Clone source code repository
+# - name: Clone the code repository into home directory
+#   git:
+#     repo: "git@github.com:njkbarry/comp90024-a2.git"
+#     dest: /home/ubuntu/comp90024-a2
+#     # key_file: /home/ubuntu/.ssh/id_ed25519
+#     accept_hostkey: true
+#     ssh_opts: "-o ForwardAgent=yes"
+#   become: true
 
 
 
-# Build Docker image for tweet harvester
-- name: Build an image from repo
-  docker_image:
-    build:
-      path: '/home/ubuntu/comp90024-a2/mastodon_harvester/'
-      pull: false
-    name: mastodon_harvester
-    tag: latest
-    source: build
-    force_source: true
-  become: true
+# # Build Docker image for tweet harvester
+# - name: Build an image from repo
+#   docker_image:
+#     build:
+#       path: '/home/ubuntu/comp90024-a2/mastodon_harvester/'
+#       pull: false
+#     name: mastodon_harvester
+#     tag: latest
+#     source: build
+#     force_source: true
+#   become: true
+
+
+#####################################
 
 
 # Force existing Docker containers for Mastodon Harvesters to stop and remove them
@@ -67,9 +72,9 @@
   become: true
   docker_container:
     name: mastodon_harvester-server_name
-    image: mastodon_harvester
+    image: comp90024a2grp01/mastodon_harvester
     state: started
-    pull: false
+    pull: true
     recreate: true
     restart_policy: always
     restart: true
