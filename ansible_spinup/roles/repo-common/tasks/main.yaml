@@ -72,7 +72,7 @@
   become: true
   docker_container:
     name: mastodon_harvester-server_name
-    image: comp90024a2grp01/mastodon_harvester
+    image: comp90024a2grp01/mastodon_harvester:v1-release
     state: started
     pull: true
     recreate: true
