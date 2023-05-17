@@ -74,9 +74,9 @@
     name: backend-server_name
     image: comp90024a2grp01/backend:v2-release
     env:
-      MASTERNODE: {{"masternode"}}
-      DB_USERNAME: {{"db_password"}}
-      DB_PASSWORD: {{"db_username"}}
+      MASTERNODE: "{{ masternode }}"
+      DB_USERNAME: "{{ db_password }}"
+      DB_PASSWORD: "{{ db_username }}"
     state: started
     pull: true
     recreate: true
