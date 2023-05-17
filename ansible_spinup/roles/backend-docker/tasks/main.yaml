@@ -72,7 +72,7 @@
   become: true
   docker_container:
     name: backend-server_name
-    image: comp90024a2grp01/backend:v2-release
+    image: comp90024a2grp01/backend:v1
     env:
       MASTERNODE: "{{ masternode }}"
       DB_USERNAME: "{{ db_password }}"

@@ -24,6 +24,10 @@ volumes:
     vol_size: 10
   - vol_name: mastodon-vol-2
     vol_size: 10
+  - vol_name: backend-vol-1
+    vol_size: 10
+  - vol_name: backend-vol-2
+    vol_size: 10
 
 # Security group
 security_groups:
@@ -78,3 +82,6 @@ instances:
   - name: mastodon-harvester
     volumes: ["mastodon-vol-1", "mastodon-vol-2"]
     group: mastodon
+  - name: backend-server
+    volumes: ["backend-vol-1", "backend-vol-2"]
+    group: backend
