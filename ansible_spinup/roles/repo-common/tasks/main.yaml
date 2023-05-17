@@ -73,11 +73,12 @@
   docker_container:
     name: mastodon_harvester-server_name
     image: comp90024a2grp01/mastodon_harvester:v2-release
+    env:
+      TEST1: "post"
     state: started
     pull: true
     recreate: true
     restart_policy: always
     restart: true
-    env:
-      TEST1: 'post'
+
 
