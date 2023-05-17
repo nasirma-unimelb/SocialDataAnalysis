@@ -9,36 +9,25 @@
     - role: openstack-security-group
     - role: openstack-instance
 
-# - hosts: COMP90024
+  
+# - hosts: couch
 #   vars_files:
-#     - host_vars/wordpress.yaml
+#     - host_vars/couch.yaml
 #   gather_facts: true
-
+  
 #   roles:
-#     - role: wp-common
-#     - role: wp-volumes
-#     - role: wp-docker
-#     - role: wp-wordpress
+#     - role: couch-common
+#     - role: couch-volumes
+#     - role: couch-docker
+#     - role: couch-cluster
 
+# - hosts: couch:!masternode
+#   vars_files:
+#     - host_vars/couch.yaml
+#   gather_facts: true
   
-- hosts: couch
-  vars_files:
-    - host_vars/couch.yaml
-  gather_facts: true
-  
-  roles:
-    - role: couch-common
-    - role: couch-volumes
-    - role: couch-docker
-    - role: couch-cluster
-
-- hosts: couch:!masternode
-  vars_files:
-    - host_vars/couch.yaml
-  gather_facts: true
-  
-  roles:
-    - role: couch-cluster-setup
+#   roles:
+#     - role: couch-cluster-setup
 
 - hosts: mastodon
   vars_files:
@@ -49,4 +38,18 @@
     - role: couch-common
     - role: couch-volumes
     - role: couch-docker
-    - role: repo-common
+    - role: mastodon-docker
+
+
+
+  
+- hosts: backend
+  vars_files:
+    - host_vars/couch.yaml
+  gather_facts: true
+  
+  roles:
+    - role: couch-common
+    - role: couch-volumes
+    - role: couch-docker
+    - role: backend-docker
