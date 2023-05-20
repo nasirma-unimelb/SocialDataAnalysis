@@ -5,12 +5,13 @@ volumes:
   - device: /dev/vdc
     mountpoint: /data
 
-db_username: admin
-db_password: admin
-db_cookie: a192aeb9904e6590849337933b000c99
-db_version: 3.2.1
+# db_username: admin
+# db_password: admin
+# db_cookie: a192aeb9904e6590849337933b000c99
+# db_version: 3.2.1
 
 ado_api_key: "a2a6e2f96a2c94a04661aacc6e394caa"
 ado_login: "https://api.ado.eresearch.unimelb.edu.au/login"
 ado_search: "https://api.ado.eresearch.unimelb.edu.au/analysis/textsearch/collections/mastodon"
 mastodon_key: "f8-yNpSEGxPcQwwz_GxYtET3VumoGZ6KAQAH6bybICE"
+masternode: "{{ groups['masternode'] }}"

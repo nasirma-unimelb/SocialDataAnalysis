@@ -9,7 +9,7 @@ db_username: admin
 db_password: admin
 db_cookie: a192aeb9904e6590849337933b000c99
 db_version: 3.2.1
-masternode: "{{ groups['couch'][0] }}"
+masternode: "{{ groups['masternode'] }}"
 
 db_network:
   name: couch_network
