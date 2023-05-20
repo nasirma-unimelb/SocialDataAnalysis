@@ -72,7 +72,7 @@
   become: true
   docker_container:
     name: mastodon_harvester-server_name
-    image: comp90024a2grp01/mastodon_harvester:v2-release
+    image: comp90024a2grp01/mastodon_harvester:latest
     env:
       ADO_API_KEY: "{{ ado_api_key }}"
       ADO_LOGIN: "{{ ado_login }}"
