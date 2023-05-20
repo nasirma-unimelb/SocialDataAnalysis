@@ -6,12 +6,12 @@ ansible_ssh_private_key_file=/home/ubuntu/repositories/comp90024-a2/ansible_spin
 ansible_user=ubuntu
 
 [couch]
-172.26.135.12
-172.26.136.99
-172.26.131.178
+; 172.26.135.12
+; 172.26.136.99
+; 172.26.131.178
 
 [masternode]
-172.26.135.12
+; 172.26.135.12
 
 [couch:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
@@ -19,7 +19,7 @@ ansible_ssh_private_key_file=/home/ubuntu/repositories/comp90024-a2/ansible_spin
 ansible_user=ubuntu
 
 [mastodon]
-172.26.136.144
+; 172.26.136.144
 
 
 [mastodon:vars]

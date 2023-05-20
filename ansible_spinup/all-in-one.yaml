@@ -10,10 +10,10 @@
     - role: openstack-instance
 
   
-# - hosts: couch
-#   vars_files:
-#     - host_vars/couch.yaml
-#   gather_facts: true
+- hosts: couch
+  vars_files:
+    - host_vars/couch.yaml
+  gather_facts: true
   
 #   roles:
 #     - role: couch-common
@@ -21,10 +21,10 @@
 #     - role: couch-docker
 #     - role: couch-cluster
 
-# - hosts: couch:!masternode
-#   vars_files:
-#     - host_vars/couch.yaml
-#   gather_facts: true
+- hosts: couch:!masternode
+  vars_files:
+    - host_vars/couch.yaml
+  gather_facts: true
   
 #   roles:
 #     - role: couch-cluster-setup
