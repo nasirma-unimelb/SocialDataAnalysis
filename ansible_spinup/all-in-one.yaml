@@ -15,19 +15,19 @@
     - host_vars/couch.yaml
   gather_facts: true
   
-#   roles:
-#     - role: couch-common
-#     - role: couch-volumes
-#     - role: couch-docker
-#     - role: couch-cluster
+  roles:
+    - role: couch-common
+    - role: couch-volumes
+    - role: couch-docker
+    - role: couch-cluster
 
 - hosts: couch:!masternode
   vars_files:
     - host_vars/couch.yaml
   gather_facts: true
   
-#   roles:
-#     - role: couch-cluster-setup
+  roles:
+    - role: couch-cluster-setup
 
 - hosts: mastodon
   vars_files:
