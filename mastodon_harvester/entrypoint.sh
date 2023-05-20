@@ -1,5 +1,3 @@
 #!/usr/bin/env sh
 
-echo $TEST1
-
-python ./main.py ${TEST1}
+python ./mastodon_harvester.py --ado_api_key ${ADO_API_KEY} --ado_login_url ${ADO_LOGIN} --ado_text_search_mastodon_url ${ADO_SEARCH} --mastodon_api_key ${MASOTDON_KEY} --couchdb_ip ${COUCHDB_IP}

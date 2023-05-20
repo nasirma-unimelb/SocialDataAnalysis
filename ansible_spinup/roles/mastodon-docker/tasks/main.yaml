@@ -74,7 +74,11 @@
     name: mastodon_harvester-server_name
     image: comp90024a2grp01/mastodon_harvester:v2-release
     env:
-      TEST1: "post"
+      ADO_API_KEY: "{{ ado_api_key }}"
+      ADO_LOGIN: "{{ ado_login }}"
+      ADO_SEARCH: "{{ ado_search }}"
+      MASOTDON_KEY: "{{ mastodon_key }}"
+      COUCHDB_IP: "{{ masternode }}"
     state: started
     pull: true
     recreate: true

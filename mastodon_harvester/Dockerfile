@@ -2,9 +2,7 @@
 
 FROM python:3
 
-ENV TEST1='not-post'
-
-RUN echo $TEST1
+ENV ADO_API_KEY, ADO_LOGIN, ADO_SEARCH, MASOTDON_KEY, COUCHDB_IP
 
 ADD . /
 
