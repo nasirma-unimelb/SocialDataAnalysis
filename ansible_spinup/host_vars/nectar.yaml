@@ -70,18 +70,18 @@ security_groups:
 
 # Instance
 instances:
-  # - name: static-db-1
-  #   volumes: ["static-db-1-vol-1", "static-db-1-vol-2"]
-  #   group: couchdb
-  # - name: static-db-2
-  #   volumes: ["static-db-2-vol-1", "static-db-2-vol-2"]
-  #   group: couchdb
-  # - name: static-db-3
-  #   volumes: ["static-db-3-vol-1", "static-db-3-vol-2"]
-  #   group: couchdb
+  - name: static-db-1
+    volumes: ["static-db-1-vol-1", "static-db-1-vol-2"]
+    group: couchdb
+  - name: static-db-2
+    volumes: ["static-db-2-vol-1", "static-db-2-vol-2"]
+    group: couchdb
+  - name: static-db-3
+    volumes: ["static-db-3-vol-1", "static-db-3-vol-2"]
+    group: couchdb
   - name: mastodon-harvester
     volumes: ["mastodon-vol-1", "mastodon-vol-2"]
     group: mastodon
-  # - name: backend-server
-  #   volumes: ["backend-vol-1", "backend-vol-2"]
-  #   group: backend
+  - name: backend-server
+    volumes: ["backend-vol-1", "backend-vol-2"]
+    group: backend
