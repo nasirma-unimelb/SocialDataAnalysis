@@ -82,7 +82,6 @@ instances:
   - name: mastodon-harvester
     volumes: ["mastodon-vol-1", "mastodon-vol-2"]
     group: mastodon
-    ip: 172.26.136.144
   # - name: backend-server
   #   volumes: ["backend-vol-1", "backend-vol-2"]
   #   group: backend

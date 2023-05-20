@@ -6,7 +6,6 @@
     auto_floating_ip: false
     availability_zone: "{{ availability_zone }}"
     flavor: "{{ instance_flavor }}"
-    public_ip: "{{ item.ip }}"
     image: "{{ instance_image }}"
     key_name: "{{ instance_key_name }}"
     # network: "{{ instance_network }}"
