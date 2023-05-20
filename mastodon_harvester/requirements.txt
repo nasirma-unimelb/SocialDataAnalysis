@@ -1,4 +1,4 @@
-Mastodon.py==1.8.0
+Mastodon.py==1.5.3
 requests==2.25.1
 pandas==1.2.4
 textblob==0.17.1
