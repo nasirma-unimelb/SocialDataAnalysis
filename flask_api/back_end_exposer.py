@@ -23,7 +23,11 @@ def pre_task(fetcher: Fetcher):
     workdir = os.getcwd()
 
     # Load the JSON
-    results_topics_file = f'{workdir}/static/data/result_topics.json'
+    if os.name == 'nt':  # Check if the operating system is Windows
+        results_topics_file = f'{workdir}/flask_api/static/data/result_topics.json'
+    else:  # Assume it's a Unix-
+        results_topics_file = f'{workdir}/static/data/result_topics.json'
+
     fetcher.save_Topic_over_time()
     with open(results_topics_file) as f:
         data = json.load(f)
@@ -39,7 +43,11 @@ def pre_task(fetcher: Fetcher):
     df_locs.drop("index", axis=1, inplace=True)
 
     # ---Rate Data-----------------------
-    result_target_rates_file = f'{workdir}/static/data/result_target_rates.json'
+    if os.name == 'nt':  # Check if the operating system is Windows
+        result_target_rates_file = f'{workdir}/flask_api/static/data/result_target_rates.json'
+    else:  # Assume it's a Unix-
+        result_target_rates_file = f'{workdir}/static/data/result_target_rates.json'
+
     fetcher.save_target_rates()
     with open(result_target_rates_file) as f:
         rate_data = json.load(f)
@@ -63,7 +71,11 @@ def pre_task(fetcher: Fetcher):
     # ----------End Rate--------------------------------------
     # ---Location Data---------------------------------------
     def get_location():
-        result_locations_file = f'{workdir}/static/data/result_locations.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+            result_locations_file = f'{workdir}/flask_api/static/data/result_locations.json'
+        else:  # Assume it's a Unix-
+            result_locations_file = f'{workdir}/static/data/result_locations.json'
+
         fetcher.save_Location_data()
         with open(result_locations_file) as f:
             location_data = json.load(f)
@@ -81,7 +93,10 @@ def pre_task(fetcher: Fetcher):
     # ----End Location------------------------
 
     # ---inflation Data-----------------------
-    result_inflations_file = f'{workdir}/static/data/result_inflations.json'
+    if os.name == 'nt':  # Check if the operating system is Windows
+        result_inflations_file = f'{workdir}/flask_api/static/data/result_inflations.json'
+    else:  # Assume it's a Unix-
+        result_inflations_file = f'{workdir}/static/data/result_inflations.json'
     fetcher.save_inflations()
     with open(result_inflations_file) as f:
         inflation_data = json.load(f)
@@ -121,7 +136,11 @@ def pre_task(fetcher: Fetcher):
     # ----------End inflation--------------------------------------
 
     # ---income_mortgage Data-----------------------
-    result_income_mortgages_file = f'{workdir}/static/data/result_income_mortgages.json'
+    if os.name == 'nt':  # Check if the operating system is Windows
+        result_income_mortgages_file = f'{workdir}/flask_api/static/data/result_income_mortgages.json'
+    else:  # Assume it's a Unix-
+        result_income_mortgages_file = f'{workdir}/static/data/result_income_mortgages.json'
+
     fetcher.save_income_mortgages()
     with open(result_income_mortgages_file) as f:
         income_mortgage_data = json.load(f)
@@ -160,7 +179,11 @@ def pre_task(fetcher: Fetcher):
     # ----------End income_mortgage--------------------------------------
 
     # ---housing_total Data-----------------------
-    result_housing_totals_file = f'{workdir}/static/data/result_housing_totals.json'
+    if os.name == 'nt':  # Check if the operating system is Windows
+        result_housing_totals_file = f'{workdir}/flask_api/static/data/result_housing_totals.json'
+    else:  # Assume it's a Unix-
+        result_housing_totals_file = f'{workdir}/static/data/result_housing_totals.json'
+
     fetcher.save_housing_totals()
     with open(result_housing_totals_file) as f:
         housing_total_data = json.load(f)
@@ -185,7 +208,10 @@ def pre_task(fetcher: Fetcher):
     # ----------End housing_total--------------------------------------
 
     # ---inequality Data-----------------------
-    result_inequalitys_file = f'{workdir}/static/data/result_inequalitys.json'
+    if os.name == 'nt':  # Check if the operating system is Windows
+        result_inequalitys_file = f'{workdir}/flask_api/static/data/result_inequalitys.json'
+    else:  # Assume it's a Unix-
+        result_inequalitys_file = f'{workdir}/static/data/result_inequalitys.json'
     fetcher.save_inequality()
     with open(result_inequalitys_file) as f:
         inequality_data = json.load(f)
@@ -207,17 +233,24 @@ def pre_task(fetcher: Fetcher):
 
     df_inequality = df_inequality.rename(columns={"gccsa_code": "gcc"})
     df_inequality["gcc"] = df_inequality["gcc"].str.lower()
-    df_loc_tweets = df_locs.groupby(["type"])["value"].sum().reset_index()
+   
 
     grouped_df = df_locs.groupby(["gcc", "type"])["value"].sum().reset_index()
+
+    df_loc_tweets_grouped = df_locs.groupby(["week_number", "type"])["value"].sum().reset_index()
 
     # Pivot the data to get the desired format
     pivot_df = pd.pivot_table(
         grouped_df, index="gcc", columns="type", values="value", aggfunc="sum"
     )
 
+    pivot_df_by_week = pd.pivot_table(
+        df_loc_tweets_grouped, index="week_number", columns="type", values="value", aggfunc="sum"
+    )
+
     # Convert the pivot table to a dictionary in the desired format
     tweetsByTopicGrouped_arr = []
+    tweetsByTopicGroupedByWeek_arr=[]
     for index, row in pivot_df.iterrows():
         data_row = {
             "gcc": index,
@@ -231,7 +264,23 @@ def pre_task(fetcher: Fetcher):
             else 0,
         }
         tweetsByTopicGrouped_arr.append(data_row)
+
+    for index, row in pivot_df_by_week.iterrows():
+            data_row = {
+                "week_no": index,
+                "housing": int(row["housing"]) if not pd.isna(row["housing"]) else 0,
+                "inflation": int(row["inflation"]) if not pd.isna(row["inflation"]) else 0,
+                "interestRate": int(row["interest rate"])
+                if not pd.isna(row["interest rate"])
+                else 0,
+                "socialSecurity": int(row["social security"])
+                if not pd.isna(row["social security"])
+                else 0,
+            }
+            tweetsByTopicGroupedByWeek_arr.append(data_row)
+
     df_tweetsByTopicGrouped = pd.DataFrame(tweetsByTopicGrouped_arr)
+    
     combined_df = pd.merge(df_tweetsByTopicGrouped, df_housing_total, on="gcc")
     combined_df = pd.merge(combined_df, df_inequality, on="gcc")
     combined_df = pd.merge(combined_df, df_income_mortgage, on="gcc")
@@ -284,7 +333,7 @@ def pre_task(fetcher: Fetcher):
                 "yLabel": "Tweets",
                 "barLabels": ["housing", "inflation", "interestRate", "socialSecurity"],
             },
-            "data": tweetsByTopicGrouped_arr,
+            "data": tweetsByTopicGroupedByWeek_arr,
         }
 
         # Serialize the final_data dictionary to JSON

@@ -1,0 +1,5 @@
+couchdb
+flask
+pandas
+flask_cors
+argparse

@@ -33,7 +33,7 @@ class Fetcher:
             "sudo_gccsa_income_mortgage_rent_avg_2016",
             "sudo_gccsa_housing_totals_2016",
             "sudo_gccsa_inequality_2017",
-            "inflation",
+            "inflation",'toot',
         ]
         self.view_name_income_rent = "income_rent_Data"
         self.design_doc_name_income_rent = "_design/mydesign_" + self.view_name_income_rent
@@ -55,35 +55,7 @@ class Fetcher:
         self.housing_total_db = self.couchdbs["sudo_gccsa_housing_totals_2016"]
         self.income_rent_db = self.couchdbs["sudo_gccsa_income_mortgage_rent_avg_2016"]
         self.inequality_db = self.couchdbs["sudo_gccsa_inequality_2017"]
-
-        self.view_name_all = "all_Data"
-        self.design_doc_name_all = "_design/mydesign_/" + self.view_name_all
-
-        self.workdir = os.getcwd()
-
-        def get_All_Data(
-            self,
-        ):  # All Data View
-            view_func = """function(doc) {
-                    if (doc.docs) {
-                        doc.docs.forEach(function(doc) {
-                            emit(null, doc);
-                        });
-                    }
-                }"""
-
-            # Create the view if it doesn't exist
-
-            if self.design_doc_name_all not in self.db:
-                self.db[self.design_doc_name_all] = {
-                    "views": {self.view_name_all: {"map": view_func}}
-                }
-            else:
-                design_doc = self.db[self.design_doc_name_all]
-                if self.view_name_all not in design_doc["views"]:
-                    design_doc["views"][self.view_name_all] = {
-                        "map": view_func}
-                    self.db.save_doc(design_doc)
+        self.toot_db = self.couchdbs["toot"]
 
     # ----Topic View----------------------------------------------------------
     def getTweetTopicOverTime(
@@ -431,7 +403,11 @@ class Fetcher:
         result_dict = {row.key: row.value for row in result_target_rates}
 
         # Save the dictionary to a JSON file
-        result_target_rates_file = f'{self.workdir}/static/data/result_target_rates.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+            result_target_rates_file = f'flask_api/static/data/result_target_rates.json'
+        else:  # Assume it's a Unix-
+            result_target_rates_file = f'{self.workdir}/static/data/result_target_rates.json'
+
         with open(result_target_rates_file, "w") as jsonfile:
             json.dump(result_dict, jsonfile)
         # Print the results
@@ -456,7 +432,11 @@ class Fetcher:
         result_dict = {row.key: row.value for row in result_inflations}
 
         # Save the dictionary to a JSON file
-        result_inflations_file = f'{self.workdir}/static/data/result_inflations.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+             result_inflations_file = f'flask_api/static/data/result_inflations.json'
+        else:  # Assume it's a Unix-
+            result_inflations_file = f'{self.workdir}/static/data/result_inflations.json'
+
         with open(result_inflations_file, "w") as jsonfile:
             json.dump(result_dict, jsonfile)
         # Print the results
@@ -483,7 +463,10 @@ class Fetcher:
         result_dict = {row.key: row.value for row in result_housing_totals}
 
         # Save the dictionary to a JSON file
-        result_housing_totals_file = f'{self.workdir}/static/data/result_inflations.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+              result_housing_totals_file = f'flask_api/static/data/result_inflations.json'
+        else:  # Assume it's a Unix-
+            result_housing_totals_file = f'{self.workdir}/static/data/result_inflations.json'
         with open(result_housing_totals_file, "w") as jsonfile:
             json.dump(result_dict, jsonfile)
         # Print the results
@@ -508,7 +491,11 @@ class Fetcher:
         result_dict = {row.key: row.value for row in result_inequalitys}
 
         # Save the dictionary to a JSON file
-        result_inequalitys_file = f'{self.workdir}/static/data/result_inequalitys.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+             result_inequalitys_file = f'flask_api/static/data/result_inequalitys.json'
+        else:  # Assume it's a Unix-
+            result_inequalitys_file = f'{self.workdir}/static/data/result_inequalitys.json'
+
         with open(result_inequalitys_file, "w") as jsonfile:
             json.dump(result_dict, jsonfile)
         # Print the results
@@ -533,7 +520,11 @@ class Fetcher:
         result_dict = {row.key: row.value for row in result_income_rents}
 
         # Save the dictionary to a JSON file
-        result_income_rents_file = f'{self.workdir}/static/data/result_income_rents.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+             result_income_rents_file = f'flask_api/static/data/result_income_rents.json'
+        else:  # Assume it's a Unix-
+            result_income_rents_file = f'{self.workdir}/static/data/result_income_rents.json'
+
         with open(result_income_rents_file, "w") as jsonfile:
             json.dump(result_dict, jsonfile)
         # Print the results
@@ -560,7 +551,11 @@ class Fetcher:
         result_dict = {row.key: row.value for row in result_income_mortgages}
 
         # Save the dictionary to a JSON file
-        result_income_mortgages_file = f'{self.workdir}/static/data/result_income_mortgages.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+            result_income_mortgages_file = f'flask_api/static/data/result_income_mortgages.json'
+        else:  # Assume it's a Unix-
+            result_income_mortgages_file = f'{self.workdir}/static/data/result_income_mortgages.json'
+
         with open(
             result_income_mortgages_file, "w"
         ) as jsonfile:
@@ -575,32 +570,7 @@ class Fetcher:
         #     for row in result_topics:
         #         writer.writerow([row.value])
 
-    def save_all(
-        self,
-    ):
-        # Query the view
-        result_all = self.db.view(
-            self.design_doc_name_all + "/_view/" + self.view_name_all
-        )
-
-        # Print the first 5 rows of the results
-        for i, row in enumerate(result_all):
-            if i < 5:
-                print(row.value)
-            else:
-                break
-        # with open('../flask_api/static/data/results_all.csv', 'w', newline='') as csvfile:
-        #     writer = csv.writer(csvfile)
-        #     writer.writerow(['value'])
-        #     for row in result_all:
-        #         writer.writerow([row.value])
-
-        # Save the results to a JSON file
-        with open("../flask_api/static/data/results_all.json", "w") as jsonfile:
-            json.dump([row.value for row in result_all], jsonfile)
-        # Print the results
-        # for row in result_all:
-        #     print(row.value)
+   
 
     # Query the view
     def save_Topic_over_time(
@@ -612,7 +582,11 @@ class Fetcher:
         )
         result_dict = {str(row.key): row.value for row in result_topics}
         # Save the dictionary to a JSON file
-        result_topics_file = f'{self.workdir}/static/data/result_topics.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+            result_topics_file = f'flask_api/static/data/result_topics.json'
+        else:  # Assume it's a Unix-
+            result_topics_file = f'{self.workdir}/static/data/result_topics.json'
+
         with open(result_topics_file, "w") as jsonfile:
             json.dump(result_dict, jsonfile)
         # Print the results
@@ -629,7 +603,10 @@ class Fetcher:
         )
         result_dict = {str(row.key): row.value for row in result_locations}
         # Save the dictionary to a JSON file
-        result_locations_file = f'{self.workdir}/static/data/result_locations.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+            result_locations_file = f'flask_api/static/data/result_locations.json'
+        else:  # Assume it's a Unix-
+            result_locations_file = f'{self.workdir}/static/data/result_locations.json'
         with open(result_locations_file, "w") as jsonfile:
             json.dump(result_dict, jsonfile)
         # Print the results
@@ -641,3 +618,18 @@ class Fetcher:
             return "metropolitan"
         else:
             return "rural"
+
+
+    def harvestAndPush(self,toots):
+    # Fetching toots
+        try:
+            
+            all_toots = toots
+            # Pushing toots to db
+            for i in all_toots:
+               self.toot_db.save(i)
+
+        except:
+            pass
+
+        

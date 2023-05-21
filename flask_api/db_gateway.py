@@ -41,7 +41,10 @@ class Couch:
 
     def create_static(self):
         wordir = os.getcwd()
-        twitter_file = f'{wordir}/data/twitter/twitter_small.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+            twitter_file = os.path.join(wordir, 'flask_api','data', 'twitter', 'twitter_small.json')
+        else:  # Assume it's a Unix-like system (e.g., Linux or macOS)
+            twitter_file = f'{wordir}/data/twitter/twitter_small.json'
 
         a = open(twitter_file)
         for i in a.readlines():
@@ -50,8 +53,11 @@ class Couch:
                 self.pushdata(t, "tweet")
             except Exception as e:
                 print(f"An error occurred: {e}")
+        if os.name == 'nt':  # Check if the operating system is Windows
+            rba_target_cash_rate_file = f'{wordir}/flask_api/data/other/rba_target_cash_rate.json'
+        else:  # Assume it's a Unix-like system (e.g., Linux or macOS)
+            rba_target_cash_rate_file = f'{wordir}/data/other/rba_target_cash_rate.json'
 
-        rba_target_cash_rate_file = f'{wordir}/data/other/rba_target_cash_rate.json'
         a = open(rba_target_cash_rate_file)
         for i in a.readlines():
             t = json.loads(i)
@@ -59,26 +65,37 @@ class Couch:
                 self.pushdata(t, "rba_target_cash_rate")
             except Exception as e:
                 print(f"An error occurred: {e}")
+        if os.name == 'nt':  # Check if the operating system is Windows
+            sudo_gccsa_income_mortgage_rent_file = f'{wordir}/flask_api/data/other/sudo_gccsa_income_mortgage_rent_avg_2016.json'
+        else:  # Assume it's a Unix-like system (e.g., Linux or macOS)
+            sudo_gccsa_income_mortgage_rent_file = f'{wordir}/data/other/sudo_gccsa_income_mortgage_rent_avg_2016.json'
 
-        sudo_gccsa_income_mortgage_rent_file = f'{wordir}/data/other/sudo_gccsa_income_mortgage_rent_avg_2016.json'
         a = open(sudo_gccsa_income_mortgage_rent_file)
+
         for i in a.readlines():
             t = json.loads(i)
             try:
                 self.pushdata(t, "sudo_gccsa_income_mortgage_rent_avg_2016")
             except Exception as e:
                 print(f"An error occurred: {e}")
+        if os.name == 'nt':  # Check if the operating system is Windows
+             sudo_gccsa_inequality_file = f'{wordir}/flask_api/data/other/sudo_gccsa_inequality_2017.json'
+        else:  # Assume it's a Unix-
+            sudo_gccsa_inequality_file = f'{wordir}/data/other/sudo_gccsa_inequality_2017.json'
 
-        sudo_gccsa_inequality_file = f'{wordir}/data/other/sudo_gccsa_inequality_2017.json'
         a = open(sudo_gccsa_inequality_file)
+
         for i in a.readlines():
             t = json.loads(i)
             try:
                 self.pushdata(t, "sudo_gccsa_inequality_2017")
             except Exception as e:
                 print(f"An error occurred: {e}")
+        if os.name == 'nt':  # Check if the operating system is Windows
+            sudo_gccsa_housing_totals_file = f'{wordir}/flask_api/data/other/sudo_gccsa_housing_totals_2016.json'
+        else:  # Assume it's a Unix-
+            sudo_gccsa_housing_totals_file = f'{wordir}/data/other/sudo_gccsa_housing_totals_2016.json'
 
-        sudo_gccsa_housing_totals_file = f'{wordir}/data/other/sudo_gccsa_housing_totals_2016.json'
         a = open(sudo_gccsa_housing_totals_file)
         for i in a.readlines():
             t = json.loads(i)
@@ -87,8 +104,12 @@ class Couch:
             except Exception as e:
                 print(f"An error occurred: {e}")
 
-        inflation_file = f'{wordir}/data/other/inflation.json'
+        if os.name == 'nt':  # Check if the operating system is Windows
+            inflation_file = f'{wordir}/flask_api/data/other/inflation.json'
+        else:  # Assume it's a Unix-
+            inflation_file = f'{wordir}/data/other/inflation.json'
         a = open(inflation_file)
+
         for i in a.readlines():
             t = json.loads(i)
             try:
@@ -112,25 +133,7 @@ class Couch:
 # Test
 
 
-def harvestAndPush():
-    # Fetching toots
-    while True:
-        # To store toots
-        all_toots = []  # I assume your streaming api is here
-        # search_query = ''
-        try:
-            all_toots = []
-            # Pushing toots to db
-            for i in all_toots:
-                couchdb.pushdata(i, "toot")
-                print(i)
 
-        except:
-            pass
-
-        del all_toots
-        # print("--- %s seconds ---" % (time.time() - start_time))
-        time.sleep(45)
 
 
 def purge_database(database_url, database_name):
