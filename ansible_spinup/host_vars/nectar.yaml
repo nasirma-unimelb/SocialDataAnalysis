@@ -72,13 +72,13 @@ security_groups:
 instances:
   - name: static-db-1
     volumes: ["static-db-1-vol-1", "static-db-1-vol-2"]
-    group: couchdb
+    group: couch
   - name: static-db-2
     volumes: ["static-db-2-vol-1", "static-db-2-vol-2"]
-    group: couchdb
+    group: couch
   - name: static-db-3
     volumes: ["static-db-3-vol-1", "static-db-3-vol-2"]
-    group: couchdb
+    group: couch
   - name: mastodon-harvester
     volumes: ["mastodon-vol-1", "mastodon-vol-2"]
     group: mastodon
