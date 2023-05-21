@@ -6,8 +6,6 @@ ENV ADO_API_KEY, ADO_LOGIN, ADO_SEARCH, MASOTDON_KEY, COUCHDB_IP, COUCHDB_USER, 
 
 ADD . /
 
-echo ${ADO_API_KEY}
-
 RUN pip install -r requirements.txt
 
 RUN chmod +x /entrypoint.sh
