@@ -10,7 +10,7 @@
     - role: openstack-instance
 
 
-- hosts: mastodon
+- hosts: mastodon-dynamic
   vars_files:
     - host_vars/mastodon.yaml
   gather_facts: true
