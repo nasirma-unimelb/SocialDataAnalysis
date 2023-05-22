@@ -40,7 +40,8 @@ class Couch:
         
     def createtootdb(self, couchserver, dbname):
         if dbname in couchserver:
-           pass
+            del couchserver[dbname]  # delete existing database
+            return couchserver.create(dbname)
         else:
             return couchserver.create(dbname)
     # Adding static data to db needed by harvestor

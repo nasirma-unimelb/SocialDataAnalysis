@@ -145,18 +145,27 @@ def pre_task(fetcher: Fetcher):
         inflation_sample_df['week'] < 33)].reset_index()
     weekly_tweets_df = df_tweets[df_tweets['topic'] == 'interest rate'].groupby(
         'week').agg({'id': 'count'}).reset_index().sort_values('week')
+    housing_weekly_tweets_df = df_tweets[df_tweets['topic'] == 'housing'].groupby(
+        'week').agg({'id': 'count'}).reset_index().sort_values('week')
+    inflation_weekly_tweets_df = df_tweets[df_tweets['topic'] == 'inflation'].groupby(
+        'week').agg({'id': 'count'}).reset_index().sort_values('week')
     # convert the date column to datetime type
     weekly_tweets_df = weekly_tweets_df.rename(columns={"week": "Week"})
+    housing_weekly_tweets_df = housing_weekly_tweets_df.rename(columns={"week": "Week"})
+    inflation_weekly_tweets_df = inflation_weekly_tweets_df.rename(columns={"week": "Week"})
     # join the two DataFrames on the date column
     interest_sample_df["RBA Rate"] = interest_sample_df["target_cash_rate"] * 100
     interest_sample_df = interest_sample_df.rename(columns={"week": "Week"})
+    inflation_sample_df = inflation_sample_df.rename(columns={"week": "Week"})
 
     # Merge the weekly_tweets_df with interest_sample_df on 'Week'
     merged_df = pd.merge(weekly_tweets_df, interest_sample_df[[
                          'Week', 'RBA Rate']], on='Week')
-
+    inflation_merged_df = pd.merge(inflation_weekly_tweets_df, inflation_sample_df[[
+                         'Week', 'cpi']], on='Week')
     # Rename the columns
     merged_df = merged_df.rename(columns={"id": "Tweets"})
+    inflation_merged_df = inflation_merged_df.rename(columns={"id": "Tweets"})
 
     # Prepare the data in the desired format
     InterestRaterises_vs_Tweet = {
@@ -166,6 +175,15 @@ def pre_task(fetcher: Fetcher):
             'rightYLabel': 'Tweets'
         },
         'data': merged_df.to_dict(orient='records')
+    }
+
+    inflation_Tweet = {
+        'meta': {
+            'xLabel': 'Week',
+            'leftYLabel': 'cpi',
+            'rightYLabel': 'Tweets'
+        },
+        'data': inflation_merged_df.to_dict(orient='records')
     }
 
     # ----------End Rate--------------------------------------
@@ -443,6 +461,8 @@ def pre_task(fetcher: Fetcher):
     sentiment_freq['bin'] = bin_labels
     # Exclude the 'N/A' bin from the resulting data
     sentiment_freq = sentiment_freq[sentiment_freq["bin"] != "N/A"]
+    sentiment_freq = sentiment_freq[sentiment_freq["bin"] != "-1<"]
+    sentiment_freq = sentiment_freq[sentiment_freq["bin"] != ">1"]
     # Convert the frequencies to a list of dictionaries
     sentiment_data = sentiment_freq.to_dict("records")
 
@@ -502,11 +522,12 @@ def pre_task(fetcher: Fetcher):
     # df_tweet_housing=df_tweet_housing.groupby(["week_number", "target_cash_rate"])["Count"].sum().reset_index()
     @app.route("/Housing_RBA_Related_Tweets")
     def Housing_RBA_Related_Tweets():
+      
         data = {
             "meta": {
                 "xLabel": "Week",
-                "leftYLabel": "RBA Rate",
-                "rightYLabel": "Tweets Related to Housing",
+                "leftYLabel": "RBA Rate(Housing)",
+                "rightYLabel": "Tweets",
             },
             "data": [],
         }
@@ -515,12 +536,12 @@ def pre_task(fetcher: Fetcher):
         for index, row in interest_sample_df.iterrows():
             week = row['Week']
             rba_rate = row['target_cash_rate']
-            tweets = weekly_tweets_df[weekly_tweets_df['Week']
+            tweets = housing_weekly_tweets_df[housing_weekly_tweets_df['Week']
                                       == week]['id'].values[0]
 
             data['data'].append({
                 'Week': int(week),
-                'RBA Rate': np.round(rba_rate, 8),
+                'RBA Rate(Housing)': np.round(rba_rate, 8),
                 'Tweets': int(tweets)
             })
         json_data = data
@@ -531,26 +552,27 @@ def pre_task(fetcher: Fetcher):
 
     @app.route("/inflationTweetsByDate")
     def inflationTweetsByDate():
-        data = {
-            'meta': {
-                'xLabel': 'Week',
-                'leftYLabel': 'Inflation',
-                'rightYLabel': 'Tweets'
-            },
-            'data': []
-        }
+        # data = {
+        #     'meta': {
+        #         'xLabel': 'Week',
+        #         'leftYLabel': 'Inflation',
+        #         'rightYLabel': 'Tweets'
+        #     },
+        #     'data': []
+        # }
 
-        for index, row in weekly_tweets_df.iterrows():
-            week_data = {
-                "Week": row["week"],
-                "Inflation": inflation_sample_df[
-                    inflation_sample_df["week"] == row["week"]
-                ]["cpi"].values[0],
-                "Tweets": row["id"],
-            }
-            data['data'].append(week_data)
-
-        json_data = json.dumps(data)
+        # for index, row in weekly_tweets_df.iterrows():
+        #     week_data = {
+        #         "Week": row["week"],
+        #         "Inflation": inflation_sample_df[
+        #             inflation_sample_df["Week"] == row["Week"]
+        #         ]["cpi"].values[0],
+        #         "Tweets": row["id"],
+        #     }
+        #     data['data'].append(week_data)
+        for item in inflation_Tweet['data']:
+            item['cpi'] = item['cpi'].replace('%', '')
+        json_data = inflation_Tweet
         return json_data
 
     @app.route("/income_mortgage_Tweets")
@@ -664,20 +686,11 @@ def pre_task(fetcher: Fetcher):
 
     @app.route("/locationTweetCounts")
     def locationTweetCounts():
-        df_location = get_location()
-        grouped_data = {}
+        grouped_data = df_tweets.groupby("gcc").size().to_dict()
+        
+        
+        result = [{"gcc": gcc, "tweets": count} for gcc, count in grouped_data.items()]
 
-        for index, row in df_location.iterrows():
-            gcc = row["gcc"]
-            count = row["Count"]
-
-            if gcc not in grouped_data:
-                grouped_data[gcc] = 0
-
-            grouped_data[gcc] += count
-
-        result = [{"gcc": gcc, "tweets": count}
-                  for gcc, count in grouped_data.items()]
         return result
 
     @app.route("/tweetSentimentAnalysis")
@@ -688,6 +701,33 @@ def pre_task(fetcher: Fetcher):
 
     import time
 
+    parser = argparse.ArgumentParser(
+            description="Expose the backend"
+        )  # FIXME: Better description
+    parser.add_argument(
+            "--couchdb_master_ip",
+            type=str,
+            help="ip of a node in the couchdb cluster",
+            default="localhost",
+        )
+    parser.add_argument(
+            "--couchdb_username",
+            type=str,
+            help="username of the couchdb cluster",
+            default="admin",
+        )
+    parser.add_argument(
+            "--couchdb_password",
+            type=str,
+            help="password of the couchdb cluster",
+            default="admin",
+        )
+    args = parser.parse_args()
+        # Save the toot data
+    fetcher = FetcherHarverster(
+            args.couchdb_master_ip, args.couchdb_username, args.couchdb_password
+        )
+    
     @app.route("/tootSentimentAnalysis")
     def tootSentimentAnalysis():
         # Fetch toots
@@ -697,32 +737,7 @@ def pre_task(fetcher: Fetcher):
             result_toots_file = f"{workdir}/flask_api/static/data/result_toots.json"
         else:  # Assume it's a Unix-like system
             result_toots_file = f"{workdir}/static/data/result_toots.json"
-        parser = argparse.ArgumentParser(
-            description="Expose the backend"
-        )  # FIXME: Better description
-        parser.add_argument(
-            "--couchdb_master_ip",
-            type=str,
-            help="ip of a node in the couchdb cluster",
-            default="localhost",
-        )
-        parser.add_argument(
-            "--couchdb_username",
-            type=str,
-            help="username of the couchdb cluster",
-            default="admin",
-        )
-        parser.add_argument(
-            "--couchdb_password",
-            type=str,
-            help="password of the couchdb cluster",
-            default="admin",
-        )
-        args = parser.parse_args()
-        # Save the toot data
-        fetcher = FetcherHarverster(
-            args.couchdb_master_ip, args.couchdb_username, args.couchdb_password
-        )
+        
 
         fetcher.save_toot_data()
 
