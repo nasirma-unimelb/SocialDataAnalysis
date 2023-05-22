@@ -2,31 +2,13 @@
 availability_zone: melbourne-qh2-uom
 instance_image: bbaf16f8-2484-48d7-b455-42209cc4b8d2
 instance_key_name: tmp
-# instance_key_name: id_ed25519
 instance_flavor: uom.mse.1c4g
-# instance_network: qh2-uom-internal
 
 # Volume
 volumes:
-  - vol_name: static-db-1-vol-1
+  - vol_name: mastodon-dynamic-vol-1
     vol_size: 10
-  - vol_name: static-db-1-vol-2
-    vol_size: 10
-  - vol_name: static-db-2-vol-1
-    vol_size: 10
-  - vol_name: static-db-2-vol-2
-    vol_size: 10
-  - vol_name: static-db-3-vol-1
-    vol_size: 10
-  - vol_name: static-db-3-vol-2
-    vol_size: 10
-  - vol_name: mastodon-vol-1
-    vol_size: 10
-  - vol_name: mastodon-vol-2
-    vol_size: 10
-  - vol_name: backend-vol-1
-    vol_size: 10
-  - vol_name: backend-vol-2
+  - vol_name: mastodon-dynamic-vol-2
     vol_size: 10
 
 # Security group
@@ -70,18 +52,6 @@ security_groups:
 
 # Instance
 instances:
-  - name: static-db-1
-    volumes: ["static-db-1-vol-1", "static-db-1-vol-2"]
-    group: couch
-  - name: static-db-2
-    volumes: ["static-db-2-vol-1", "static-db-2-vol-2"]
-    group: couch
-  - name: static-db-3
-    volumes: ["static-db-3-vol-1", "static-db-3-vol-2"]
-    group: couch
-  - name: mastodon-harvester
-    volumes: ["mastodon-vol-1", "mastodon-vol-2"]
-    group: mastodon
-  - name: backend-server
-    volumes: ["backend-vol-1", "backend-vol-2"]
-    group: backend
+  - name: mastodon-dynamic-harvester
+    volumes: ["mastodon-dynamic-vol-1", "mastodon-dynamic-vol-2"]
+    group: mastodon-dynamic
