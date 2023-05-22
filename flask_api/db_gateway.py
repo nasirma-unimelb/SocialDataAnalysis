@@ -1,16 +1,13 @@
 #
 import couchdb
 import json
-import time
-import random
-import requests
 import os
 
 
 class Couch:
     # Establishing Connection with db
     def __init__(
-        self, ip, dbnamelist, username: str = "admin", password: str = "admin"
+        self, ip, dbnamelist, username: str = "admin", password: str = "admin",harvest:bool=False
     ):
         couchserver = couchdb.Server(url=ip)
         couchserver.resource.credentials = (username, password)
@@ -24,12 +21,15 @@ class Couch:
 
         # Creating or loading db
         for dbname in dbsl:
-            self.db = self.db + [self.createdb(couchserver, dbname)]
-        for dbname in dbnamelist:
-            self.db = self.db + [self.createdb(couchserver, dbname)]
+            if  not harvest:
+                self.db = self.db + [self.createdb(couchserver, dbname)]
+            else:
+                self.db = self.db + [self.createtootdb(couchserver, dbname)]
         # Adding static data to db
-        self.create_static()
-
+        if not harvest:
+            self.create_static()
+   
+       
     # Creating db if it does not exist, else loading it
     def createdb(self, couchserver, dbname):
         if dbname in couchserver:
@@ -37,22 +37,46 @@ class Couch:
             return couchserver.create(dbname)
         else:
             return couchserver.create(dbname)
+        
+    def createtootdb(self, couchserver, dbname):
+        if dbname in couchserver:
+           pass
+        else:
+            return couchserver.create(dbname)
     # Adding static data to db needed by harvestor
+    
 
     def create_static(self):
         wordir = os.getcwd()
-        if os.name == 'nt':  # Check if the operating system is Windows
-            twitter_file = os.path.join(wordir, 'flask_api','data', 'twitter', 'twitter_small.json')
-        else:  # Assume it's a Unix-like system (e.g., Linux or macOS)
-            twitter_file = f'{wordir}/data/twitter/twitter_small.json'
+        # if os.name == 'nt':  # Check if the operating system is Windows
+        #     twitter_file = os.path.join(wordir, 'flask_api', 'data', 'twitter', 'twitter.json')
+        # else:  # Assume it's a Unix-like system (e.g., Linux or macOS)
+        #     twitter_file = os.path.join(wordir, 'data', 'twitter', 'twitter.json')
+        # try:
+        #     with open(twitter_file) as f:
+        #         data = json.load(f)
+        #         for doc in data.get('docs', []):
+        #             sentiment = doc.get('sentiment')
+        #             if sentiment is not None:
+        #                 if isinstance(sentiment, (int, float)):
+        #                     if sentiment > 1e308 or sentiment < -1e308:
+        #                         # Out of range float value, convert it to a string
+        #                         doc['sentiment'] = str(sentiment)
+        #                 else:
+        #                     print('Invalid sentiment value:', sentiment)
+        #                     continue
 
-        a = open(twitter_file)
-        for i in a.readlines():
-            t = json.loads(i)
-            try:
-                self.pushdata(t, "tweet")
-            except Exception as e:
-                print(f"An error occurred: {e}")
+        #             try:
+        #                 self.pushdata(data, "tweet")
+        #             except Exception as e:
+        #                 print(f"An error occurred: {e}")
+        # except FileNotFoundError:
+        #     print('File not found:', twitter_file)
+        # except json.JSONDecodeError as e:
+        #     print('Error decoding JSON file:', e)
+
+        
+
         if os.name == 'nt':  # Check if the operating system is Windows
             rba_target_cash_rate_file = f'{wordir}/flask_api/data/other/rba_target_cash_rate.json'
         else:  # Assume it's a Unix-like system (e.g., Linux or macOS)
@@ -116,13 +140,16 @@ class Couch:
                 self.pushdata(t, "inflation")
             except Exception as e:
                 print(f"An error occurred: {e}")
-
+    
     # Pushing harvested mastadon's toots
     def pushdata(self, data, dbname):
         flag = 0
         for i in self.db:
             if dbname == i._name:
                 flag = 0
+                #rounded_sentiment = round(data["sentiment"], 2)  # Rounded to 2 decimal places
+# Update the data with the rounded value
+                #data["sentiment"] = rounded_sentiment
                 i.save(data)
                 break
             else:
@@ -133,7 +160,12 @@ class Couch:
 # Test
 
 
-
+def split_document(data, chunk_size):
+        chunks = []
+        for i in range(0, len(data), chunk_size):
+            chunk = data[i:i+chunk_size]
+            chunks.append(chunk)
+        return chunks
 
 
 def purge_database(database_url, database_name):

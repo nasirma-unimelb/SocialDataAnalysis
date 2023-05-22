@@ -1,5 +1,4 @@
 import couchdb
-import csv
 import json
 from db_gateway import Couch
 import os
@@ -33,15 +32,19 @@ class Fetcher:
             "sudo_gccsa_income_mortgage_rent_avg_2016",
             "sudo_gccsa_housing_totals_2016",
             "sudo_gccsa_inequality_2017",
-            "inflation",'toot',
+            "inflation",
         ]
         self.view_name_income_rent = "income_rent_Data"
         self.design_doc_name_income_rent = "_design/mydesign_" + self.view_name_income_rent
 
         self.view_name_inequality = "inequality_Data"
         self.design_doc_name_inequality = "_design/mydesign_" + self.view_name_inequality
+
+        self.view_name_toot = "toot_Data"
+        self.design_doc_name_toot = "_design/mydesign_" + self.view_name_toot
+
         self.couchobj = Couch(
-            f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/", dbsl, couchdb_username, couchdb_password)
+            f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/", dbsl, couchdb_username, couchdb_password,False)
 
         self.couchdbs = couchdb.Server(
             f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/"
@@ -91,7 +94,27 @@ class Fetcher:
                 design_doc["views"][view_name] = {
                     "map": topic_func, "reduce": "_count"}
                 self.db.save(design_doc)
+      # Define the index function
+        index_func = {
+            "index": {
+                "fields": ["docs.topic", "docs.timestamp", "docs.gcc"]
+            },
+            "name": "topic-time-gcc-index",
+            "type": "json"
+        }
 
+        # Check if the design document already exists
+        if design_doc_name_topic not in self.db:
+            self.db[design_doc_name_topic] = {
+                "indexes": [index_func]
+            }
+        else:
+            design_doc = self.db[design_doc_name_topic]
+            if "indexes" not in design_doc:
+                design_doc["indexes"] = [index_func]
+            else:
+                design_doc["indexes"].append(index_func)
+            self.db.save(design_doc)
     # --------------------END of Topic-------------------------------------------
 
     # ---------Rate View------------------------------------------------------------------------
@@ -104,17 +127,16 @@ class Fetcher:
         )
         # Define the view function
         target_rate_func = """function (doc) {
-    if (doc.docs) {
-        doc.docs.forEach(function(d) {
-        var date = new Date(d.date);
-        var weekStart = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
-        var weekNo = Math.ceil((((weekStart - new Date(weekStart.getFullYear(),0,1)) / 86400000) + 1)/7);
-        if (date.getDay() === 1) {
-            emit(weekStart.toISOString().substring(0, 10), d.target_cash_rate);
-        }
-        });
+  if (doc.docs) {
+    for (var i = 0; i < doc.docs.length; i++) {
+      var data = doc.docs[i];
+      if (data.date && data.target_cash_rate) {
+        emit(data.date, data.target_cash_rate);
+      }
     }
-    }
+  }
+}
+
     """
 
         # Define the design document name and view name
@@ -188,17 +210,15 @@ class Fetcher:
         self.design_doc_name_inflation = "_design/mydesign_" + self.view_name_inflation
         # Define the view function
         inflation_func = """function (doc) {
-    if (doc.docs) {
-        doc.docs.forEach(function(d) {
-        var date = new Date(d.date);
-        var weekStart = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
-        var weekNo = Math.ceil((((weekStart - new Date(weekStart.getFullYear(),0,1)) / 86400000) + 1)/7);
-        if (date.getDay() === 1) {
-            emit(date.toISOString().substring(0, 10), d.cpi);
-        }
-        });
+  if (doc.docs) {
+    for (var i = 0; i < doc.docs.length; i++) {
+      var data = doc.docs[i];
+      if (data.date && data.cpi) {
+        emit(data.date, data.cpi);
+      }
     }
-    }
+  }
+}
     """
 
         # Define the design document name and view name
@@ -391,6 +411,71 @@ class Fetcher:
 
     # -----------------------END inequality---------------------------------------------
 
+      # ---------toot View------------------------------------------------------------------------
+    def get_toot(
+        self,
+    ):
+        self.view_name_toot = "toot_Data"
+        self.design_doc_name_toot = (
+            "_design/mydesign_" + self.view_name_toot
+        )
+        # Define the view function
+        toot_func = """function(doc) {
+  var sentiment = doc.sentiment;
+  var bin = '';
+
+  if (sentiment < -1) {
+    bin = '-1<';
+  } else if (sentiment >= -1 && sentiment < -0.75) {
+    bin = '-1 / -0.75';
+  } else if (sentiment >= -0.75 && sentiment < -0.5) {
+    bin = '-0.75 / -0.50';
+  } else if (sentiment >= -0.5 && sentiment < -0.25) {
+    bin = '-0.50 / -0.25';
+  } else if (sentiment >= -0.25 && sentiment < 0) {
+    bin = '-0.25 / 0.00';
+  } else if (sentiment >= 0 && sentiment < 0.25) {
+    bin = '0.00 / 0.25';
+  } else if (sentiment >= 0.25 && sentiment < 0.50) {
+    bin = '0.25 / 0.50';
+  } else if (sentiment >= 0.50 && sentiment < 0.75) {
+    bin = '0.50 / 0.75';
+  } else if (sentiment >= 0.75 && sentiment <= 1) {
+    bin = '0.75 / 1';
+  } else if (sentiment > 1) {
+    bin = '>1';
+  }
+
+  emit(bin, 1);
+}
+
+    """
+        toot_reduce_func='''function(keys, values, rereduce) {
+  return sum(values);
+}
+'''
+
+        # Define the design document name and view name
+        design_doc_name = self.design_doc_name_toot
+        view_name = self.view_name_toot
+
+        # Check if the design document already exists
+        if design_doc_name not in self.toot_db:
+            self.toot_db[design_doc_name] = {
+                "views": {view_name: {"map": toot_func}}
+            }
+        else:
+            design_doc = self.toot_db[design_doc_name]
+            if view_name not in design_doc["views"]:
+                design_doc["views"][view_name] = {
+                    "map": toot_func,
+                    "reduce": toot_reduce_func,
+                }
+                self.toot_db.save(design_doc)
+
+    # -----------------------END toot---------------------------------------------
+
+
     def save_target_rates(
         self,
     ):
@@ -464,9 +549,9 @@ class Fetcher:
 
         # Save the dictionary to a JSON file
         if os.name == 'nt':  # Check if the operating system is Windows
-              result_housing_totals_file = f'flask_api/static/data/result_inflations.json'
+              result_housing_totals_file = f'flask_api/static/data/housing_totals.json'
         else:  # Assume it's a Unix-
-            result_housing_totals_file = f'{self.workdir}/static/data/result_inflations.json'
+            result_housing_totals_file = f'{self.workdir}/static/data/housing_totals.json'
         with open(result_housing_totals_file, "w") as jsonfile:
             json.dump(result_dict, jsonfile)
         # Print the results
@@ -613,6 +698,10 @@ class Fetcher:
         # for row in result_locations:
         #     print(row.key, row.value)
 
+
+    
+
+
     def get_rural_urban(self, gcc):
         if gcc.startswith("1"):
             return "metropolitan"
@@ -620,16 +709,5 @@ class Fetcher:
             return "rural"
 
 
-    def harvestAndPush(self,toots):
-    # Fetching toots
-        try:
-            
-            all_toots = toots
-            # Pushing toots to db
-            for i in all_toots:
-               self.toot_db.save(i)
-
-        except:
-            pass
 
         

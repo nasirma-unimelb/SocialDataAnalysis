@@ -1,6 +1,10 @@
-# Need to populate with versions
+
 argparse==1.4.0
-couchdb
-flask
-pandas
-flask_cors
+couchdb==1.2
+flask==2.3.2
+pandas==2.0.1
+flask_cors==3.0.10
+textblob==0.17.1
+requests==2.30.0
+mastodon.py==1.8.1
+numpy==1.24.3
