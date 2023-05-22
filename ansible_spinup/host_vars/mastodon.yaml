@@ -15,3 +15,5 @@ ado_login: "https://api.ado.eresearch.unimelb.edu.au/login"
 ado_search: "https://api.ado.eresearch.unimelb.edu.au/analysis/textsearch/collections/mastodon"
 mastodon_key: "f8-yNpSEGxPcQwwz_GxYtET3VumoGZ6KAQAH6bybICE"
 masternode: "{{ groups['couch'][0] }}"
+couchdb_password: admin
+couchdb_user: admin

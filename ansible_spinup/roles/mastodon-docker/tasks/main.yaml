@@ -79,6 +79,8 @@
       ADO_SEARCH: "{{ ado_search }}"
       MASOTDON_KEY: "{{ mastodon_key }}"
       COUCHDB_IP: "{{ masternode }}"
+      COUCHDB_USER: "{{ couchdb_user }}"
+      COUCHDB_PASWORD: "{{ couchdb_password }}"
     state: started
     pull: true
     recreate: true

@@ -1,11 +1,11 @@
-import harvester
+import harvester_dep
 import sys
 import requests
 import subprocess
 
 if __name__ == "__main__":
     print("Running main")
-    harvester.harvest()
+    harvester_dep.harvest()
     print("Imported from /harvester")
     print(sys.argv)
     if sys.argv[-1] == "post":
