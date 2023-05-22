@@ -12,7 +12,7 @@
 
 - hosts: mastodon-dynamic
   vars_files:
-    - host_vars/mastodon.yaml
+    - host_vars/mastodon-dynamic.yaml
   gather_facts: true
   
   roles:
