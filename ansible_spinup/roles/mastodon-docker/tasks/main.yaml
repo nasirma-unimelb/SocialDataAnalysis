@@ -77,7 +77,7 @@
       ADO_API_KEY: "{{ ado_api_key }}"
       ADO_LOGIN: "{{ ado_login }}"
       ADO_SEARCH: "{{ ado_search }}"
-      MASOTDON_KEY: "{{ mastodon_key }}"
+      MASTODON_KEY: "{{ mastodon_key }}"
       COUCHDB_IP: "{{ masternode }}"
       COUCHDB_USER: "{{ couchdb_user }}"
       COUCHDB_PASWORD: "{{ couchdb_password }}"
