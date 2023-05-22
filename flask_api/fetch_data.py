@@ -44,7 +44,7 @@ class Fetcher:
         self.design_doc_name_toot = "_design/mydesign_" + self.view_name_toot
 
         self.couchobj = Couch(
-            f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/", dbsl, couchdb_username, couchdb_password,False)
+            f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/", dbsl, couchdb_username, couchdb_password, False)
 
         self.couchdbs = couchdb.Server(
             f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/"
@@ -59,6 +59,8 @@ class Fetcher:
         self.income_rent_db = self.couchdbs["sudo_gccsa_income_mortgage_rent_avg_2016"]
         self.inequality_db = self.couchdbs["sudo_gccsa_inequality_2017"]
         self.toot_db = self.couchdbs["toot"]
+
+        self.workdir = os.getcwd()
 
     # ----Topic View----------------------------------------------------------
     def getTweetTopicOverTime(
@@ -450,7 +452,7 @@ class Fetcher:
 }
 
     """
-        toot_reduce_func='''function(keys, values, rereduce) {
+        toot_reduce_func = '''function(keys, values, rereduce) {
   return sum(values);
 }
 '''
@@ -474,7 +476,6 @@ class Fetcher:
                 self.toot_db.save(design_doc)
 
     # -----------------------END toot---------------------------------------------
-
 
     def save_target_rates(
         self,
@@ -518,7 +519,7 @@ class Fetcher:
 
         # Save the dictionary to a JSON file
         if os.name == 'nt':  # Check if the operating system is Windows
-             result_inflations_file = f'flask_api/static/data/result_inflations.json'
+            result_inflations_file = f'flask_api/static/data/result_inflations.json'
         else:  # Assume it's a Unix-
             result_inflations_file = f'{self.workdir}/static/data/result_inflations.json'
 
@@ -549,7 +550,7 @@ class Fetcher:
 
         # Save the dictionary to a JSON file
         if os.name == 'nt':  # Check if the operating system is Windows
-              result_housing_totals_file = f'flask_api/static/data/housing_totals.json'
+            result_housing_totals_file = f'flask_api/static/data/housing_totals.json'
         else:  # Assume it's a Unix-
             result_housing_totals_file = f'{self.workdir}/static/data/housing_totals.json'
         with open(result_housing_totals_file, "w") as jsonfile:
@@ -577,7 +578,7 @@ class Fetcher:
 
         # Save the dictionary to a JSON file
         if os.name == 'nt':  # Check if the operating system is Windows
-             result_inequalitys_file = f'flask_api/static/data/result_inequalitys.json'
+            result_inequalitys_file = f'flask_api/static/data/result_inequalitys.json'
         else:  # Assume it's a Unix-
             result_inequalitys_file = f'{self.workdir}/static/data/result_inequalitys.json'
 
@@ -606,7 +607,7 @@ class Fetcher:
 
         # Save the dictionary to a JSON file
         if os.name == 'nt':  # Check if the operating system is Windows
-             result_income_rents_file = f'flask_api/static/data/result_income_rents.json'
+            result_income_rents_file = f'flask_api/static/data/result_income_rents.json'
         else:  # Assume it's a Unix-
             result_income_rents_file = f'{self.workdir}/static/data/result_income_rents.json'
 
@@ -655,9 +656,8 @@ class Fetcher:
         #     for row in result_topics:
         #         writer.writerow([row.value])
 
-   
-
     # Query the view
+
     def save_Topic_over_time(
         self,
     ):
@@ -698,16 +698,8 @@ class Fetcher:
         # for row in result_locations:
         #     print(row.key, row.value)
 
-
-    
-
-
     def get_rural_urban(self, gcc):
         if gcc.startswith("1"):
             return "metropolitan"
         else:
             return "rural"
-
-
-
-        

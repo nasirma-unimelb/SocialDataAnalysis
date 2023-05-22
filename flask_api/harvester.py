@@ -7,8 +7,7 @@ import os
 class FetcherHarverster:
     def __init__(self, couchdb_master_ip, couchdb_username, couchdb_password) -> None:
         # Connect to the CouchDB server and select a database
-      
-       
+
         dbsl = [
             # "tweet",
             # "rba_target_cash_rate",
@@ -16,22 +15,24 @@ class FetcherHarverster:
             # "sudo_gccsa_housing_totals_2016",
             # "sudo_gccsa_inequality_2017",
             # "inflation",
-                "toot",
+            "toot",
         ]
         self.view_name_toot = "toot_Data"
         self.design_doc_name_toot = "_design/mydesign_" + self.view_name_toot
 
         self.couchobj = Couch(
-            f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/", dbsl, couchdb_username, couchdb_password,True)
+            f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/", dbsl, couchdb_username, couchdb_password, True)
 
         self.couchdbs = couchdb.Server(
             f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/"
         )
-       
+
         self.toot_db = self.couchdbs["toot"]
 
+        self.workdir = os.getcwd()
 
       # ---------toot View------------------------------------------------------------------------
+
     def get_toot(self):
         self.view_name_toot = "toot_Data"
         self.design_doc_name_toot = "_design/mydesign_" + self.view_name_toot
@@ -95,12 +96,7 @@ class FetcherHarverster:
                 }
                 self.toot_db.save(design_doc)
 
-
     # -----------------------END toot---------------------------------------------
-
-
-   
-
 
     def save_toot_data(
         self,
@@ -122,19 +118,15 @@ class FetcherHarverster:
         # for row in result_toots:
         #     print(row.key, row.value)
 
-
-
-
-
     def harvestAndPush(self, toots):
         # Fetching toots
         try:
             all_toots = toots
-            document = json.dumps(all_toots)  # Convert the document to JSON string
-            headers = {'Content-Type': 'application/json'}  # Specify the Content-Type header
-            self.toot_db.save(json.loads(toots), headers=headers) 
-            # self.toot_db.save(toots) 
+            # Convert the document to JSON string
+            document = json.dumps(all_toots)
+            # Specify the Content-Type header
+            headers = {'Content-Type': 'application/json'}
+            self.toot_db.save(json.loads(toots), headers=headers)
+            # self.toot_db.save(toots)
         except Exception as e:
             print(f"An error occurred: {str(e)}")
-
-        
