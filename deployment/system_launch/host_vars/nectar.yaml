@@ -67,6 +67,12 @@ security_groups:
     port_range_min: 4369
     port_range_max: 4369
     remote_ip_prefix: 0.0.0.0/0
+  - name: front-end
+    description: "front-end to back-end"
+    protocol: tcp
+    port_range_min: 5000
+    port_range_max: 5000
+    remote_ip_prefix: 0.0.0.0/0
 
 # Instance
 instances:
