@@ -1,0 +1,22 @@
+- hosts: localhost
+  vars_files:
+    - host_vars/nectar.yaml
+  gather_facts: true
+
+  roles:
+    - role: openstack-common
+    - role: openstack-volume
+    - role: openstack-security-group
+    - role: openstack-instance
+
+
+- hosts: mastodon
+  vars_files:
+    - host_vars/mastodon.yaml
+  gather_facts: true
+  
+  roles:
+    - role: couch-common
+    - role: couch-volumes
+    - role: couch-docker
+    - role: mastodon-docker
