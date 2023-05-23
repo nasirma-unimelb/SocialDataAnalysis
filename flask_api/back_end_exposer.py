@@ -19,13 +19,12 @@ def pre_task(fetcher: Fetcher):
     # ---toot Data---------------------------------------
 
     # Load the JSON
-    if os.name == 'nt':  # Check if the operating system is Windows
-        results_topics_file = f'{workdir}/flask_api/static/data/result_topics.json'
-        twitter_file = f'{workdir}/flask_api/data/twitter/twitter.json'
+    if os.name == "nt":  # Check if the operating system is Windows
+        results_topics_file = f"{workdir}/flask_api/static/data/result_topics.json"
+        twitter_file = f"{workdir}/flask_api/data/twitter/twitter.json"
     else:  # Assume it's a Unix-
-        results_topics_file = f'{workdir}/static/data/result_topics.json'
-        twitter_file = os.path.join(
-            f'{workdir}', 'data', 'twitter', 'twitter.json')
+        results_topics_file = f"{workdir}/static/data/result_topics.json"
+        twitter_file = os.path.join(f"{workdir}", "data", "twitter", "twitter.json")
 
     fetcher.save_Topic_over_time()
     try:
@@ -42,7 +41,8 @@ def pre_task(fetcher: Fetcher):
             # Convert the JSON data into a DataFrame
             if len(data) > 0:
                 df_locs = pd.DataFrame.from_dict(
-                    data, orient="index", columns=["value"])
+                    data, orient="index", columns=["value"]
+                )
                 df_tweets = df_locs
                 df_locs.reset_index(inplace=True)
                 df_locs[["type", "date", "week_number", "gcc"]] = pd.DataFrame(
@@ -58,14 +58,19 @@ def pre_task(fetcher: Fetcher):
                     # Convert the JSON data into a DataFrame
                     df_locs = pd.DataFrame.from_dict(data["docs"])
                     df_locs["type"] = df_locs["search_term"]
-                    df_locs["date"] = pd.to_datetime(
-                        df_locs["timestamp"]).dt.date
+                    df_locs["date"] = pd.to_datetime(df_locs["timestamp"]).dt.date
                     df_locs["week_number"] = df_locs["week"]
                     df_locs["gcc"] = df_locs["gcc"]
-                    df_locs = df_locs.groupby(
-                        ["type", "date", "week_number", "gcc"]).size().reset_index(name="value")
-                    df_locs_group_by_week = df_locs.groupby(
-                        ["type", "week_number", "gcc"]).size().reset_index(name="value")
+                    df_locs = (
+                        df_locs.groupby(["type", "date", "week_number", "gcc"])
+                        .size()
+                        .reset_index(name="value")
+                    )
+                    df_locs_group_by_week = (
+                        df_locs.groupby(["type", "week_number", "gcc"])
+                        .size()
+                        .reset_index(name="value")
+                    )
 
                 except Exception as e:
                     print(f"An error occurred: {e}")
@@ -95,8 +100,10 @@ def pre_task(fetcher: Fetcher):
     df_rate.reset_index(inplace=True)
     # interest_sample_df = df_rate.groupby('week_number').agg({'target_cash_rate':'max'}).reset_index()
     # ---inflation Data-----------------------
-    if os.name == 'nt':  # Check if the operating system is Windows
-        result_inflations_file = f'{workdir}/flask_api/static/data/result_inflations.json'
+    if os.name == "nt":  # Check if the operating system is Windows
+        result_inflations_file = (
+            f"{workdir}/flask_api/static/data/result_inflations.json"
+        )
     else:  # Assume it's a Unix-
         result_inflations_file = f"{workdir}/static/data/result_inflations.json"
     fetcher.save_inflations()
@@ -123,67 +130,87 @@ def pre_task(fetcher: Fetcher):
     # df_inflation_copy = df_inflation_copy.rename(columns={'week_number': 'weekno'})
 
     interest_df = df_rate
-    interest_df['date'] = pd.to_datetime(
-        interest_df['date'], format="%d/%m/%Y")
-    interest_df['week'] = interest_df['date'].dt.isocalendar().week
-    interest_df['month'] = interest_df['date'].dt.month
-    interest_sample_df = interest_df[(interest_df['date'] >= dt.datetime(
-        2022, 2, 10)) & (interest_df['date'] <= dt.datetime(2022, 8, 10))]
-    interest_sample_df = interest_sample_df.groupby(
-        'week').agg({'target_cash_rate': 'max'}).reset_index()
+    interest_df["date"] = pd.to_datetime(interest_df["date"], format="%d/%m/%Y")
+    interest_df["week"] = interest_df["date"].dt.isocalendar().week
+    interest_df["month"] = interest_df["date"].dt.month
+    interest_sample_df = interest_df[
+        (interest_df["date"] >= dt.datetime(2022, 2, 10))
+        & (interest_df["date"] <= dt.datetime(2022, 8, 10))
+    ]
+    interest_sample_df = (
+        interest_sample_df.groupby("week")
+        .agg({"target_cash_rate": "max"})
+        .reset_index()
+    )
 
     inflation_df = df_inflation
-    inflation_df['date'] = pd.to_datetime(
-        inflation_df['date'], format="%d/%m/%Y")
-    inflation_df['month'] = inflation_df['date'].dt.month
-    inflation_sample_df = inflation_df[(inflation_df['date'] >= dt.datetime(
-        2022, 2, 1)) & (inflation_df['date'] <= dt.datetime(2022, 8, 10))]
-    inflation_sample_df = pd.merge(interest_df[[
-                                   'date', 'week', 'month']], inflation_sample_df[['month', 'cpi']], on='month')
-    inflation_sample_df = inflation_sample_df.drop_duplicates('week')
-    inflation_sample_df = inflation_sample_df[(inflation_sample_df['week'] > 5) & (
-        inflation_sample_df['week'] < 33)].reset_index()
-    weekly_tweets_df = df_tweets[df_tweets['topic'] == 'interest rate'].groupby(
-        'week').agg({'id': 'count'}).reset_index().sort_values('week')
-    housing_weekly_tweets_df = df_tweets[df_tweets['topic'] == 'housing'].groupby(
-        'week').agg({'id': 'count'}).reset_index().sort_values('week')
-    inflation_weekly_tweets_df = df_tweets[df_tweets['topic'] == 'inflation'].groupby(
-        'week').agg({'id': 'count'}).reset_index().sort_values('week')
+    inflation_df["date"] = pd.to_datetime(inflation_df["date"], format="%d/%m/%Y")
+    inflation_df["month"] = inflation_df["date"].dt.month
+    inflation_sample_df = inflation_df[
+        (inflation_df["date"] >= dt.datetime(2022, 2, 1))
+        & (inflation_df["date"] <= dt.datetime(2022, 8, 10))
+    ]
+    inflation_sample_df = pd.merge(
+        interest_df[["date", "week", "month"]],
+        inflation_sample_df[["month", "cpi"]],
+        on="month",
+    )
+    inflation_sample_df = inflation_sample_df.drop_duplicates("week")
+    inflation_sample_df = inflation_sample_df[
+        (inflation_sample_df["week"] > 5) & (inflation_sample_df["week"] < 33)
+    ].reset_index()
+    weekly_tweets_df = (
+        df_tweets[df_tweets["topic"] == "interest rate"]
+        .groupby("week")
+        .agg({"id": "count"})
+        .reset_index()
+        .sort_values("week")
+    )
+    housing_weekly_tweets_df = (
+        df_tweets[df_tweets["topic"] == "housing"]
+        .groupby("week")
+        .agg({"id": "count"})
+        .reset_index()
+        .sort_values("week")
+    )
+    inflation_weekly_tweets_df = (
+        df_tweets[df_tweets["topic"] == "inflation"]
+        .groupby("week")
+        .agg({"id": "count"})
+        .reset_index()
+        .sort_values("week")
+    )
     # convert the date column to datetime type
     weekly_tweets_df = weekly_tweets_df.rename(columns={"week": "Week"})
     housing_weekly_tweets_df = housing_weekly_tweets_df.rename(columns={"week": "Week"})
-    inflation_weekly_tweets_df = inflation_weekly_tweets_df.rename(columns={"week": "Week"})
+    inflation_weekly_tweets_df = inflation_weekly_tweets_df.rename(
+        columns={"week": "Week"}
+    )
     # join the two DataFrames on the date column
     interest_sample_df["RBA Rate"] = interest_sample_df["target_cash_rate"] * 100
     interest_sample_df = interest_sample_df.rename(columns={"week": "Week"})
     inflation_sample_df = inflation_sample_df.rename(columns={"week": "Week"})
 
     # Merge the weekly_tweets_df with interest_sample_df on 'Week'
-    merged_df = pd.merge(weekly_tweets_df, interest_sample_df[[
-                         'Week', 'RBA Rate']], on='Week')
-    inflation_merged_df = pd.merge(inflation_weekly_tweets_df, inflation_sample_df[[
-                         'Week', 'cpi']], on='Week')
+    merged_df = pd.merge(
+        weekly_tweets_df, interest_sample_df[["Week", "RBA Rate"]], on="Week"
+    )
+    inflation_merged_df = pd.merge(
+        inflation_weekly_tweets_df, inflation_sample_df[["Week", "cpi"]], on="Week"
+    )
     # Rename the columns
     merged_df = merged_df.rename(columns={"id": "Tweets"})
     inflation_merged_df = inflation_merged_df.rename(columns={"id": "Tweets"})
 
     # Prepare the data in the desired format
     InterestRaterises_vs_Tweet = {
-        'meta': {
-            'xLabel': 'Week',
-            'leftYLabel': 'RBA Rate',
-            'rightYLabel': 'Tweets'
-        },
-        'data': merged_df.to_dict(orient='records')
+        "meta": {"xLabel": "Week", "leftYLabel": "RBA Rate", "rightYLabel": "Tweets"},
+        "data": merged_df.to_dict(orient="records"),
     }
 
     inflation_Tweet = {
-        'meta': {
-            'xLabel': 'Week',
-            'leftYLabel': 'cpi',
-            'rightYLabel': 'Tweets'
-        },
-        'data': inflation_merged_df.to_dict(orient='records')
+        "meta": {"xLabel": "Week", "leftYLabel": "cpi", "rightYLabel": "Tweets"},
+        "data": inflation_merged_df.to_dict(orient="records"),
     }
 
     # ----------End Rate--------------------------------------
@@ -204,23 +231,21 @@ def pre_task(fetcher: Fetcher):
             if len(location_data) > 0:
                 df_location = pd.DataFrame(
                     [
-                        [eval(key)[0], eval(key)[1], eval(
-                            key)[2], eval(key)[3], value]
+                        [eval(key)[0], eval(key)[1], eval(key)[2], eval(key)[3], value]
                         for key, value in location_data.items()
                     ],
-                    columns=["Location", "gcc",
-                             "Coordinates", "date", "Count"],
+                    columns=["Location", "gcc", "Coordinates", "date", "Count"],
                 )
 
                 df_location["date"] = pd.to_datetime(df_location["date"])
             else:
                 try:
-
-                    if os.name == 'nt':  # Check if the operating system is Windows
-                        twitter_file = f'{workdir}/flask_api/data/twitter/twitter.json'
+                    if os.name == "nt":  # Check if the operating system is Windows
+                        twitter_file = f"{workdir}/flask_api/data/twitter/twitter.json"
                     else:  # Assume it's a Unix-
                         twitter_file = os.path.join(
-                            f'{workdir}', 'data', 'twitter', 'twitter.json')
+                            f"{workdir}", "data", "twitter", "twitter.json"
+                        )
                     with open(twitter_file) as f:
                         data = json.load(f)
 
@@ -230,14 +255,23 @@ def pre_task(fetcher: Fetcher):
 
                     df_location["Location"] = df_location["location"]
                     df_location["date"] = pd.to_datetime(
-                        df_location["timestamp"]).dt.date
+                        df_location["timestamp"]
+                    ).dt.date
                     df_location["Coordinates"] = df_location["coordinates"]
                     df_location["week_number"] = df_location["week"]
                     df_location["gcc"] = df_location["gcc"]
-                    df_location = df_location.groupby(
-                        ["Location", "date", "week_number", "Coordinates", "gcc"]).size().reset_index(name="Count")
-                    df_location_group_by_week = df_location.groupby(
-                        ["Location", "week_number", "gcc"]).size().reset_index(name="Count")
+                    df_location = (
+                        df_location.groupby(
+                            ["Location", "date", "week_number", "Coordinates", "gcc"]
+                        )
+                        .size()
+                        .reset_index(name="Count")
+                    )
+                    df_location_group_by_week = (
+                        df_location.groupby(["Location", "week_number", "gcc"])
+                        .size()
+                        .reset_index(name="Count")
+                    )
 
                 except Exception as e:
                     print(f"An error occurred: {e}")
@@ -289,8 +323,7 @@ def pre_task(fetcher: Fetcher):
     df_income_mortgage.index.name = "gcc_code16"
     df_income_mortgage.reset_index(inplace=True)
 
-    df_income_mortgage = df_income_mortgage.rename(
-        columns={"gcc_code16": "gcc"})
+    df_income_mortgage = df_income_mortgage.rename(columns={"gcc_code16": "gcc"})
     df_income_mortgage["gcc"] = df_income_mortgage["gcc"].str.lower()
 
     # convert the date column to datetime type
@@ -308,8 +341,7 @@ def pre_task(fetcher: Fetcher):
     # df_income_mortgage['weekno'] = df_income_mortgage['date'].dt.isocalendar().week
 
     # Join the two DataFrames on the modified 'date' column
-    df_tweet_income_mortgage = pd.merge(
-        df_grouped, df_income_mortgage, on="gcc")
+    df_tweet_income_mortgage = pd.merge(df_grouped, df_income_mortgage, on="gcc")
 
     # ----------End income_mortgage--------------------------------------
 
@@ -375,8 +407,9 @@ def pre_task(fetcher: Fetcher):
 
     grouped_df = df_locs.groupby(["gcc", "type"])["value"].sum().reset_index()
 
-    df_loc_tweets_grouped = df_locs.groupby(["week_number", "type"])[
-        "value"].sum().reset_index()
+    df_loc_tweets_grouped = (
+        df_locs.groupby(["week_number", "type"])["value"].sum().reset_index()
+    )
 
     # Pivot the data to get the desired format
     pivot_df = pd.pivot_table(
@@ -434,8 +467,7 @@ def pre_task(fetcher: Fetcher):
             )
     for col in combined_df.columns:
         if col in ["rent_total", "own_mortgage_total", "own_outright_total"]:
-            combined_df[f"{col}_pc"] = combined_df[col] / \
-                combined_df.earners_persons
+            combined_df[f"{col}_pc"] = combined_df[col] / combined_df.earners_persons
     combined_df["rural_urban"] = combined_df["gcc"].apply(
         lambda gcc: fetcher.get_rural_urban(gcc)
     )
@@ -445,20 +477,46 @@ def pre_task(fetcher: Fetcher):
 
     # Tweets Sentiments----------------------------------
 
-
-# Assuming your DataFrame is called df
-    sentiment_bins = [-float('inf'), -1, -0.75, -
-                      0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, float('inf')]
-    bin_labels = ['-1<', '-0.75 / -0.50', '-0.50 / -0.25', '-0.25 / 0.00',
-                  '0.00 / 0.25', '0.25 / 0.50', '0.50 / 0.75', '0.75 / 1', '>1', 'N/A']
+    # Assuming your DataFrame is called df
+    sentiment_bins = [
+        -float("inf"),
+        -1,
+        -0.75,
+        -0.5,
+        -0.25,
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1,
+        float("inf"),
+    ]
+    bin_labels = [
+        "-1<",
+        "-0.75 / -0.50",
+        "-0.50 / -0.25",
+        "-0.25 / 0.00",
+        "0.00 / 0.25",
+        "0.25 / 0.50",
+        "0.50 / 0.75",
+        "0.75 / 1",
+        ">1",
+        "N/A",
+    ]
 
     # Bin the sentiment values and calculate the frequencies
-    df_tweets['sentiment_bin'], _ = pd.cut(
-        df_tweets['sentiment'], bins=sentiment_bins, labels=False, retbins=True, include_lowest=True)
-    sentiment_freq = df_tweets['sentiment_bin'].value_counts(
-    ).sort_index().reset_index()
-    sentiment_freq.columns = ['bin', 'frequency']
-    sentiment_freq['bin'] = bin_labels
+    df_tweets["sentiment_bin"], _ = pd.cut(
+        df_tweets["sentiment"],
+        bins=sentiment_bins,
+        labels=False,
+        retbins=True,
+        include_lowest=True,
+    )
+    sentiment_freq = (
+        df_tweets["sentiment_bin"].value_counts().sort_index().reset_index()
+    )
+    sentiment_freq.columns = ["bin", "frequency"]
+    sentiment_freq["bin"] = bin_labels
     # Exclude the 'N/A' bin from the resulting data
     sentiment_freq = sentiment_freq[sentiment_freq["bin"] != "N/A"]
     sentiment_freq = sentiment_freq[sentiment_freq["bin"] != "-1<"]
@@ -467,8 +525,7 @@ def pre_task(fetcher: Fetcher):
     sentiment_data = sentiment_freq.to_dict("records")
 
     # Create the final dictionary
-    twitter_sentiments = {
-        "Label": "Twitter Sentiments", "data": sentiment_data}
+    twitter_sentiments = {"Label": "Twitter Sentiments", "data": sentiment_data}
 
     app = Flask(__name__)
 
@@ -522,7 +579,6 @@ def pre_task(fetcher: Fetcher):
     # df_tweet_housing=df_tweet_housing.groupby(["week_number", "target_cash_rate"])["Count"].sum().reset_index()
     @app.route("/Housing_RBA_Related_Tweets")
     def Housing_RBA_Related_Tweets():
-      
         data = {
             "meta": {
                 "xLabel": "Week",
@@ -534,16 +590,19 @@ def pre_task(fetcher: Fetcher):
 
         # Iterate over the data and populate the 'data' list
         for index, row in interest_sample_df.iterrows():
-            week = row['Week']
-            rba_rate = row['target_cash_rate']
-            tweets = housing_weekly_tweets_df[housing_weekly_tweets_df['Week']
-                                      == week]['id'].values[0]
+            week = row["Week"]
+            rba_rate = row["target_cash_rate"]
+            tweets = housing_weekly_tweets_df[housing_weekly_tweets_df["Week"] == week][
+                "id"
+            ].values[0]
 
-            data['data'].append({
-                'Week': int(week),
-                'RBA Rate(Housing)': np.round(rba_rate, 8),
-                'Tweets': int(tweets)
-            })
+            data["data"].append(
+                {
+                    "Week": int(week),
+                    "RBA Rate(Housing)": np.round(rba_rate, 8),
+                    "Tweets": int(tweets),
+                }
+            )
         json_data = data
         return jsonify(json_data)
 
@@ -570,8 +629,8 @@ def pre_task(fetcher: Fetcher):
         #         "Tweets": row["id"],
         #     }
         #     data['data'].append(week_data)
-        for item in inflation_Tweet['data']:
-            item['cpi'] = item['cpi'].replace('%', '')
+        for item in inflation_Tweet["data"]:
+            item["cpi"] = item["cpi"].replace("%", "")
         json_data = inflation_Tweet
         return json_data
 
@@ -649,10 +708,10 @@ def pre_task(fetcher: Fetcher):
 
         # Define a function to construct the data points for each group
         def construct_data_points(group_name, grouped_df_ru):
-            grouped_df_ru["interestRate_pc"] = grouped_df_ru["interestRate_pc"].round(
-                2)
-            grouped_df_ru["own_outright_total_pc"] = grouped_df_ru["own_outright_total_pc"].round(
-                2)
+            grouped_df_ru["interestRate_pc"] = grouped_df_ru["interestRate_pc"].round(2)
+            grouped_df_ru["own_outright_total_pc"] = grouped_df_ru[
+                "own_outright_total_pc"
+            ].round(2)
             data_points = []
             for index, row in grouped_df_ru.iterrows():
                 data_point = {
@@ -687,8 +746,7 @@ def pre_task(fetcher: Fetcher):
     @app.route("/locationTweetCounts")
     def locationTweetCounts():
         grouped_data = df_tweets.groupby("gcc").size().to_dict()
-        
-        
+
         result = [{"gcc": gcc, "tweets": count} for gcc, count in grouped_data.items()]
 
         return result
@@ -702,32 +760,32 @@ def pre_task(fetcher: Fetcher):
     import time
 
     parser = argparse.ArgumentParser(
-            description="Expose the backend"
-        )  # FIXME: Better description
+        description="Expose the backend"
+    )  # FIXME: Better description
     parser.add_argument(
-            "--couchdb_master_ip",
-            type=str,
-            help="ip of a node in the couchdb cluster",
-            default="localhost",
-        )
+        "--couchdb_master_ip",
+        type=str,
+        help="ip of a node in the couchdb cluster",
+        default="localhost",
+    )
     parser.add_argument(
-            "--couchdb_username",
-            type=str,
-            help="username of the couchdb cluster",
-            default="admin",
-        )
+        "--couchdb_username",
+        type=str,
+        help="username of the couchdb cluster",
+        default="admin",
+    )
     parser.add_argument(
-            "--couchdb_password",
-            type=str,
-            help="password of the couchdb cluster",
-            default="admin",
-        )
+        "--couchdb_password",
+        type=str,
+        help="password of the couchdb cluster",
+        default="admin",
+    )
     args = parser.parse_args()
-        # Save the toot data
+    # Save the toot data
     fetcher = FetcherHarverster(
-            args.couchdb_master_ip, args.couchdb_username, args.couchdb_password
-        )
-    
+        args.couchdb_master_ip, args.couchdb_username, args.couchdb_password
+    )
+
     @app.route("/tootSentimentAnalysis")
     def tootSentimentAnalysis():
         # Fetch toots
@@ -737,7 +795,6 @@ def pre_task(fetcher: Fetcher):
             result_toots_file = f"{workdir}/flask_api/static/data/result_toots.json"
         else:  # Assume it's a Unix-like system
             result_toots_file = f"{workdir}/static/data/result_toots.json"
-        
 
         fetcher.save_toot_data()
 
@@ -802,5 +859,7 @@ if __name__ == "__main__":
     )
 
     app = pre_task(fetcher=fetcher)
-    cors = CORS(app, resources={r"/*": {"origins": FE_DDOMAIN_DEV}})
-    app.run(debug=True, use_reloader=True)
+    #cors = CORS(app, resources={r"/*": {"origins": FE_DDOMAIN_DEV}})
+    cors = CORS(app, resources={r"/*": {"origins": "*"}})
+    #app.run(debug=True, use_reloader=True)
+    app.run(host="0.0.0.0", port=5000
