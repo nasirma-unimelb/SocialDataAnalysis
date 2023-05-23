@@ -60,7 +60,7 @@
 
 
 # Force existing Docker containers for Mastodon Harvesters to stop and remove them
-- name: Stop Mastodon Harvester Docker container
+- name: Stop Backend Docker container
   become: true
   docker_container:
     name: backend-server_name
@@ -68,7 +68,7 @@
 
 
 # Create and start Mastodon Docker container
-- name: Create and start Mastodon Docker container
+- name: Create and start Backend Docker container
   become: true
   docker_container:
     name: backend-server_name
@@ -77,6 +77,8 @@
       MASTERNODE: "{{ masternode }}"
       DB_USERNAME: "{{ db_password }}"
       DB_PASSWORD: "{{ db_username }}"
+    ports:
+      - "5000:5000"
     state: started
     pull: true
     recreate: true
