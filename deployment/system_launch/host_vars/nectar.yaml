@@ -6,17 +6,17 @@ instance_flavor: uom.mse.1c4g
 
 # Volume
 volumes:
-  - vol_name: static-db-1-vol-1
+  - vol_name:  db-1-vol-1
     vol_size: 10
-  - vol_name: static-db-1-vol-2
+  - vol_name:  db-1-vol-2
     vol_size: 10
-  - vol_name: static-db-2-vol-1
+  - vol_name:  db-2-vol-1
     vol_size: 10
-  - vol_name: static-db-2-vol-2
+  - vol_name:  db-2-vol-2
     vol_size: 10
-  - vol_name: static-db-3-vol-1
+  - vol_name:  db-3-vol-1
     vol_size: 10
-  - vol_name: static-db-3-vol-2
+  - vol_name:  db-3-vol-2
     vol_size: 10
   - vol_name: mastodon-vol-1
     vol_size: 10
@@ -74,8 +74,8 @@ security_groups:
 
 # Instance
 instances:
-  - name: static-db-1
-    volumes: ["static-db-1-vol-1", "static-db-1-vol-2"]
+  - name:  db-1
+    volumes: ["db-1-vol-1", " db-1-vol-2"]
     group: couch
     security_groups:
       - ssh
@@ -83,8 +83,8 @@ instances:
       - couchdb-1
       - couchdb-2
       - couchdb-3
-  - name: static-db-2
-    volumes: ["static-db-2-vol-1", "static-db-2-vol-2"]
+  - name:  db-2
+    volumes: ["db-2-vol-1", " db-2-vol-2"]
     group: couch
     security_groups:
       - ssh
@@ -92,8 +92,8 @@ instances:
       - couchdb-1
       - couchdb-2
       - couchdb-3
-  - name: static-db-3
-    volumes: ["static-db-3-vol-1", "static-db-3-vol-2"]
+  - name:  db-3
+    volumes: ["db-3-vol-1", "db-3-vol-2"]
     group: couch
     security_groups:
       - ssh
