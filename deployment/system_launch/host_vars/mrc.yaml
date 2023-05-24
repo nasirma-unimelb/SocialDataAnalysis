@@ -1,3 +1,17 @@
+#
+# In completion of Assignment 2 - COMP90024, The University of Melbourne 
+#
+# Cluster and Cloud Computing, Semester 1 2023 - Team 1 
+# 
+# Authors: 
+#
+#    * Mohammed Nasir - 1345586
+#    * Elena Pashkina - 1141034
+#    * Ellen Morwitch - 1257182
+#    * Felipe Leefu Huang Lin - 1202652
+#    * Nicholas Barry - 587667
+#
+
 # Common vars
 availability_zone: melbourne-qh2-uom
 instance_image: bbaf16f8-2484-48d7-b455-42209cc4b8d2
@@ -6,18 +20,18 @@ instance_flavor: uom.mse.1c4g
 
 # Volume
 volumes:
-  - vol_name:  db-1-vol-1
+  - vol_name: db-1-vol-1
     vol_size: 10
-  - vol_name:  db-1-vol-2
+  - vol_name: db-1-vol-2
+    vol_size: 80
+  - vol_name: db-2-vol-1
     vol_size: 10
-  - vol_name:  db-2-vol-1
+  - vol_name: db-2-vol-2
+    vol_size: 80
+  - vol_name: db-3-vol-1
     vol_size: 10
-  - vol_name:  db-2-vol-2
-    vol_size: 10
-  - vol_name:  db-3-vol-1
-    vol_size: 10
-  - vol_name:  db-3-vol-2
-    vol_size: 10
+  - vol_name: db-3-vol-2
+    vol_size: 80
   - vol_name: mastodon-vol-1
     vol_size: 10
   - vol_name: mastodon-vol-2
@@ -75,7 +89,7 @@ security_groups:
 # Instance
 instances:
   - name:  db-1
-    volumes: ["db-1-vol-1", " db-1-vol-2"]
+    volumes: ["db-1-vol-1", "db-1-vol-2"]
     group: couch
     security_groups:
       - ssh
@@ -84,7 +98,7 @@ instances:
       - couchdb-2
       - couchdb-3
   - name:  db-2
-    volumes: ["db-2-vol-1", " db-2-vol-2"]
+    volumes: ["db-2-vol-1", "db-2-vol-2"]
     group: couch
     security_groups:
       - ssh

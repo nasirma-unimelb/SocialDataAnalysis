@@ -13,4 +13,6 @@
 #
 
 ---
-couch_dir: /data/couch
+volumes:
+  - mountpoint: /var/lib/docker
+  - mountpoint: /data

@@ -1,3 +1,17 @@
+#
+# In completion of Assignment 2 - COMP90024, The University of Melbourne 
+#
+# Cluster and Cloud Computing, Semester 1 2023 - Team 1 
+# 
+# Authors: 
+#
+#    * Mohammed Nasir - 1345586
+#    * Elena Pashkina - 1141034
+#    * Ellen Morwitch - 1257182
+#    * Felipe Leefu Huang Lin - 1202652
+#    * Nicholas Barry - 587667
+#
+
 ---
 # Create an instance on NeCTAR
 - name: Create an instance
@@ -8,7 +22,6 @@
     flavor: "{{ instance_flavor }}"
     image: "{{ instance_image }}"
     key_name: "{{ instance_key_name }}"
-    # network: "{{ instance_network }}"
     security_groups: "{{ sg_names }}"
     timeout: 600
     volumes: "{{ item.volumes }}"

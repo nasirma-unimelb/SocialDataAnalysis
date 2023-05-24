@@ -1,6 +1,20 @@
+#
+# In completion of Assignment 2 - COMP90024, The University of Melbourne 
+#
+# Cluster and Cloud Computing, Semester 1 2023 - Team 1 
+# 
+# Authors: 
+#
+#    * Mohammed Nasir - 1345586
+#    * Elena Pashkina - 1141034
+#    * Ellen Morwitch - 1257182
+#    * Felipe Leefu Huang Lin - 1202652
+#    * Nicholas Barry - 587667
+#
+
 - hosts: localhost
   vars_files:
-    - host_vars/nectar.yaml
+    - host_vars/mrc.yaml
   gather_facts: true
 
   roles:
@@ -12,18 +26,18 @@
   
 - hosts: couch
   vars_files:
-    - host_vars/couch.yaml
+    - host_vars/config.yaml
   gather_facts: true
   
   roles:
-    - role: couch-common
-    - role: couch-volumes
-    - role: couch-docker
+    - role: common
+    - role: volumes
+    - role: common-docker
     - role: couch-cluster
 
 - hosts: couch:!masternode
   vars_files:
-    - host_vars/couch.yaml
+    - host_vars/config.yaml
   gather_facts: true
   
   roles:
@@ -33,23 +47,23 @@
 
 - hosts: backend
   vars_files:
-    - host_vars/couch.yaml
+    - host_vars/config.yaml
   gather_facts: true
   
   roles:
-    - role: couch-common
-    - role: couch-volumes
-    - role: couch-docker
+    - role: common
+    - role: volumes
+    - role: common-docker
     - role: backend-docker
 
 
 - hosts: mastodon
   vars_files:
-    - host_vars/mastodon.yaml
+    - host_vars/config.yaml
   gather_facts: true
   
   roles:
-    - role: couch-common
-    - role: couch-volumes
-    - role: couch-docker
+    - role: common
+    - role: volumes
+    - role: common-docker
     - role: mastodon-docker

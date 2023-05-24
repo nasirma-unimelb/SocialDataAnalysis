@@ -23,6 +23,8 @@ ado_api_key: "a2a6e2f96a2c94a04661aacc6e394caa"
 ado_login: "https://api.ado.eresearch.unimelb.edu.au/login"
 ado_search: "https://api.ado.eresearch.unimelb.edu.au/analysis/textsearch/collections/mastodon"
 mastodon_key: "f8-yNpSEGxPcQwwz_GxYtET3VumoGZ6KAQAH6bybICE"
-masternode: 172.26.128.15    # Set manually
-couchdb_password: zxcvbnm
-couchdb_user: zxcvbnm
+masternode: "{{ groups['couch'][0] }}"
+db_username: zxcvbnm
+db_password: zxcvbnm
+db_cookie: a192aeb9904e6590849337933b000c99
+db_version: 3.2.1

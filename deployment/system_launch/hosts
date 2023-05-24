@@ -1,40 +1,43 @@
+#
+# In completion of Assignment 2 - COMP90024, The University of Melbourne 
+#
+# Cluster and Cloud Computing, Semester 1 2023 - Team 1 
+# 
+# Authors: 
+#
+#    * Mohammed Nasir - 1345586
+#    * Elena Pashkina - 1141034
+#    * Ellen Morwitch - 1257182
+#    * Felipe Leefu Huang Lin - 1202652
+#    * Nicholas Barry - 587667
+#
+
 [COMP90024]
 
 [COMP90024:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-; ansible_ssh_private_key_file=/home/ubuntu/repositories/comp90024-a2/ansible_spinup/tmp.pem
 ansible_ssh_private_key_file=/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/private_keys/tmp.pem
 ansible_user=ubuntu
 
 [couch]
-; 172.26.135.12
-; 172.26.136.99
-; 172.26.131.178
 
 [masternode]
-; 172.26.135.12
 
 [couch:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-; ansible_ssh_private_key_file=/home/ubuntu/repositories/comp90024-a2/ansible_spinup/tmp.pem
 ansible_ssh_private_key_file=/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/private_keys/tmp.pem
 ansible_user=ubuntu
 
 [mastodon]
-; 172.26.136.144
-
 
 [mastodon:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ForwardAgent=yes'
-; ansible_ssh_private_key_file=/home/ubuntu/repositories/comp90024-a2/ansible_spinup/tmp.pem
 ansible_ssh_private_key_file=/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/private_keys/tmp.pem
-; ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_ed25519
 ansible_user=ubuntu
 
 [backend]
 
 [backend:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ForwardAgent=yes'
-; ansible_ssh_private_key_file=/home/ubuntu/repositories/comp90024-a2/ansible_spinup/tmp.pem
 ansible_ssh_private_key_file=/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/private_keys/tmp.pem
 ansible_user=ubuntu

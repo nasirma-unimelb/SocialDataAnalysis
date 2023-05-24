@@ -1,3 +1,17 @@
+#
+# In completion of Assignment 2 - COMP90024, The University of Melbourne 
+#
+# Cluster and Cloud Computing, Semester 1 2023 - Team 1 
+# 
+# Authors: 
+#
+#    * Mohammed Nasir - 1345586
+#    * Elena Pashkina - 1141034
+#    * Ellen Morwitch - 1257182
+#    * Felipe Leefu Huang Lin - 1202652
+#    * Nicholas Barry - 587667
+#
+
 ---
 # Create a security group
 - name: Create a security group
@@ -9,16 +23,12 @@
       - ether_type: IPv6
         protocol: any
         direction: egress
-        # port_range_min: 1
-        # port_range_max: 65535
         port_range_min: '{{ item.port_range_min }}'
         port_range_max: '{{ item.port_range_max }}'
         remote_ip_prefix: ::/0
       - ether_type: IPv4
         protocol: any
         direction: egress
-        # port_range_min: 1
-        # port_range_max: 65535
         port_range_min: '{{ item.port_range_min }}'
         port_range_max: '{{ item.port_range_max }}'
         remote_ip_prefix: 0.0.0.0/0

@@ -1,0 +1,582 @@
+ansible-playbook [core 2.14.5]
+  config file = None
+  configured module search path = ['/home/nickbarry/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages/ansible
+  ansible collection location = /home/nickbarry/.ansible/collections:/usr/share/ansible/collections
+  executable location = /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/bin/ansible-playbook
+  python version = 3.11.3 (main, Apr  5 2023, 14:14:37) [GCC 11.3.0] (/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/bin/python)
+  jinja version = 3.1.2
+  libyaml = True
+No config file found; using defaults
+setting up inventory plugins
+host_list declined parsing /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/deployment/system_launch/hosts as it did not pass its verify_file() method
+script declined parsing /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/deployment/system_launch/hosts as it did not pass its verify_file() method
+auto declined parsing /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/deployment/system_launch/hosts as it did not pass its verify_file() method
+Parsed /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/deployment/system_launch/hosts inventory source with ini plugin
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+Loading collection openstack.cloud from /home/nickbarry/.ansible/collections/ansible_collections/openstack/cloud
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Loading collection community.general from /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages/ansible_collections/community/general
+Loading collection ansible.posix from /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages/ansible_collections/ansible/posix
+Loading collection community.docker from /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages/ansible_collections/community/docker
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+redirecting (type: modules) ansible.builtin.docker_container to community.docker.docker_container
+redirecting (type: modules) ansible.builtin.docker_container to community.docker.docker_container
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+Read vars_file 'host_vars/config.yaml'
+redirecting (type: modules) ansible.builtin.docker_container to community.docker.docker_container
+redirecting (type: modules) ansible.builtin.docker_container to community.docker.docker_container
+Loading callback plugin default of type stdout, v2.0 from /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages/ansible/plugins/callback/default.py
+Skipping callback 'default', as we already have a stdout callback.
+Skipping callback 'minimal', as we already have a stdout callback.
+Skipping callback 'oneline', as we already have a stdout callback.
+
+PLAYBOOK: all-in-one.yaml ******************************************************
+Positional arguments: all-in-one.yaml
+verbosity: 4
+connection: smart
+timeout: 10
+become_method: sudo
+tags: ('all',)
+inventory: ('/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/deployment/system_launch/hosts',)
+forks: 5
+5 plays in all-in-one.yaml
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+
+PLAY [localhost] ***************************************************************
+Read vars_file 'host_vars/mrc.yaml'
+
+TASK [Gathering Facts] *********************************************************
+task path: /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/deployment/system_launch/all-in-one.yaml:15
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: nickbarry
+<127.0.0.1> EXEC /bin/sh -c 'echo ~nickbarry && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/nickbarry/.ansible/tmp `"&& mkdir "` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919765.4909022-59773-51926534245727 `" && echo ansible-tmp-1684919765.4909022-59773-51926534245727="` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919765.4909022-59773-51926534245727 `" ) && sleep 0'
+Using module file /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages/ansible/modules/setup.py
+<127.0.0.1> PUT /home/nickbarry/.ansible/tmp/ansible-local-59768iyu_dsc3/tmpkxr4flnn TO /home/nickbarry/.ansible/tmp/ansible-tmp-1684919765.4909022-59773-51926534245727/AnsiballZ_setup.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/nickbarry/.ansible/tmp/ansible-tmp-1684919765.4909022-59773-51926534245727/ /home/nickbarry/.ansible/tmp/ansible-tmp-1684919765.4909022-59773-51926534245727/AnsiballZ_setup.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/bin/python /home/nickbarry/.ansible/tmp/ansible-tmp-1684919765.4909022-59773-51926534245727/AnsiballZ_setup.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/nickbarry/.ansible/tmp/ansible-tmp-1684919765.4909022-59773-51926534245727/ > /dev/null 2>&1 && sleep 0'
+ok: [localhost]
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+
+TASK [openstack-common : Install pip] ******************************************
+task path: /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/deployment/system_launch/roles/openstack-common/tasks/main.yaml:17
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: nickbarry
+<127.0.0.1> EXEC /bin/sh -c 'echo ~nickbarry && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/nickbarry/.ansible/tmp `"&& mkdir "` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919766.8379362-59891-53566354286568 `" && echo ansible-tmp-1684919766.8379362-59891-53566354286568="` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919766.8379362-59891-53566354286568 `" ) && sleep 0'
+Using module file /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages/ansible/modules/apt.py
+<127.0.0.1> PUT /home/nickbarry/.ansible/tmp/ansible-local-59768iyu_dsc3/tmpusbqy0mb TO /home/nickbarry/.ansible/tmp/ansible-tmp-1684919766.8379362-59891-53566354286568/AnsiballZ_apt.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/nickbarry/.ansible/tmp/ansible-tmp-1684919766.8379362-59891-53566354286568/ /home/nickbarry/.ansible/tmp/ansible-tmp-1684919766.8379362-59891-53566354286568/AnsiballZ_apt.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-hkfimcppkrwicsuqirvcqyykfrljsfxr ; /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/bin/python /home/nickbarry/.ansible/tmp/ansible-tmp-1684919766.8379362-59891-53566354286568/AnsiballZ_apt.py'"'"' && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/nickbarry/.ansible/tmp/ansible-tmp-1684919766.8379362-59891-53566354286568/ > /dev/null 2>&1 && sleep 0'
+ok: [localhost] => {
+    "cache_update_time": 1684919771,
+    "cache_updated": true,
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "allow_change_held_packages": false,
+            "allow_downgrade": false,
+            "allow_unauthenticated": false,
+            "autoclean": false,
+            "autoremove": false,
+            "cache_valid_time": 0,
+            "clean": false,
+            "deb": null,
+            "default_release": null,
+            "dpkg_options": "force-confdef,force-confold",
+            "fail_on_autoremove": false,
+            "force": false,
+            "force_apt_get": false,
+            "install_recommends": null,
+            "lock_timeout": 60,
+            "name": [
+                "python3-dev",
+                "python3-setuptools",
+                "python3-pip"
+            ],
+            "only_upgrade": false,
+            "package": [
+                "python3-dev",
+                "python3-setuptools",
+                "python3-pip"
+            ],
+            "policy_rc_d": null,
+            "purge": false,
+            "state": "latest",
+            "update_cache": true,
+            "update_cache_retries": 5,
+            "update_cache_retry_max_delay": 12,
+            "upgrade": null
+        }
+    }
+}
+Read vars_file 'host_vars/mrc.yaml'
+
+TASK [openstack-common : Update pip] *******************************************
+task path: /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/deployment/system_launch/roles/openstack-common/tasks/main.yaml:25
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: nickbarry
+<127.0.0.1> EXEC /bin/sh -c 'echo ~nickbarry && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/nickbarry/.ansible/tmp `"&& mkdir "` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919771.617111-60891-202707502604553 `" && echo ansible-tmp-1684919771.617111-60891-202707502604553="` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919771.617111-60891-202707502604553 `" ) && sleep 0'
+Using module file /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages/ansible/modules/pip.py
+<127.0.0.1> PUT /home/nickbarry/.ansible/tmp/ansible-local-59768iyu_dsc3/tmpih0w2nxd TO /home/nickbarry/.ansible/tmp/ansible-tmp-1684919771.617111-60891-202707502604553/AnsiballZ_pip.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/nickbarry/.ansible/tmp/ansible-tmp-1684919771.617111-60891-202707502604553/ /home/nickbarry/.ansible/tmp/ansible-tmp-1684919771.617111-60891-202707502604553/AnsiballZ_pip.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/bin/python /home/nickbarry/.ansible/tmp/ansible-tmp-1684919771.617111-60891-202707502604553/AnsiballZ_pip.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/nickbarry/.ansible/tmp/ansible-tmp-1684919771.617111-60891-202707502604553/ > /dev/null 2>&1 && sleep 0'
+ok: [localhost] => {
+    "changed": false,
+    "cmd": [
+        "/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/bin/python",
+        "-m",
+        "pip.__main__",
+        "install",
+        "-U",
+        "pip",
+        "openstacksdk"
+    ],
+    "invocation": {
+        "module_args": {
+            "chdir": null,
+            "editable": false,
+            "executable": null,
+            "extra_args": null,
+            "name": [
+                "pip",
+                "openstacksdk"
+            ],
+            "requirements": null,
+            "state": "latest",
+            "umask": null,
+            "version": null,
+            "virtualenv": null,
+            "virtualenv_command": "virtualenv",
+            "virtualenv_python": null,
+            "virtualenv_site_packages": false
+        }
+    },
+    "name": [
+        "pip",
+        "openstacksdk"
+    ],
+    "requirements": null,
+    "state": "latest",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Requirement already satisfied: pip in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (23.1.2)\nRequirement already satisfied: openstacksdk in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (1.2.0)\nRequirement already satisfied: PyYAML>=3.13 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (6.0)\nRequirement already satisfied: appdirs>=1.3.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.4.4)\nRequirement already satisfied: cryptography>=2.7 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (40.0.2)\nRequirement already satisfied: decorator>=4.4.1 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (5.1.1)\nRequirement already satisfied: dogpile.cache>=0.6.5 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.2.1)\nRequirement already satisfied: iso8601>=0.1.11 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.1.0)\nRequirement already satisfied: jmespath>=0.9.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.0.1)\nRequirement already satisfied: jsonpatch!=1.20,>=1.16 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.32)\nRequirement already satisfied: keystoneauth1>=3.18.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (5.2.0)\nRequirement already satisfied: netifaces>=0.10.4 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (0.11.0)\nRequirement already satisfied: os-service-types>=1.7.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.7.0)\nRequirement already satisfied: pbr!=2.1.0,>=2.0.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (5.11.1)\nRequirement already satisfied: requestsexceptions>=1.2.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.4.0)\nRequirement already satisfied: cffi>=1.12 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from cryptography>=2.7->openstacksdk) (1.15.1)\nRequirement already satisfied: stevedore>=3.0.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from dogpile.cache>=0.6.5->openstacksdk) (5.1.0)\nRequirement already satisfied: jsonpointer>=1.9 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from jsonpatch!=1.20,>=1.16->openstacksdk) (2.3)\nRequirement already satisfied: requests>=2.14.2 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from keystoneauth1>=3.18.0->openstacksdk) (2.30.0)\nRequirement already satisfied: pycparser in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from cffi>=1.12->cryptography>=2.7->openstacksdk) (2.21)\nRequirement already satisfied: charset-normalizer<4,>=2 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from requests>=2.14.2->keystoneauth1>=3.18.0->openstacksdk) (3.1.0)\nRequirement already satisfied: idna<4,>=2.5 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from requests>=2.14.2->keystoneauth1>=3.18.0->openstacksdk) (3.4)\nRequirement already satisfied: urllib3<3,>=1.21.1 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from requests>=2.14.2->keystoneauth1>=3.18.0->openstacksdk) (2.0.2)\nRequirement already satisfied: certifi>=2017.4.17 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from requests>=2.14.2->keystoneauth1>=3.18.0->openstacksdk) (2023.5.7)\n",
+    "stdout_lines": [
+        "Requirement already satisfied: pip in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (23.1.2)",
+        "Requirement already satisfied: openstacksdk in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (1.2.0)",
+        "Requirement already satisfied: PyYAML>=3.13 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (6.0)",
+        "Requirement already satisfied: appdirs>=1.3.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.4.4)",
+        "Requirement already satisfied: cryptography>=2.7 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (40.0.2)",
+        "Requirement already satisfied: decorator>=4.4.1 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (5.1.1)",
+        "Requirement already satisfied: dogpile.cache>=0.6.5 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.2.1)",
+        "Requirement already satisfied: iso8601>=0.1.11 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.1.0)",
+        "Requirement already satisfied: jmespath>=0.9.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.0.1)",
+        "Requirement already satisfied: jsonpatch!=1.20,>=1.16 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.32)",
+        "Requirement already satisfied: keystoneauth1>=3.18.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (5.2.0)",
+        "Requirement already satisfied: netifaces>=0.10.4 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (0.11.0)",
+        "Requirement already satisfied: os-service-types>=1.7.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.7.0)",
+        "Requirement already satisfied: pbr!=2.1.0,>=2.0.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (5.11.1)",
+        "Requirement already satisfied: requestsexceptions>=1.2.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from openstacksdk) (1.4.0)",
+        "Requirement already satisfied: cffi>=1.12 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from cryptography>=2.7->openstacksdk) (1.15.1)",
+        "Requirement already satisfied: stevedore>=3.0.0 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from dogpile.cache>=0.6.5->openstacksdk) (5.1.0)",
+        "Requirement already satisfied: jsonpointer>=1.9 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from jsonpatch!=1.20,>=1.16->openstacksdk) (2.3)",
+        "Requirement already satisfied: requests>=2.14.2 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from keystoneauth1>=3.18.0->openstacksdk) (2.30.0)",
+        "Requirement already satisfied: pycparser in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from cffi>=1.12->cryptography>=2.7->openstacksdk) (2.21)",
+        "Requirement already satisfied: charset-normalizer<4,>=2 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from requests>=2.14.2->keystoneauth1>=3.18.0->openstacksdk) (3.1.0)",
+        "Requirement already satisfied: idna<4,>=2.5 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from requests>=2.14.2->keystoneauth1>=3.18.0->openstacksdk) (3.4)",
+        "Requirement already satisfied: urllib3<3,>=1.21.1 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from requests>=2.14.2->keystoneauth1>=3.18.0->openstacksdk) (2.0.2)",
+        "Requirement already satisfied: certifi>=2017.4.17 in /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/lib/python3.11/site-packages (from requests>=2.14.2->keystoneauth1>=3.18.0->openstacksdk) (2023.5.7)"
+    ],
+    "version": null,
+    "virtualenv": null
+}
+Read vars_file 'host_vars/mrc.yaml'
+Read vars_file 'host_vars/mrc.yaml'
+
+TASK [openstack-volume : Create volume(s) on NeCTAR] ***************************
+task path: /home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/deployment/system_launch/roles/openstack-volume/tasks/main.yaml:17
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: nickbarry
+<127.0.0.1> EXEC /bin/sh -c 'echo ~nickbarry && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/nickbarry/.ansible/tmp `"&& mkdir "` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919772.6966848-60932-270534837672083 `" && echo ansible-tmp-1684919772.6966848-60932-270534837672083="` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919772.6966848-60932-270534837672083 `" ) && sleep 0'
+Using module file /home/nickbarry/.ansible/collections/ansible_collections/openstack/cloud/plugins/modules/volume.py
+<127.0.0.1> PUT /home/nickbarry/.ansible/tmp/ansible-local-59768iyu_dsc3/tmpa9rqv63h TO /home/nickbarry/.ansible/tmp/ansible-tmp-1684919772.6966848-60932-270534837672083/AnsiballZ_volume.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/nickbarry/.ansible/tmp/ansible-tmp-1684919772.6966848-60932-270534837672083/ /home/nickbarry/.ansible/tmp/ansible-tmp-1684919772.6966848-60932-270534837672083/AnsiballZ_volume.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/bin/python /home/nickbarry/.ansible/tmp/ansible-tmp-1684919772.6966848-60932-270534837672083/AnsiballZ_volume.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/nickbarry/.ansible/tmp/ansible-tmp-1684919772.6966848-60932-270534837672083/ > /dev/null 2>&1 && sleep 0'
+ok: [localhost] => (item={'vol_name': 'db-1-vol-1', 'vol_size': 10}) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "diff": {
+        "after": {
+            "attachments": [
+                {
+                    "attached_at": "2023-05-24T08:27:59.000000",
+                    "attachment_id": "d3c5ef77-7a1b-4e06-92b4-85a2421c5179",
+                    "device": "/dev/vdb",
+                    "host_name": null,
+                    "id": "3a096449-a05e-44f4-ad34-db592f22264d",
+                    "server_id": "1037163f-cd15-45c3-8c7c-ded80f606e15",
+                    "volume_id": "3a096449-a05e-44f4-ad34-db592f22264d"
+                }
+            ],
+            "availability_zone": "melbourne-qh2-uom",
+            "consistency_group_id": null,
+            "created_at": "2023-05-24T08:13:45.000000",
+            "description": null,
+            "extended_replication_status": null,
+            "group_id": null,
+            "host": null,
+            "id": "3a096449-a05e-44f4-ad34-db592f22264d",
+            "image_id": null,
+            "is_bootable": false,
+            "is_encrypted": false,
+            "is_multiattach": false,
+            "metadata": {},
+            "migration_id": null,
+            "migration_status": null,
+            "name": "db-1-vol-1",
+            "project_id": "885d353aaa234e72841a5cd3000600b2",
+            "replication_driver_data": null,
+            "replication_status": null,
+            "scheduler_hints": null,
+            "size": 10,
+            "snapshot_id": null,
+            "source_volume_id": null,
+            "status": "in-use",
+            "updated_at": "2023-05-24T08:28:00.000000",
+            "user_id": "ee91cf52e80346f9aab6c688ecd65967",
+            "volume_image_metadata": null,
+            "volume_type": "standard"
+        },
+        "before": {
+            "attachments": [
+                {
+                    "attached_at": "2023-05-24T08:27:59.000000",
+                    "attachment_id": "d3c5ef77-7a1b-4e06-92b4-85a2421c5179",
+                    "device": "/dev/vdb",
+                    "host_name": null,
+                    "id": "3a096449-a05e-44f4-ad34-db592f22264d",
+                    "server_id": "1037163f-cd15-45c3-8c7c-ded80f606e15",
+                    "volume_id": "3a096449-a05e-44f4-ad34-db592f22264d"
+                }
+            ],
+            "availability_zone": "melbourne-qh2-uom",
+            "consistency_group_id": null,
+            "created_at": "2023-05-24T08:13:45.000000",
+            "description": null,
+            "extended_replication_status": null,
+            "group_id": null,
+            "host": null,
+            "id": "3a096449-a05e-44f4-ad34-db592f22264d",
+            "image_id": null,
+            "is_bootable": false,
+            "is_encrypted": false,
+            "is_multiattach": false,
+            "metadata": {},
+            "migration_id": null,
+            "migration_status": null,
+            "name": "db-1-vol-1",
+            "project_id": "885d353aaa234e72841a5cd3000600b2",
+            "replication_driver_data": null,
+            "replication_status": null,
+            "scheduler_hints": null,
+            "size": 10,
+            "snapshot_id": null,
+            "source_volume_id": null,
+            "status": "in-use",
+            "updated_at": "2023-05-24T08:28:00.000000",
+            "user_id": "ee91cf52e80346f9aab6c688ecd65967",
+            "volume_image_metadata": null,
+            "volume_type": "standard"
+        }
+    },
+    "invocation": {
+        "module_args": {
+            "api_timeout": null,
+            "auth": null,
+            "auth_type": null,
+            "availability_zone": "melbourne-qh2-uom",
+            "ca_cert": null,
+            "client_cert": null,
+            "client_key": null,
+            "description": null,
+            "display_name": "db-1-vol-1",
+            "image": null,
+            "interface": "public",
+            "is_bootable": false,
+            "is_multiattach": null,
+            "metadata": null,
+            "name": "db-1-vol-1",
+            "region_name": null,
+            "scheduler_hints": null,
+            "sdk_log_level": "INFO",
+            "sdk_log_path": null,
+            "size": 10,
+            "snapshot": null,
+            "state": "present",
+            "timeout": 600,
+            "validate_certs": null,
+            "volume": null,
+            "volume_type": null,
+            "wait": true
+        }
+    },
+    "item": {
+        "vol_name": "db-1-vol-1",
+        "vol_size": 10
+    },
+    "volume": {
+        "attachments": [
+            {
+                "attached_at": "2023-05-24T08:27:59.000000",
+                "attachment_id": "d3c5ef77-7a1b-4e06-92b4-85a2421c5179",
+                "device": "/dev/vdb",
+                "host_name": null,
+                "id": "3a096449-a05e-44f4-ad34-db592f22264d",
+                "server_id": "1037163f-cd15-45c3-8c7c-ded80f606e15",
+                "volume_id": "3a096449-a05e-44f4-ad34-db592f22264d"
+            }
+        ],
+        "availability_zone": "melbourne-qh2-uom",
+        "consistency_group_id": null,
+        "created_at": "2023-05-24T08:13:45.000000",
+        "description": null,
+        "extended_replication_status": null,
+        "group_id": null,
+        "host": null,
+        "id": "3a096449-a05e-44f4-ad34-db592f22264d",
+        "image_id": null,
+        "is_bootable": false,
+        "is_encrypted": false,
+        "is_multiattach": false,
+        "metadata": {},
+        "migration_id": null,
+        "migration_status": null,
+        "name": "db-1-vol-1",
+        "project_id": "885d353aaa234e72841a5cd3000600b2",
+        "replication_driver_data": null,
+        "replication_status": null,
+        "scheduler_hints": null,
+        "size": 10,
+        "snapshot_id": null,
+        "source_volume_id": null,
+        "status": "in-use",
+        "updated_at": "2023-05-24T08:28:00.000000",
+        "user_id": "ee91cf52e80346f9aab6c688ecd65967",
+        "volume_image_metadata": null,
+        "volume_type": "standard"
+    }
+}
+<127.0.0.1> EXEC /bin/sh -c 'echo ~nickbarry && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/nickbarry/.ansible/tmp `"&& mkdir "` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919774.2217407-60932-141315183853767 `" && echo ansible-tmp-1684919774.2217407-60932-141315183853767="` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919774.2217407-60932-141315183853767 `" ) && sleep 0'
+Using module file /home/nickbarry/.ansible/collections/ansible_collections/openstack/cloud/plugins/modules/volume.py
+<127.0.0.1> PUT /home/nickbarry/.ansible/tmp/ansible-local-59768iyu_dsc3/tmpbbszbzk0 TO /home/nickbarry/.ansible/tmp/ansible-tmp-1684919774.2217407-60932-141315183853767/AnsiballZ_volume.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/nickbarry/.ansible/tmp/ansible-tmp-1684919774.2217407-60932-141315183853767/ /home/nickbarry/.ansible/tmp/ansible-tmp-1684919774.2217407-60932-141315183853767/AnsiballZ_volume.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/bin/python /home/nickbarry/.ansible/tmp/ansible-tmp-1684919774.2217407-60932-141315183853767/AnsiballZ_volume.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/nickbarry/.ansible/tmp/ansible-tmp-1684919774.2217407-60932-141315183853767/ > /dev/null 2>&1 && sleep 0'
+changed: [localhost] => (item={'vol_name': 'db-1-vol-2', 'vol_size': 80}) => {
+    "ansible_loop_var": "item",
+    "changed": true,
+    "diff": {
+        "after": {
+            "attachments": [
+                {
+                    "attached_at": "2023-05-24T08:28:00.000000",
+                    "attachment_id": "5dcdac67-213a-4845-9ba5-4962371ac3ed",
+                    "device": "/dev/vdc",
+                    "host_name": null,
+                    "id": "a28311a8-774b-4911-9236-6239b4abd0ec",
+                    "server_id": "1037163f-cd15-45c3-8c7c-ded80f606e15",
+                    "volume_id": "a28311a8-774b-4911-9236-6239b4abd0ec"
+                }
+            ],
+            "availability_zone": "melbourne-qh2-uom",
+            "consistency_group_id": null,
+            "created_at": "2023-05-24T08:13:49.000000",
+            "description": null,
+            "extended_replication_status": null,
+            "group_id": null,
+            "host": null,
+            "id": "a28311a8-774b-4911-9236-6239b4abd0ec",
+            "image_id": null,
+            "is_bootable": false,
+            "is_encrypted": false,
+            "is_multiattach": false,
+            "metadata": {},
+            "migration_id": null,
+            "migration_status": null,
+            "name": "db-1-vol-2",
+            "project_id": "885d353aaa234e72841a5cd3000600b2",
+            "replication_driver_data": null,
+            "replication_status": null,
+            "scheduler_hints": null,
+            "size": 10,
+            "snapshot_id": null,
+            "source_volume_id": null,
+            "status": "extending",
+            "updated_at": "2023-05-24T09:16:15.000000",
+            "user_id": "ee91cf52e80346f9aab6c688ecd65967",
+            "volume_image_metadata": null,
+            "volume_type": "standard"
+        },
+        "before": {
+            "attachments": [
+                {
+                    "attached_at": "2023-05-24T08:28:00.000000",
+                    "attachment_id": "5dcdac67-213a-4845-9ba5-4962371ac3ed",
+                    "device": "/dev/vdc",
+                    "host_name": null,
+                    "id": "a28311a8-774b-4911-9236-6239b4abd0ec",
+                    "server_id": "1037163f-cd15-45c3-8c7c-ded80f606e15",
+                    "volume_id": "a28311a8-774b-4911-9236-6239b4abd0ec"
+                }
+            ],
+            "availability_zone": "melbourne-qh2-uom",
+            "consistency_group_id": null,
+            "created_at": "2023-05-24T08:13:49.000000",
+            "description": null,
+            "extended_replication_status": null,
+            "group_id": null,
+            "host": null,
+            "id": "a28311a8-774b-4911-9236-6239b4abd0ec",
+            "image_id": null,
+            "is_bootable": false,
+            "is_encrypted": false,
+            "is_multiattach": false,
+            "metadata": {},
+            "migration_id": null,
+            "migration_status": null,
+            "name": "db-1-vol-2",
+            "project_id": "885d353aaa234e72841a5cd3000600b2",
+            "replication_driver_data": null,
+            "replication_status": null,
+            "scheduler_hints": null,
+            "size": 10,
+            "snapshot_id": null,
+            "source_volume_id": null,
+            "status": "in-use",
+            "updated_at": "2023-05-24T08:28:01.000000",
+            "user_id": "ee91cf52e80346f9aab6c688ecd65967",
+            "volume_image_metadata": null,
+            "volume_type": "standard"
+        }
+    },
+    "invocation": {
+        "module_args": {
+            "api_timeout": null,
+            "auth": null,
+            "auth_type": null,
+            "availability_zone": "melbourne-qh2-uom",
+            "ca_cert": null,
+            "client_cert": null,
+            "client_key": null,
+            "description": null,
+            "display_name": "db-1-vol-2",
+            "image": null,
+            "interface": "public",
+            "is_bootable": false,
+            "is_multiattach": null,
+            "metadata": null,
+            "name": "db-1-vol-2",
+            "region_name": null,
+            "scheduler_hints": null,
+            "sdk_log_level": "INFO",
+            "sdk_log_path": null,
+            "size": 80,
+            "snapshot": null,
+            "state": "present",
+            "timeout": 600,
+            "validate_certs": null,
+            "volume": null,
+            "volume_type": null,
+            "wait": true
+        }
+    },
+    "item": {
+        "vol_name": "db-1-vol-2",
+        "vol_size": 80
+    },
+    "volume": {
+        "attachments": [
+            {
+                "attached_at": "2023-05-24T08:28:00.000000",
+                "attachment_id": "5dcdac67-213a-4845-9ba5-4962371ac3ed",
+                "device": "/dev/vdc",
+                "host_name": null,
+                "id": "a28311a8-774b-4911-9236-6239b4abd0ec",
+                "server_id": "1037163f-cd15-45c3-8c7c-ded80f606e15",
+                "volume_id": "a28311a8-774b-4911-9236-6239b4abd0ec"
+            }
+        ],
+        "availability_zone": "melbourne-qh2-uom",
+        "consistency_group_id": null,
+        "created_at": "2023-05-24T08:13:49.000000",
+        "description": null,
+        "extended_replication_status": null,
+        "group_id": null,
+        "host": null,
+        "id": "a28311a8-774b-4911-9236-6239b4abd0ec",
+        "image_id": null,
+        "is_bootable": false,
+        "is_encrypted": false,
+        "is_multiattach": false,
+        "metadata": {},
+        "migration_id": null,
+        "migration_status": null,
+        "name": "db-1-vol-2",
+        "project_id": "885d353aaa234e72841a5cd3000600b2",
+        "replication_driver_data": null,
+        "replication_status": null,
+        "scheduler_hints": null,
+        "size": 10,
+        "snapshot_id": null,
+        "source_volume_id": null,
+        "status": "extending",
+        "updated_at": "2023-05-24T09:16:15.000000",
+        "user_id": "ee91cf52e80346f9aab6c688ecd65967",
+        "volume_image_metadata": null,
+        "volume_type": "standard"
+    }
+}
+<127.0.0.1> EXEC /bin/sh -c 'echo ~nickbarry && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/nickbarry/.ansible/tmp `"&& mkdir "` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919776.1185098-60932-94828581503996 `" && echo ansible-tmp-1684919776.1185098-60932-94828581503996="` echo /home/nickbarry/.ansible/tmp/ansible-tmp-1684919776.1185098-60932-94828581503996 `" ) && sleep 0'
+Using module file /home/nickbarry/.ansible/collections/ansible_collections/openstack/cloud/plugins/modules/volume.py
+<127.0.0.1> PUT /home/nickbarry/.ansible/tmp/ansible-local-59768iyu_dsc3/tmp319gt20b TO /home/nickbarry/.ansible/tmp/ansible-tmp-1684919776.1185098-60932-94828581503996/AnsiballZ_volume.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/nickbarry/.ansible/tmp/ansible-tmp-1684919776.1185098-60932-94828581503996/ /home/nickbarry/.ansible/tmp/ansible-tmp-1684919776.1185098-60932-94828581503996/AnsiballZ_volume.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/home/nickbarry/Documents/MsC-DS/Cluster_and_Cloud_Comuting-COMP90024/Assignments/A2/comp90024-a2/venv/bin/python /home/nickbarry/.ansible/tmp/ansible-tmp-1684919776.1185098-60932-94828581503996/AnsiballZ_volume.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/nickbarry/.ansible/tmp/ansible-tmp-1684919776.1185098-60932-94828581503996/ > /dev/null 2>&1 && sleep 0'
