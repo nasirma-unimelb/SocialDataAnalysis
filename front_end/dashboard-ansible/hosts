@@ -1,0 +1,6 @@
+[COMP90024]
+
+[COMP90024:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/.ssh/f_comp90024_a2
+ansible_user=ubuntu

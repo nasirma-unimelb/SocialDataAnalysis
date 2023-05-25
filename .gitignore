@@ -134,7 +134,3 @@ HarvestorAndDBLoader/test.ipynb
 HarvestorAndDBLoader/data/twitter/twitter_small.json
 
 .vscode/
-CouchDB/
-node_modules/
-package-lock.json
-package.json
