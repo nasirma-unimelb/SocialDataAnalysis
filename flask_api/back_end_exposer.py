@@ -23,10 +23,8 @@ def pre_task(fetcher: Fetcher):
         results_topics_file = f"{workdir}/flask_api/static/data/result_topics.json"
         twitter_file = f"{workdir}/flask_api/data/twitter/twitter.json"
     else:  # Assume it's a Unix-
-        results_topics_file = f"{workdir}/flask_api/static/data/result_topics.json"
-        twitter_file = os.path.join(
-            f"{workdir}", "flask_api", "data", "twitter", "twitter.json"
-        )
+        results_topics_file = f"{workdir}/static/data/result_topics.json"
+        twitter_file = os.path.join(f"{workdir}", "data", "twitter", "twitter.json")
 
     fetcher.save_Topic_over_time()
     try:
@@ -86,9 +84,7 @@ def pre_task(fetcher: Fetcher):
             f"{workdir}/flask_api/static/data/result_target_rates.json"
         )
     else:  # Assume it's a Unix-
-        result_target_rates_file = (
-            f"{workdir}/flask_api/static/data/result_target_rates.json"
-        )
+        result_target_rates_file = f"{workdir}/static/data/result_target_rates.json"
 
     fetcher.save_target_rates()
     with open(result_target_rates_file) as f:
@@ -109,9 +105,7 @@ def pre_task(fetcher: Fetcher):
             f"{workdir}/flask_api/static/data/result_inflations.json"
         )
     else:  # Assume it's a Unix-
-        result_inflations_file = (
-            f"{workdir}/flask_api/static/data/result_inflations.json"
-        )
+        result_inflations_file = f"{workdir}/static/data/result_inflations.json"
     fetcher.save_inflations()
     with open(result_inflations_file) as f:
         inflation_data = json.load(f)
@@ -228,9 +222,7 @@ def pre_task(fetcher: Fetcher):
                 f"{workdir}/flask_api/static/data/result_locations.json"
             )
         else:  # Assume it's a Unix-
-            result_locations_file = (
-                f"{workdir}/flask_api/static/data/result_locations.json"
-            )
+            result_locations_file = f"{workdir}/static/data/result_locations.json"
 
         fetcher.save_Location_data()
         with open(result_locations_file) as f:
@@ -252,7 +244,7 @@ def pre_task(fetcher: Fetcher):
                         twitter_file = f"{workdir}/flask_api/data/twitter/twitter.json"
                     else:  # Assume it's a Unix-
                         twitter_file = os.path.join(
-                            f"{workdir}", "flask_api", "data", "twitter", "twitter.json"
+                            f"{workdir}", "data", "twitter", "twitter.json"
                         )
                     with open(twitter_file) as f:
                         data = json.load(f)
@@ -315,7 +307,7 @@ def pre_task(fetcher: Fetcher):
         )
     else:  # Assume it's a Unix-
         result_income_mortgages_file = (
-            f"{workdir}/flask_api/static/data/result_income_mortgages.json"
+            f"{workdir}/static/data/result_income_mortgages.json"
         )
 
     fetcher.save_income_mortgages()
@@ -359,9 +351,7 @@ def pre_task(fetcher: Fetcher):
             f"{workdir}/flask_api/static/data/result_housing_totals.json"
         )
     else:  # Assume it's a Unix-
-        result_housing_totals_file = (
-            f"{workdir}/flask_api/static/data/result_housing_totals.json"
-        )
+        result_housing_totals_file = f"{workdir}/static/data/result_housing_totals.json"
 
     fetcher.save_housing_totals()
     with open(result_housing_totals_file) as f:
@@ -392,9 +382,7 @@ def pre_task(fetcher: Fetcher):
             f"{workdir}/flask_api/static/data/result_inequalitys.json"
         )
     else:  # Assume it's a Unix-
-        result_inequalitys_file = (
-            f"{workdir}/flask_api/static/data/result_inequalitys.json"
-        )
+        result_inequalitys_file = f"{workdir}/static/data/result_inequalitys.json"
     fetcher.save_inequality()
     with open(result_inequalitys_file) as f:
         inequality_data = json.load(f)
@@ -1031,7 +1019,7 @@ def pre_task(fetcher: Fetcher):
         if os.name == "nt":  # Check if the operating system is Windows
             result_toots_file = f"{workdir}/flask_api/static/data/result_toots.json"
         else:  # Assume it's a Unix-like system
-            result_toots_file = f"{workdir}/flask_api/static/data/result_toots.json"
+            result_toots_file = f"{workdir}/static/data/result_toots.json"
 
         fetcher.save_toot_data()
 

@@ -20,7 +20,7 @@ class Couch:
         self.db = []
         # Pre requisite db
         dbsl = dbnamelist
-        # couchdb_master_ip = "localhost"
+        couchdb_master_ip = "localhost"
         # couchdb_master_login_url = "http://admin:admin@" + couchdb_master_ip + ":5984/"
         # Reading other node ip to enable replication
 
@@ -52,13 +52,13 @@ class Couch:
     # Adding static data to db needed by harvestor
 
     def create_static(self):
-        workdir = os.getcwd()
+        wordir = os.getcwd()
         if os.name == "nt":  # Check if the operating system is Windows
             twitter_file = os.path.join(
-                workdir, "flask_api", "data", "twitter", "twitter.json"
+                wordir, "flask_api", "data", "twitter", "twitter.json"
             )
         else:  # Assume it's a Unix-like system (e.g., Linux or macOS)
-            twitter_file = os.path.join(workdir, "data", "twitter", "twitter.json")
+            twitter_file = os.path.join(wordir, "data", "twitter", "twitter.json")
         try:
             with open(twitter_file) as f:
                 data = json.load(f)
@@ -73,12 +73,10 @@ class Couch:
 
         if os.name == "nt":  # Check if the operating system is Windows
             rba_target_cash_rate_file = (
-                f"{workdir}/flask_api/data/other/rba_target_cash_rate.json"
+                f"{wordir}/flask_api/data/other/rba_target_cash_rate.json"
             )
         else:  # Assume it's a Unix-like system (e.g., Linux or macOS)
-            rba_target_cash_rate_file = (
-                f"{workdir}/flask_api/data/other/rba_target_cash_rate.json"
-            )
+            rba_target_cash_rate_file = f"{wordir}/data/other/rba_target_cash_rate.json"
 
         a = open(rba_target_cash_rate_file)
         for i in a.readlines():
@@ -88,9 +86,11 @@ class Couch:
             except Exception as e:
                 print(f"An error occurred: {e}")
         if os.name == "nt":  # Check if the operating system is Windows
-            sudo_gccsa_income_mortgage_rent_file = f"{workdir}/flask_api/data/other/sudo_gccsa_income_mortgage_rent_avg_2016.json"
+            sudo_gccsa_income_mortgage_rent_file = f"{wordir}/flask_api/data/other/sudo_gccsa_income_mortgage_rent_avg_2016.json"
         else:  # Assume it's a Unix-like system (e.g., Linux or macOS)
-            sudo_gccsa_income_mortgage_rent_file = f"{workdir}/flask_api/data/other/sudo_gccsa_income_mortgage_rent_avg_2016.json"
+            sudo_gccsa_income_mortgage_rent_file = (
+                f"{wordir}/data/other/sudo_gccsa_income_mortgage_rent_avg_2016.json"
+            )
 
         a = open(sudo_gccsa_income_mortgage_rent_file)
 
@@ -102,11 +102,11 @@ class Couch:
                 print(f"An error occurred: {e}")
         if os.name == "nt":  # Check if the operating system is Windows
             sudo_gccsa_inequality_file = (
-                f"{workdir}/flask_api/data/other/sudo_gccsa_inequality_2017.json"
+                f"{wordir}/flask_api/data/other/sudo_gccsa_inequality_2017.json"
             )
         else:  # Assume it's a Unix-
             sudo_gccsa_inequality_file = (
-                f"{workdir}/flask_api/data/other/sudo_gccsa_inequality_2017.json"
+                f"{wordir}/data/other/sudo_gccsa_inequality_2017.json"
             )
 
         a = open(sudo_gccsa_inequality_file)
@@ -119,11 +119,11 @@ class Couch:
                 print(f"An error occurred: {e}")
         if os.name == "nt":  # Check if the operating system is Windows
             sudo_gccsa_housing_totals_file = (
-                f"{workdir}/flask_api/data/other/sudo_gccsa_housing_totals_2016.json"
+                f"{wordir}/flask_api/data/other/sudo_gccsa_housing_totals_2016.json"
             )
         else:  # Assume it's a Unix-
             sudo_gccsa_housing_totals_file = (
-                f"{workdir}/flask_api/data/other/sudo_gccsa_housing_totals_2016.json"
+                f"{wordir}/data/other/sudo_gccsa_housing_totals_2016.json"
             )
 
         a = open(sudo_gccsa_housing_totals_file)
@@ -135,9 +135,9 @@ class Couch:
                 print(f"An error occurred: {e}")
 
         if os.name == "nt":  # Check if the operating system is Windows
-            inflation_file = f"{workdir}/flask_api/data/other/inflation.json"
+            inflation_file = f"{wordir}/flask_api/data/other/inflation.json"
         else:  # Assume it's a Unix-
-            inflation_file = f"{workdir}/flask_api/data/other/inflation.json"
+            inflation_file = f"{wordir}/data/other/inflation.json"
         a = open(inflation_file)
 
         for i in a.readlines():

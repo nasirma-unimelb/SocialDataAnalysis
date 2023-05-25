@@ -21,7 +21,12 @@ class FetcherHarverster:
         self.design_doc_name_toot = "_design/mydesign_" + self.view_name_toot
 
         self.couchobj = Couch(
-            f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/", dbsl, couchdb_username, couchdb_password, True)
+            f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/",
+            dbsl,
+            couchdb_username,
+            couchdb_password,
+            True,
+        )
 
         self.couchdbs = couchdb.Server(
             f"http://{couchdb_username}:{couchdb_password}@{couchdb_master_ip}:5984/"
@@ -31,7 +36,7 @@ class FetcherHarverster:
 
         self.workdir = os.getcwd()
 
-      # ---------toot View------------------------------------------------------------------------
+    # ---------toot View------------------------------------------------------------------------
 
     def get_toot(self):
         self.view_name_toot = "toot_Data"
@@ -78,21 +83,20 @@ class FetcherHarverster:
 
         # Check if the design document already exists
         if design_doc_name not in self.toot_db:
-            self.toot_db.save({
-                "_id": design_doc_name,
-                "views": {
-                    view_name: {
-                        "map": toot_func,
-                        "reduce": toot_reduce_func
-                    }
+            self.toot_db.save(
+                {
+                    "_id": design_doc_name,
+                    "views": {
+                        view_name: {"map": toot_func, "reduce": toot_reduce_func}
+                    },
                 }
-            })
+            )
         else:
             design_doc = self.toot_db[design_doc_name]
             if view_name not in design_doc.get("views", {}):
                 design_doc["views"][view_name] = {
                     "map": toot_func,
-                    "reduce": toot_reduce_func
+                    "reduce": toot_reduce_func,
                 }
                 self.toot_db.save(design_doc)
 
@@ -108,10 +112,10 @@ class FetcherHarverster:
         )
         result_dict = {str(row.key): row.value for row in result_toots}
         # Save the dictionary to a JSON file
-        if os.name == 'nt':  # Check if the operating system is Windows
-            result_toots_file = f'flask_api/static/data/result_toots.json'
+        if os.name == "nt":  # Check if the operating system is Windows
+            result_toots_file = f"flask_api/static/data/result_toots.json"
         else:  # Assume it's a Unix-
-            result_toots_file = f'{self.workdir}/static/data/result_toots.json'
+            result_toots_file = f"{self.workdir}/static/data/result_toots.json"
         with open(result_toots_file, "w") as jsonfile:
             json.dump(result_dict, jsonfile)
         # Print the results
@@ -125,7 +129,7 @@ class FetcherHarverster:
             # Convert the document to JSON string
             document = json.dumps(all_toots)
             # Specify the Content-Type header
-            headers = {'Content-Type': 'application/json'}
+            headers = {"Content-Type": "application/json"}
             self.toot_db.save(json.loads(toots), headers=headers)
             # self.toot_db.save(toots)
         except Exception as e:
