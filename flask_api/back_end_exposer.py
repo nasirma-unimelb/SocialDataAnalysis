@@ -1096,7 +1096,7 @@ if __name__ == "__main__":
     )
 
     app = pre_task(fetcher=fetcher)
-    cors = CORS(app, resources={r"/*": {"origins": FE_DDOMAIN_DEV}})
-    # cors = CORS(app, resources={r"/*": {"origins": "*"}})
+    # cors = CORS(app, resources={r"/*": {"origins": FE_DDOMAIN_DEV}})
+    cors = CORS(app, resources={r"/*": {"origins": "*"}})
     # app.run(debug=True, use_reloader=True)
     app.run(host="0.0.0.0", port=5000)
