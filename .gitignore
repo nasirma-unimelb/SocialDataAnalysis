@@ -132,8 +132,6 @@ dmypy.json
 data/
 HarvestorAndDBLoader/test.ipynb
 HarvestorAndDBLoader/data/twitter/twitter_small.json
-flask_api/static/data/results_all.csv
-flask_api/static/data/results_all.json
 
 .vscode/
 CouchDB/
