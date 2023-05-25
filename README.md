@@ -5,12 +5,13 @@ COMP90024-A2 Semester 1 2023, The Unviersity of Melbourne
 
 ## Group members:
 - Mohammed Nasir:1345586
-- Elena Pashkina:
-- Ellen Morwitch:
-- Felipe Leefu Huang Lin:
+- Elena Pashkina: 1141034
+- Ellen Morwitch: 1257182
+- Felipe Leefu Huang Lin: 1202652
 - Nicholas Barry: 587667
 
-## Project description:
+### City:
+- Melbourne
 
-The project focuses on an export of Twitter data
-from the Australian Data Observatory (ADO - www.ado.eresearch.unimelb.edu.au) 1 , data to be harvested by students from the Mastodon APIs and data from the Spatial Urban Data Observatory (SUDO - https://sudo.eresearch.unimelb.edu.au). The focus of this assignment is to use a large Twitter corpus (that will be provided) to tell interesting stories of life in Australian and importantly how social media data can be used alongside/compared with/augment the official data available within the SUDO platform to improve our knowledge of life in Australia.
+## Project description:
+In this project, we seek to evaluate this interplay in the context of the broader topic of housing, and data across social media and government resources. In a series of scenarios, we analyse the relationship between inflation, RBA’s interest rate rises, and the interest in the topics within the general public, based on related posts on social media. In order to bring this project to life, a cloud-based system was developed on the Melbourne Research Cloud and OpenStack (e.g. Ansible and CouchDB). This report provides a detailed overview of technical implementation of the system, the data sources used, as well as findings from the data.
