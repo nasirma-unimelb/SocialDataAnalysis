@@ -23,8 +23,10 @@ def pre_task(fetcher: Fetcher):
         results_topics_file = f"{workdir}/flask_api/static/data/result_topics.json"
         twitter_file = f"{workdir}/flask_api/data/twitter/twitter.json"
     else:  # Assume it's a Unix-
-        results_topics_file = f"{workdir}/static/data/result_topics.json"
-        twitter_file = os.path.join(f"{workdir}", "data", "twitter", "twitter.json")
+        results_topics_file = f"{workdir}/flask_api/static/data/result_topics.json"
+        twitter_file = os.path.join(
+            f"{workdir}", "flask_api", "data", "twitter", "twitter.json"
+        )
 
     fetcher.save_Topic_over_time()
     try:
@@ -40,40 +42,40 @@ def pre_task(fetcher: Fetcher):
 
             # Convert the JSON data into a DataFrame
             if len(data) > 0:
-                df_locs = pd.DataFrame.from_dict(
+                df_locs_db = pd.DataFrame.from_dict(
                     data, orient="index", columns=["value"]
                 )
                 df_tweets = df_locs
-                df_locs.reset_index(inplace=True)
-                df_locs[["type", "date", "week_number", "gcc"]] = pd.DataFrame(
-                    df_locs["index"].apply(eval).tolist()
+                df_locs_db.reset_index(inplace=True)
+                df_locs_db["topic", "gcc", "week"] = pd.DataFrame(
+                    df_locs_db["index"].apply(eval).tolist()
                 )
 
                 df_locs.drop("index", axis=1, inplace=True)
-            else:
-                try:
-                    with open(twitter_file) as f:
-                        data = json.load(f)
 
-                    # Convert the JSON data into a DataFrame
-                    df_locs = pd.DataFrame.from_dict(data["docs"])
-                    df_locs["type"] = df_locs["search_term"]
-                    df_locs["date"] = pd.to_datetime(df_locs["timestamp"]).dt.date
-                    df_locs["week_number"] = df_locs["week"]
-                    df_locs["gcc"] = df_locs["gcc"]
-                    df_locs = (
-                        df_locs.groupby(["type", "date", "week_number", "gcc"])
-                        .size()
-                        .reset_index(name="value")
-                    )
-                    df_locs_group_by_week = (
-                        df_locs.groupby(["type", "week_number", "gcc"])
-                        .size()
-                        .reset_index(name="value")
-                    )
+            try:
+                with open(twitter_file) as f:
+                    data = json.load(f)
 
-                except Exception as e:
-                    print(f"An error occurred: {e}")
+                # Convert the JSON data into a DataFrame
+                df_locs = pd.DataFrame.from_dict(data["docs"])
+                df_locs["type"] = df_locs["search_term"]
+                df_locs["date"] = pd.to_datetime(df_locs["timestamp"]).dt.date
+                df_locs["week_number"] = df_locs["week"]
+                df_locs["gcc"] = df_locs["gcc"]
+                df_locs = (
+                    df_locs.groupby(["type", "date", "week_number", "gcc"])
+                    .size()
+                    .reset_index(name="value")
+                )
+                df_locs_group_by_week = (
+                    df_locs.groupby(["type", "week_number", "gcc"])
+                    .size()
+                    .reset_index(name="value")
+                )
+
+            except Exception as e:
+                print(f"An error occurred: {e}")
 
     except FileNotFoundError:
         print(f"Results topics file not found: {results_topics_file}")
@@ -84,7 +86,9 @@ def pre_task(fetcher: Fetcher):
             f"{workdir}/flask_api/static/data/result_target_rates.json"
         )
     else:  # Assume it's a Unix-
-        result_target_rates_file = f"{workdir}/static/data/result_target_rates.json"
+        result_target_rates_file = (
+            f"{workdir}/flask_api/static/data/result_target_rates.json"
+        )
 
     fetcher.save_target_rates()
     with open(result_target_rates_file) as f:
@@ -105,7 +109,9 @@ def pre_task(fetcher: Fetcher):
             f"{workdir}/flask_api/static/data/result_inflations.json"
         )
     else:  # Assume it's a Unix-
-        result_inflations_file = f"{workdir}/static/data/result_inflations.json"
+        result_inflations_file = (
+            f"{workdir}/flask_api/static/data/result_inflations.json"
+        )
     fetcher.save_inflations()
     with open(result_inflations_file) as f:
         inflation_data = json.load(f)
@@ -222,7 +228,9 @@ def pre_task(fetcher: Fetcher):
                 f"{workdir}/flask_api/static/data/result_locations.json"
             )
         else:  # Assume it's a Unix-
-            result_locations_file = f"{workdir}/static/data/result_locations.json"
+            result_locations_file = (
+                f"{workdir}/flask_api/static/data/result_locations.json"
+            )
 
         fetcher.save_Location_data()
         with open(result_locations_file) as f:
@@ -244,7 +252,7 @@ def pre_task(fetcher: Fetcher):
                         twitter_file = f"{workdir}/flask_api/data/twitter/twitter.json"
                     else:  # Assume it's a Unix-
                         twitter_file = os.path.join(
-                            f"{workdir}", "data", "twitter", "twitter.json"
+                            f"{workdir}", "flask_api", "data", "twitter", "twitter.json"
                         )
                     with open(twitter_file) as f:
                         data = json.load(f)
@@ -307,7 +315,7 @@ def pre_task(fetcher: Fetcher):
         )
     else:  # Assume it's a Unix-
         result_income_mortgages_file = (
-            f"{workdir}/static/data/result_income_mortgages.json"
+            f"{workdir}/flask_api/static/data/result_income_mortgages.json"
         )
 
     fetcher.save_income_mortgages()
@@ -351,7 +359,9 @@ def pre_task(fetcher: Fetcher):
             f"{workdir}/flask_api/static/data/result_housing_totals.json"
         )
     else:  # Assume it's a Unix-
-        result_housing_totals_file = f"{workdir}/static/data/result_housing_totals.json"
+        result_housing_totals_file = (
+            f"{workdir}/flask_api/static/data/result_housing_totals.json"
+        )
 
     fetcher.save_housing_totals()
     with open(result_housing_totals_file) as f:
@@ -382,7 +392,9 @@ def pre_task(fetcher: Fetcher):
             f"{workdir}/flask_api/static/data/result_inequalitys.json"
         )
     else:  # Assume it's a Unix-
-        result_inequalitys_file = f"{workdir}/static/data/result_inequalitys.json"
+        result_inequalitys_file = (
+            f"{workdir}/flask_api/static/data/result_inequalitys.json"
+        )
     fetcher.save_inequality()
     with open(result_inequalitys_file) as f:
         inequality_data = json.load(f)
@@ -412,24 +424,37 @@ def pre_task(fetcher: Fetcher):
     )
 
     # Pivot the data to get the desired format
-    pivot_df = pd.pivot_table(
-        grouped_df, index="gcc", columns="type", values="value", aggfunc="sum"
+    twitter_loc_agg_df = (
+        df_tweets.groupby(["week", "topic"])
+        .agg({"id": "count"})
+        .reset_index()
+        .pivot(index="week", columns="topic", values="id")
+        .reset_index()
+    )
+    #    twitter_loc_agg_df = twitter_loc_agg_df.pivot('week','topic','author_id').reset_index()
+    pivot_df = (
+        df_tweets.groupby(["gcc", "topic"])
+        .agg({"id": "count"})
+        .reset_index()
+        .pivot(index="gcc", columns="topic", values="id")
+        .reset_index()
     )
 
-    pivot_df_by_week = pd.pivot_table(
-        df_loc_tweets_grouped,
-        index="week_number",
-        columns="type",
-        values="value",
-        aggfunc="sum",
-    )
+    # pivot_df_by_week = pd.pivot_table(
+    #     twitter_loc_agg_df,
+    #     index="week",
+    #     columns="topic",
+    #     values="count",
+    #     aggfunc="sum",
+    # )
 
     # Convert the pivot table to a dictionary in the desired format
     tweetsByTopicGrouped_arr = []
     tweetsByTopicGroupedByWeek_arr = []
     for index, row in pivot_df.iterrows():
         data_row = {
-            "gcc": index,
+            "id": index,
+            "gcc": str(row["gcc"]) if not pd.isna(row["gcc"]) else "NA",
             "housing": int(row["housing"]) if not pd.isna(row["housing"]) else 0,
             "inflation": int(row["inflation"]) if not pd.isna(row["inflation"]) else 0,
             "interestRate": int(row["interest rate"])
@@ -441,9 +466,9 @@ def pre_task(fetcher: Fetcher):
         }
         tweetsByTopicGrouped_arr.append(data_row)
 
-    for index, row in pivot_df_by_week.iterrows():
+    for index, row in twitter_loc_agg_df.iterrows():
         data_row = {
-            "week_no": index,
+            "week": index,
             "housing": int(row["housing"]) if not pd.isna(row["housing"]) else 0,
             "inflation": int(row["inflation"]) if not pd.isna(row["inflation"]) else 0,
             "interestRate": int(row["interest rate"])
@@ -456,6 +481,9 @@ def pre_task(fetcher: Fetcher):
         tweetsByTopicGroupedByWeek_arr.append(data_row)
 
     df_tweetsByTopicGrouped = pd.DataFrame(tweetsByTopicGrouped_arr)
+    df_housing_total["gcc"] = df_housing_total["gcc"].astype(str)
+    df_tweetsByTopicGrouped["gcc"] = df_tweetsByTopicGrouped["gcc"].astype(str)
+    # combined_df = pd.concat([df_tweetsByTopicGrouped, df_housing_total], axis=1)
 
     combined_df = pd.merge(df_tweetsByTopicGrouped, df_housing_total, on="gcc")
     combined_df = pd.merge(combined_df, df_inequality, on="gcc")
@@ -527,6 +555,72 @@ def pre_task(fetcher: Fetcher):
     # Create the final dictionary
     twitter_sentiments = {"Label": "Twitter Sentiments", "data": sentiment_data}
 
+    # Grouping and counting tweets by sentiments and "gcc"
+
+    #     tweet_counts_week_sentiment = df_tweets.groupby(['week', 'topic', pd.cut(df_tweets['sentiment'], bins=[-np.inf, 0, np.inf], labels=['negative', 'positive'])]).size().reset_index(name='count')
+    #     # tweet_counts_week_sentiment =tweet_counts_week_sentiment.groupby(['week', 'topic','sentiment']).agg({'count': 'sum'}).reset_index().pivot(index='week', columns='topic', values='count').reset_index()
+    # # Convert the 'sentiment' column to string
+    #     tweet_counts_week_sentiment['sentiment'] = tweet_counts_week_sentiment['sentiment'].astype(str)
+
+    #     # Reshaping the DataFrame using melt
+    #     tweet_counts_melted = pd.melt(tweet_counts_week_sentiment, id_vars=['week', 'topic', 'sentiment'], value_vars='count', var_name='variable', value_name='tweet_count')
+
+    #     # # Reordering the columns for clarity
+    #     tweet_counts_melted = tweet_counts_melted[['week', 'topic', 'tweet_count', 'sentiment']]
+
+    #     # Filling NaN values with 0 for sentiments that don't have counts
+    #     tweet_counts_melted['sentiment'] = tweet_counts_melted['sentiment'].fillna('neutral')
+
+    # # Pivot the DataFrame to have topics as columns
+    #     tweet_counts_pivot = tweet_counts_melted.pivot( columns='topic', values='tweet_count').reset_index()
+
+    #     # Rename the columns for clarity
+    #     tweet_counts_pivot.columns.name = None
+
+    #     # Fill NaN values with 0 for topics that don't have counts
+    #     tweet_counts_pivot.fillna(0, inplace=True)
+
+    #     # Convert the DataFrame to a list of dictionaries
+    #     tweetsByTopicGroupedByWeek_arr_sentiment = []
+    #     for _, row in tweet_counts_pivot.iterrows():
+    #         data_row = {
+    #             'week': row['week'],
+    #             'sentiment': row['sentiment'],
+    #             'housing': int(row['housing']),
+    #             'inflation': int(row['inflation']),
+    #             'interestRate': int(row['interest rate']),
+    #             'socialSecurity': int(row['social security'])
+    #         }
+    #         tweetsByTopicGroupedByWeek_arr_sentiment.append(data_row)
+
+    twitter_loc_agg_df = (
+        df_tweets.groupby(["week", "topic", "sentiment"])
+        .agg({"id": "count"})
+        .reset_index()
+    )
+    twitter_loc_agg_df_pivot = twitter_loc_agg_df.pivot(
+        index=["week", "sentiment"], columns="topic", values="id"
+    ).reset_index()
+    tweetsByTopicGroupedByWeek_arr_sentiment = []
+    for index, row in twitter_loc_agg_df_pivot.iterrows():
+        data_row = {
+            "week": row["week"],
+            "sentiment": row["sentiment"],
+            "housing": int(row["housing"]) if not pd.isna(row["housing"]) else 0,
+            "inflation": int(row["inflation"]) if not pd.isna(row["inflation"]) else 0,
+            "interestRate": int(row["interest rate"])
+            if not pd.isna(row["interest rate"])
+            else 0,
+            "socialSecurity": int(row["social security"])
+            if not pd.isna(row["social security"])
+            else 0,
+        }
+        tweetsByTopicGroupedByWeek_arr_sentiment.append(data_row)
+
+    twitter_loc_agg_df_gcc = (
+        df_tweets.groupby(["gcc", "sentiment"]).agg({"id": "count"}).reset_index()
+    )
+
     app = Flask(__name__)
 
     @app.route("/refresh", methods=["GET", "POST"])
@@ -564,6 +658,51 @@ def pre_task(fetcher: Fetcher):
         }
 
         # Serialize the final_data dictionary to JSON
+        json_data = json.dumps(final_data)
+        return json_data
+
+    @app.route("/tweetsByTopicGrouped_By_Sentiment", methods=["POST"])
+    def tweetsByTopicGrouped_By_Sentiment():
+        request_body = request.get_json()
+        sentiment = request_body.get("sentiment")
+        tweetsByTopicGroupedByWeek_arr_sentiment_filtered = []
+        df_sentiment = pd.DataFrame(tweetsByTopicGroupedByWeek_arr_sentiment)
+
+        if sentiment == "positive":
+            tweetsByTopicGroupedByWeek_arr_sentiment_filtered = df_sentiment[
+                df_sentiment["sentiment"] > 0
+            ]
+        elif sentiment == "negative":
+            tweetsByTopicGroupedByWeek_arr_sentiment_filtered = df_sentiment[
+                df_sentiment["sentiment"] < 0
+            ]
+        else:
+            tweetsByTopicGroupedByWeek_arr_sentiment_filtered = df_sentiment[
+                df_sentiment["sentiment"] >= 0
+            ]
+
+        tweetsByTopicGroupedByWeek_sentiment_agg = (
+            tweetsByTopicGroupedByWeek_arr_sentiment_filtered.groupby(["week"])
+            .agg(
+                {
+                    "housing": "sum",
+                    "inflation": "sum",
+                    "interestRate": "sum",
+                    "socialSecurity": "sum",
+                }
+            )
+            .reset_index()
+        )
+
+        final_data = {
+            "meta": {
+                "xLabel": "week_no",
+                "yLabel": "Tweets",
+                "barLabels": ["housing", "inflation", "interestRate", "socialSecurity"],
+            },
+            "data": tweetsByTopicGroupedByWeek_sentiment_agg.to_dict(orient="records"),
+        }
+
         json_data = json.dumps(final_data)
         return json_data
 
@@ -691,6 +830,63 @@ def pre_task(fetcher: Fetcher):
         data = json.dumps(data)
         return data
 
+    @app.route("/larger_mortgage_with_interestRate_By_Sentiment", methods=["POST"])
+    def larger_mortgage_with_interestRate_By_Sentiment():
+        request_body = request.get_json()
+        sentiment = request_body.get("sentiment")
+
+        request_body = request.get_json()
+        sentiment = request_body.get("sentiment")
+        tweetsByTopicGroupedByWeek_arr_sentiment_filtered = []
+        df_sentiment = pd.DataFrame(twitter_loc_agg_df_gcc)
+
+        if sentiment == "positive":
+            tweetsByTopicGroupedByWeek_arr_sentiment_filtered = df_sentiment[
+                df_sentiment["sentiment"] > 0
+            ]
+        elif sentiment == "negative":
+            tweetsByTopicGroupedByWeek_arr_sentiment_filtered = df_sentiment[
+                df_sentiment["sentiment"] < 0
+            ]
+        else:
+            tweetsByTopicGroupedByWeek_arr_sentiment_filtered = df_sentiment[
+                df_sentiment["sentiment"] >= 0
+            ]
+
+        df_sentiment = pd.DataFrame(tweetsByTopicGroupedByWeek_arr_sentiment_filtered)
+        combined_df_sentiment = pd.merge(combined_df, df_sentiment, on="gcc")
+        # Group the filtered data by "rural_urban"
+        grouped_df_ru = combined_df_sentiment.groupby("rural_urban")
+
+        # Define the meta information
+        meta = {
+            "xLabel": "Mortgage",
+            "yLabel": "Interest Rate",
+            "zLabel": "gcc",
+            "categories": ["metropolitan", "rural"],
+        }
+
+        # Initialize the data dictionary
+        data = {"meta": meta, "metropolitan": [], "rural": []}
+
+        # Define a function to construct the data points for each group
+        def construct_data_points_for_mortgage(group_name, grouped_df_ru):
+            data_points = []
+            for index, row in grouped_df_ru.iterrows():
+                data_point = {
+                    "gcc": row["gcc"],
+                    "Mortgage": row["median_mortgage_repay_monthly"],
+                    "Interest Rate": row["interestRate_pc"],
+                }
+                data_points.append(data_point)
+            data[group_name] = data_points
+
+        # Apply the function to each group
+        grouped_df_ru.apply(lambda x: construct_data_points_for_mortgage(x.name, x))
+
+        data = json.dumps(data)
+        return data
+
     @app.route("/own_outright_vs_mortgage")
     def own_outright_vs_mortgage():
         grouped_df_ru = combined_df.groupby("rural_urban")
@@ -727,12 +923,53 @@ def pre_task(fetcher: Fetcher):
         data = json.dumps(data)
         return data
 
-    # @app.route("/targtRateByDate")
-    # def targtRateByDate():
-    #     if df_rate["date"].notnull().all():
-    #         df_rate["date"] = pd.to_datetime(df_locs["date"])
-    #         df_rate["date"] = df_rate["date"].dt.strftime("%Y-%m-%d")
-    #     return df_rate.to_json(orient="records")
+    # @app.route("/own_outright_vs_mortgage_By_Sentiment", methods=["POST"])
+    # def own_outright_vs_mortgage_By_Sentiment():
+    #     request_body = request.get_json()
+    #     sentiment = request_body.get('sentiment')
+    #     combined_df_sentiment = pd.merge(combined_df, df_tweets, on="gcc")
+    #     # Filter the combined_df based on the sentiment category
+    #     if sentiment == "positive":
+    #         filtered_df = combined_df_sentiment[combined_df_sentiment["sentiment"] > 0]
+    #     elif sentiment == "neutral":
+    #         filtered_df = combined_df_sentiment[combined_df_sentiment["sentiment"] == 0]
+    #     elif sentiment == "negative":
+    #         filtered_df = combined_df_sentiment[combined_df_sentiment["sentiment"] < 0]
+    #     else:
+    #         return "Invalid sentiment category provided."
+
+    #     # Group the filtered data by "rural_urban"
+    #     grouped_df_ru = filtered_df.groupby("rural_urban")
+
+    #     # Define the meta information
+    #     # Define the meta information
+    #     meta = {
+    #         "xLabel": "Ownership",
+    #         "yLabel": "Interest Rate",
+    #         "zLabel": "gcc",
+    #         "categories": ["metropolitan", "rural"],
+    #     }
+
+    #     # Initialize the data dictionary
+    #     data = {"meta": meta, "metropolitan": [], "rural": []}
+
+    #     # Define a function to construct the data points for each group
+    #     def construct_data_points_for_outright(group_name, grouped_df_ru):
+    #         data_points = []
+    #         for index, row in grouped_df_ru.iterrows():
+    #             data_point = {
+    #                 "gcc": row["gcc"],
+    #                 "Mortgage": row["median_mortgage_repay_monthly"],
+    #                 "Interest Rate": row["interestRate_pc"],
+    #             }
+    #             data_points.append(data_point)
+    #         data[group_name] = data_points
+
+    #     # Apply the function to each group
+    #     grouped_df_ru.apply(lambda x: construct_data_points_for_outright(x.name, x))
+
+    #     data = json.dumps(data)
+    #     return data
 
     @app.route("/locationByDate")
     def locationByDate():
@@ -794,7 +1031,7 @@ def pre_task(fetcher: Fetcher):
         if os.name == "nt":  # Check if the operating system is Windows
             result_toots_file = f"{workdir}/flask_api/static/data/result_toots.json"
         else:  # Assume it's a Unix-like system
-            result_toots_file = f"{workdir}/static/data/result_toots.json"
+            result_toots_file = f"{workdir}/flask_api/static/data/result_toots.json"
 
         fetcher.save_toot_data()
 
@@ -859,7 +1096,7 @@ if __name__ == "__main__":
     )
 
     app = pre_task(fetcher=fetcher)
-    # cors = CORS(app, resources={r"/*": {"origins": FE_DDOMAIN_DEV}})
-    cors = CORS(app, resources={r"/*": {"origins": "*"}})
+    cors = CORS(app, resources={r"/*": {"origins": FE_DDOMAIN_DEV}})
+    # cors = CORS(app, resources={r"/*": {"origins": "*"}})
     # app.run(debug=True, use_reloader=True)
     app.run(host="0.0.0.0", port=5000)

@@ -1,5 +1,0 @@
-
-# Fliepe & Nick you need to set these IPs up
-git_dir: COMP90024-A2
-ip_path: ./COMP90024-A2/HarvestorAndDBLoader/ip.txt  #1st docker container #  
-ip_path2: ./COMP90024-A2/Webapp/flask_app/ip2.txt  #2nd docker container

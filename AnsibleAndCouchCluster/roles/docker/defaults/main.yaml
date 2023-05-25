@@ -1,4 +1,0 @@
-
-#
-docker_proxy_dir: /etc/systemd/system/docker.service.d
-proxy_path: /etc/systemd/system/docker.service.d/proxy.conf
