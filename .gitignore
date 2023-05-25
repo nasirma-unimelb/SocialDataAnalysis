@@ -129,7 +129,6 @@ dmypy.json
 .pyre/
 
 # Data
-data/
 HarvestorAndDBLoader/test.ipynb
 HarvestorAndDBLoader/data/twitter/twitter_small.json
 
