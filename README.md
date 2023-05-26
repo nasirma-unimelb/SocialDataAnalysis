@@ -1,5 +1,5 @@
-# COMP90024-A2-a2
-Social media analytics assignment group assignment
+# COMP90024-A2
+Social media analytics group assignment
 
 COMP90024-A2 Semester 1 2023, The Unviersity of Melbourne
 
